@@ -1,7 +1,7 @@
 package main;
 
-import app.Applicazione;
-import app.ScaleESerpenti;
+import app.game.Applicazione;
+import app.game.ScaleESerpenti;
 
 public class Main {
 	

@@ -6,9 +6,11 @@ import app.difficolta.Difficolta;
 import app.modalita.Modalita;
 import gui.factory.FinestraFactory;
 import gui.factory.FinestraFactoryIF;
+import gui.window.FinestraAstratta;
 import gui.window.FinestraIF;
 
-public abstract class FinestraPrincipaleAstratta {
+@SuppressWarnings("serial")
+public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 	
 	/**terminale che verra' inizializzato per la sessione di gioco in questione*/
 	private FinestraFactoryIF terminaleFactory;
@@ -37,7 +39,7 @@ public abstract class FinestraPrincipaleAstratta {
 		 
 		/**creo il terminale tramite il factory method*/
 		terminaleFactory = new FinestraFactory();
-		terminale = terminaleFactory.createFinestra("FinestraTerminaleAstratto", "");
+		terminale = terminaleFactory.createFinestra("FinestraTerminaleAstratto", "", modalita, numeroGiocatori, difficolta);
 		/**inizializzo la finestra terminale tramite il template method*/
 		terminale.inizializzaFinestra();
 		

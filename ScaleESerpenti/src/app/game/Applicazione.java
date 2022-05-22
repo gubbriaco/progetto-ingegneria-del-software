@@ -29,10 +29,13 @@ public class Applicazione implements ScaleESerpenti {
 	 * successivamente compariranno la finestra di gioco e il terminale 
 	 * ripristinati per l'appunto alla vecchia sessione di gioco*/
 	@Override public void start() {
+		
 		/**creo il pannello scelte tramite il factory method*/
-		FinestraIF pannelloScelte = pannelloScelta.createFinestra("PannelloAstratto", "PannelloScelte");
+		FinestraIF pannelloScelte = pannelloScelta.createFinestra
+				("PannelloAstratto", "PannelloScelte", null, -1, null);
 		/**inizializzo il pannello delle scelte tramite il template method*/
 		pannelloScelte.inizializzaFinestra();
+		
 	}
 	
 	

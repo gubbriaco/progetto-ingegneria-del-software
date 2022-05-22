@@ -1,5 +1,6 @@
 package gui.window;
 
+import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -7,20 +8,23 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import gui.decorator.FinestraServiceIF;
+
 @SuppressWarnings("serial")
-public abstract class FinestraAstratta extends JFrame implements FinestraIF {
+public abstract class FinestraAstratta extends JFrame implements FinestraIF,FinestraServiceIF {
 	
 
 	protected JPanel pNORTH, pSOUTH, pCENTER, pWEST, pEAST;
+	protected Font font;
 	
+	protected String titolo;
+	
+	protected int dimX, dimY;
 
-	/**
-	 * Permette di inizializzare la visualizzazione della finestra e la 
-	 * creazione dei layout desiderati.
-	 */
+	
+	
 	@Override public void inizializzaFinestra() {
 		
-		/**template method*/
 		visualizzaFinestra();
 		
 		/**template method*/
@@ -50,7 +54,7 @@ public abstract class FinestraAstratta extends JFrame implements FinestraIF {
 	}
 	
 	
-	/**
+	/** TEMPLATE METHOD
 	* Tale metodo prevede l'inizializzazione del layout generale tramite 
 	* chiamate a metodi piu' elementari che rispettivamente inizializzeranno i
 	* {@link JPanel} corrispondenti: <p>
@@ -89,7 +93,10 @@ public abstract class FinestraAstratta extends JFrame implements FinestraIF {
 	/*** Permette di inizializzare il {@link FinestraAstratta#pEAST} */
 	protected abstract void inizializzaLayoutEAST();
 	
-	
+
+	@Override public void decorate() {
+		//TODO
+	}
 	
 	
 	/**
