@@ -36,7 +36,7 @@ public class PannelloScelte extends PannelloAstratto {
 		this.add(pNORTH, BorderLayout.NORTH);
 		
 		font = new Font("Helvetica", Font.BOLD, 14);
-		label = new JLabel("Vuoi iniziare una nuova sessione di gioco o ripristinare una precendente?");
+		label = new JLabel("Vuoi iniziare una nuova sessione di gioco o ripristinare una precedente?");
 		label.setFont(font);
 		pNORTH.add(label, BorderLayout.CENTER);
 	}

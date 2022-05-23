@@ -79,6 +79,7 @@ public class PannelloConfigurazione extends PannelloAstratto {
 		manuale.setForeground(Color.BLACK.brighter()); manuale.setBackground(Color.GRAY);
 		pCENTER.add(manuale,BorderLayout.EAST);
 		
+		gestisciRadioButtonModalita();
 	}
 
 	@Override protected void inizializzaLayoutSOUTH() {
@@ -113,8 +114,47 @@ public class PannelloConfigurazione extends PannelloAstratto {
 		difficile = new JRadioButton("Difficile");
 		difficile.setForeground(Color.RED); difficile.setBackground(Color.GRAY);
 		pSOUTH2.add(difficile, BorderLayout.SOUTH);
+		
+		
+		gestisciRadioButtonDifficolta();
 	}
 
+	
+	private void gestisciRadioButtonDifficolta() {
+		facile.addActionListener(new ActionListener() {
+			@Override public void actionPerformed(ActionEvent e) {
+				media.setSelected(false);
+				difficile.setSelected(false);
+			}
+		});
+		media.addActionListener(new ActionListener() {
+			@Override public void actionPerformed(ActionEvent e) {
+				facile.setSelected(false);
+				difficile.setSelected(false);
+			}
+		});
+		difficile.addActionListener(new ActionListener() {
+			@Override public void actionPerformed(ActionEvent e) {
+				facile.setSelected(false);
+				media.setSelected(false);
+			}
+		});
+	}
+	
+	private void gestisciRadioButtonModalita() {
+		automatica.addActionListener(new ActionListener() {
+			@Override public void actionPerformed(ActionEvent e) {
+				manuale.setSelected(false);
+			}
+		});
+		manuale.addActionListener(new ActionListener() {
+			@Override public void actionPerformed(ActionEvent e) {
+				automatica.setSelected(false);
+			}
+		});
+	}
+	
+	
 	
 	@Override protected void defaultExitOperation() {
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

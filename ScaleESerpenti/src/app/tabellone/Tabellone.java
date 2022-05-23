@@ -40,11 +40,12 @@ public class Tabellone {
 
 			boolean tmp = !sensoOrario;
 			sensoOrario = tmp;
+			
 			int tmpi = ID;
 			if (!sensoOrario)
-				tmpi = tmpi - dimensioniFACILE[1] + 1;
+				tmpi = tmpi - dimensioni[1] + 1;
 			else
-				tmpi = tmpi - dimensioniFACILE[1] - 1;
+				tmpi = tmpi - dimensioni[1] - 1;
 			ID = tmpi;
 		}
 
