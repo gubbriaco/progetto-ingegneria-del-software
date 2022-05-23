@@ -20,24 +20,24 @@ public class FinestraFactory implements FinestraFactoryIF {
 		if(tipologiaFinestra.equalsIgnoreCase("FinestraPrincipaleAstratta")) {
 			
 	        if(offset.equalsIgnoreCase("FinestraPrincipaleAutomatica"))
-	        	new FinestraPrincipaleAutomatica(modalita, numeroGiocatori, difficolta);
+	        	return new FinestraPrincipaleAutomatica(modalita, numeroGiocatori, difficolta);
 	        else if(offset.equalsIgnoreCase("FinestraPrincipaleManuale"))
-	        	new ManualeExecButtonDecorator(new FinestraPrincipaleManuale(modalita, numeroGiocatori, difficolta));
+	        	return (FinestraIF) new ManualeExecButtonDecorator(new FinestraPrincipaleManuale(modalita, numeroGiocatori, difficolta));
 	        	//new FinestraPrincipaleManuale();
-	        
+	        	// TODO il cast
 		}else if(tipologiaFinestra.equalsIgnoreCase("PannelloAstratto")) {
 			
 	        if(offset.equalsIgnoreCase("PannelloConfigurazione"))
-	        	new PannelloConfigurazione();
+	        	return new PannelloConfigurazione();
 	        else if(offset.equalsIgnoreCase("PannelloScelte"))
-	        	new PannelloScelte();
+	        	return new PannelloScelte();
 	        
 		}else if(tipologiaFinestra.equalsIgnoreCase("FinestraErroreAstratta"))
 				return new FinestraErrore();
 		
 		else if(tipologiaFinestra.equalsIgnoreCase("FinestraTerminaleAstratta"))
 	        	return new FinestraTerminale();
-		
+
 		return new FinestraErrore();
 	}
 	

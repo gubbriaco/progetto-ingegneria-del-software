@@ -5,11 +5,6 @@ import gui.window.FinestraAstratta;
 @SuppressWarnings("serial")
 public abstract class PannelloAstratto extends FinestraAstratta {
 	
-	
-	public PannelloAstratto() {
-		
-	}
-	
 
 	/**
 	 * Il metodo viene ridefinito cosi' da aggiungere l'operazione 
@@ -25,5 +20,6 @@ public abstract class PannelloAstratto extends FinestraAstratta {
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
+	
 	
 }

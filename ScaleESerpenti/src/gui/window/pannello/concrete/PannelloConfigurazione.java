@@ -1,40 +1,262 @@
 package gui.window.pannello.concrete;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+
+import app.difficolta.Difficolta;
+import app.modalita.Modalita;
+import app.modalita.Modalita.Mod;
+import gui.factory.FinestraFactory;
+import gui.factory.FinestraFactoryIF;
+import gui.graphic.border.RoundedBorder;
+import gui.window.FinestraIF;
 import gui.window.pannello.PannelloAstratto;
 
 @SuppressWarnings("serial")
 public class PannelloConfigurazione extends PannelloAstratto {
+	
+	private JLabel label, titoloModalita, titoloDifficolta, titoloTextField;
+	private JButton ok;
+	private JRadioButton automatica, manuale, facile, media, difficile;
+	private JTextField numeroGiocatori;
+	private JPanel pSOUTH1, pSOUTH2;
+	
+	private FinestraFactoryIF errore = new FinestraFactory(),
+							  fPrincipale = new FinestraFactory();
+	private Modalita.Mod modalita;
+	private int numGiocatori;
+	private Difficolta difficolta;
+
+	public PannelloConfigurazione() {
+		titolo = "Pannello Configurazione";
+		this.setTitle(titolo);
+	}
+
+	@Override protected void inizializzaLayoutNORTH() {
+		pNORTH = new JPanel();
+		this.add(pNORTH, BorderLayout.NORTH);
+		
+		font = new Font("Helvetica", Font.BOLD, 14);
+		label = new JLabel("Impostare la configurazione di gioco desiderata");
+		label.setForeground(Color.BLACK.darker());
+		label.setFont(font);
+		pNORTH.add(label, BorderLayout.CENTER);
+		ok = new JButton("OK");
+		ok.setBorder(new RoundedBorder(5));
+		ok.setForeground(Color.BLACK.darker());
+		ok.setBackground(Color.GRAY.brighter());
+		pNORTH.add(ok);
+		
+		/**poiche' se si salva il {@link JButton} {@link PannelloConfigurazione#ok}
+		 * significa che la configurazione della nuova sessione di gioco e' stata
+		 * completata*/
+		gestisciConfigurazioneCompletata();
+	}
+
+	@Override protected void inizializzaLayoutCENTER() {
+		pCENTER = new JPanel();
+		this.add(pCENTER, BorderLayout.CENTER); pCENTER.setBackground(Color.GRAY.brighter());
+		
+		pCENTER.setBackground(Color.GRAY); pCENTER.setBorder(new RoundedBorder(1));
+		titoloModalita = new JLabel("Modalità:"); titoloModalita.setForeground(Color.BLACK);
+		pCENTER.add(titoloModalita);
+		automatica = new JRadioButton("Automatica"); 
+		automatica.setForeground(Color.BLACK.brighter()); automatica.setBackground(Color.GRAY);
+		pCENTER.add(automatica,BorderLayout.WEST);
+		manuale = new JRadioButton("Manuale"); 
+		manuale.setForeground(Color.BLACK.brighter()); manuale.setBackground(Color.GRAY);
+		pCENTER.add(manuale,BorderLayout.EAST);
+		
+	}
+
+	@Override protected void inizializzaLayoutSOUTH() {
+		pSOUTH = new JPanel();
+		this.add(pSOUTH,BorderLayout.SOUTH); pSOUTH.setBackground(Color.GRAY.brighter());
+		
+		pSOUTH1 = new JPanel(); 
+		pSOUTH.add(pSOUTH1, BorderLayout.WEST);
+		pSOUTH1.setBorder(new RoundedBorder(5));
+		pSOUTH1.setBackground(Color.GRAY);
+		titoloTextField = new JLabel("Nr. giocatori:");
+		pSOUTH1.add(titoloTextField, BorderLayout.WEST);
+		titoloTextField.setForeground(Color.BLACK);titoloTextField.setBackground(Color.GRAY);
+		numeroGiocatori = new JTextField();
+		numeroGiocatori.setColumns(2);
+		numeroGiocatori.setToolTipText("Nr. giocatori");
+		pSOUTH1.add(numeroGiocatori,BorderLayout.EAST);
+		
+		
+		pSOUTH2 = new JPanel();
+		pSOUTH.add(pSOUTH2, BorderLayout.EAST);
+		pSOUTH2.setBorder(new RoundedBorder(3));
+		pSOUTH2.setBackground(Color.GRAY);
+		titoloDifficolta = new JLabel("Difficoltà:"); titoloDifficolta.setForeground(Color.BLACK);
+		pSOUTH2.add(titoloDifficolta,BorderLayout.NORTH);
+		facile = new JRadioButton("Facile"); 
+		facile.setForeground(Color.GREEN); facile.setBackground(Color.GRAY);
+		pSOUTH2.add(facile,BorderLayout.SOUTH);
+		media = new JRadioButton("Media"); 
+		media.setForeground(Color.ORANGE); media.setBackground(Color.GRAY);
+		pSOUTH2.add(media,BorderLayout.SOUTH);
+		difficile = new JRadioButton("Difficile");
+		difficile.setForeground(Color.RED); difficile.setBackground(Color.GRAY);
+		pSOUTH2.add(difficile, BorderLayout.SOUTH);
+	}
 
 	
-
-	@Override
-	protected void inizializzaLayoutNORTH() {
-		// TODO Auto-generated method stub
-		
+	@Override protected void defaultExitOperation() {
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter() {
+			@Override public void windowClosing(WindowEvent e) {
+				disposeWindow();
+			}
+		});
 	}
-
-	@Override
-	protected void inizializzaLayoutCENTER() {
-		// TODO Auto-generated method stub
-		
+	
+	
+	/**
+	 * Gestisce la ricezione degli ActioneEvent per il {@link JButton}
+	 * {@link Configurazione#esegui}. Per la precisione, appena cliccato 
+	 * permettera' la chiusura della finestra in questione e l'inizializzazione
+	 * della finestra principale per l'avvio del gioco. 
+	 */
+	private void gestisciConfigurazioneCompletata() {
+		ok.addActionListener(new ActionListener() {
+			@Override public void actionPerformed(ActionEvent e) {
+				/** verifico che la configurazione sia stata effettuata 
+				 * correttamente */
+				if( verificaScelte() ) {
+					gestisciInput();
+					disposeWindow();
+					
+					FinestraIF finestraPrincipale = fPrincipale.createFinestra
+							("FinestraPrincipaleAstratta", "FinestraPrincipaleAutomatica",
+									modalita, numGiocatori, difficolta);
+					finestraPrincipale.inizializzaFinestra();
+				}
+				else {
+					FinestraIF finestraErrore = errore.createFinestra
+												("FinestraErroreAstratta", "", null, -1, null);
+					finestraErrore.inizializzaFinestra();
+				}
+			}
+		});
 	}
-
-	@Override
-	protected void inizializzaLayoutSOUTH() {
-		// TODO Auto-generated method stub
-		
+	
+	/**
+	 * Gestisce gli input ricevuti dall'utente nella finestra di configurazione 
+	 * in questione cosi' da essere in grado di creare la finestra principale 
+	 * per la nuova sessione di gioco.
+	 */
+	private void gestisciInput() {
+		gestisciNumeroGiocatoriScelto();
+		gestisciDifficoltaScelta();
+		gestisciModalitaScelta();
 	}
-
-	@Override
-	protected void inizializzaLayoutWEST() {
-		// TODO Auto-generated method stub
-		
+	
+	/**
+	 * Salva il numero di giocatori scelto tale da essere passato in input alla 
+	 * finestra principale che verra' creata per la nuova sessione di gioco in 
+	 * questione
+	 */
+	private void gestisciNumeroGiocatoriScelto() {
+		numGiocatori = Integer.valueOf(numeroGiocatori.getText());
 	}
-
-	@Override
-	protected void inizializzaLayoutEAST() {
-		// TODO Auto-generated method stub
-		
+	
+	/**
+	 * Salva la difficolta scelta tale da essere passata in input alla finestra 
+	 * principale che verra' creata per la nuova sessione di gioco in 
+	 * questione
+	 */
+	private void gestisciDifficoltaScelta() {
+		if(facile.isSelected())
+			difficolta = Difficolta.FACILE;
+		else if(media.isSelected())
+			difficolta = Difficolta.MEDIA;
+		else
+			difficolta = Difficolta.DIFFICILE;
 	}
+	
+	/**
+	 * Salva la modalita scelta tale da essere passata in input alla finestra 
+	 * principale che verra' creata per la nuova sessione di gioco in 
+	 * questione
+	 */
+	private void gestisciModalitaScelta() {
+		if(automatica.isSelected())
+			modalita = Mod.AUTOMATICA;
+		else
+			modalita = Mod.MANUALE;
+	}
+	
+	/**
+	 * Verifica la correttezza generale della configurazione scelta.
+	 * @return
+	 */
+	private boolean verificaScelte() {
+		if( modalitaScelta() && nrGiocatoriInserito() && difficoltaScelta() )
+			return true;
+		return false;
+	}
+	
+	/**
+	 * Verifica la correttezza della modalita' scelta per il gioco in questione.
+	 * @return
+	 */
+	private boolean modalitaScelta() {
+		return automatica.isSelected() || manuale.isSelected();
+	}
+	
+	/**
+	 * Verifica la correttezza del numero dei giocatori inserito nel 
+	 * {@link JTextField} corrispondente.
+	 * @return
+	 */
+	private boolean nrGiocatoriInserito() {
+		return !numeroGiocatori.getText().equals("") &&
+				stringaNumerica(numeroGiocatori.getText());
+	}
+	
+	/**
+	 * Verifica che il numero dei giocatori in input sia effettivamente un 
+	 * numero e non una sequenza di caratteri.
+	 * @param numeroGiocatori numero giocatori
+	 * @return 
+	 */
+	private boolean stringaNumerica(String numeroGiocatori) {
+		try {
+			Integer.parseInt(numeroGiocatori);
+		}catch(NumberFormatException nfe) {
+			return false;
+		}
+		/**Infine verifico che il numero di giocatori inserito sia maggiore o
+		 * uguale di 2 */
+		return Integer.parseInt(numeroGiocatori) >= 2;
+	}
+	
+	/**
+	 * Verifica la correttezza della difficolta' scelta per il gioco in 
+	 * questione.
+	 * @return
+	 */
+	private boolean difficoltaScelta() {
+		return facile.isSelected() || media.isSelected() || difficile.isSelected();
+	}
+	
+	
+	@Override protected void inizializzaLayoutWEST() {}
+	@Override protected void inizializzaLayoutEAST() {}
 
 }

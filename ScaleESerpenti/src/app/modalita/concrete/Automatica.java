@@ -1,4 +1,6 @@
-package app.modalita;
+package app.modalita.concrete;
+
+import app.modalita.Modalita;
 
 public class Automatica extends Modalita {
 

@@ -9,16 +9,16 @@ import gui.factory.FinestraFactoryIF;
 import gui.window.FinestraAstratta;
 import gui.window.FinestraIF;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({"serial", "unused"})
 public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 	
 	/**terminale che verra' inizializzato per la sessione di gioco in questione*/
 	private FinestraFactoryIF terminaleFactory;
 	private FinestraIF terminale;
 	
-	private Modalita.Mod modalita; 
-	private int numeroGiocatori;
-	private Difficolta difficolta;
+	protected Modalita.Mod modalita; 
+	protected int numeroGiocatori;
+	protected Difficolta difficolta;
 	
 	/**File in cui verra' salvata la nuova sessione di gioco o usato come 
 	 * ripristino di una sessione di gioco salvata sul calcolatore*/
@@ -39,7 +39,7 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 		 
 		/**creo il terminale tramite il factory method*/
 		terminaleFactory = new FinestraFactory();
-		terminale = terminaleFactory.createFinestra("FinestraTerminaleAstratto", "", modalita, numeroGiocatori, difficolta);
+		terminale = terminaleFactory.createFinestra("FinestraTerminaleAstratta", "", null, -1, null);
 		/**inizializzo la finestra terminale tramite il template method*/
 		terminale.inizializzaFinestra();
 		

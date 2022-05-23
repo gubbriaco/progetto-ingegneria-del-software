@@ -25,10 +25,12 @@ public abstract class FinestraAstratta extends JFrame implements FinestraIF,Fine
 	
 	@Override public void inizializzaFinestra() {
 		
-		visualizzaFinestra();
+		defaultExitOperation();
 		
 		/**template method*/
 		templateInizializzaLayout();
+		
+		visualizzaFinestra();
 		
 	}
 	
