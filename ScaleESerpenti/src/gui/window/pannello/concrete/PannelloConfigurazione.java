@@ -27,17 +27,21 @@ import gui.window.pannello.PannelloAstratto;
 @SuppressWarnings("serial")
 public class PannelloConfigurazione extends PannelloAstratto {
 	
-	private JLabel label, titoloModalita, titoloDifficolta, titoloTextField;
+	private JLabel label, titoloModalita, titoloDifficolta, titoloTextField,
+				   titoloNrRighe, titoloNrColonne;
 	private JButton ok;
 	private JRadioButton automatica, manuale, facile, media, difficile;
-	private JTextField numeroGiocatori;
+	private JTextField numeroGiocatori, nrRighe, nrColonne;
 	private JPanel pSOUTH1, pSOUTH2;
 	
 	private FinestraFactoryIF errore = new FinestraFactory(),
 							  fPrincipale = new FinestraFactory();
 	private Modalita.Mod modalita;
 	private int numGiocatori;
-	private Difficolta difficolta;
+	//private Difficolta difficolta;
+	
+	protected int[] dimensioniTabellone;
+ 	
 
 	public PannelloConfigurazione() {
 		titolo = "Pannello Configurazione";
@@ -100,46 +104,77 @@ public class PannelloConfigurazione extends PannelloAstratto {
 		
 		
 		pSOUTH2 = new JPanel();
+		pSOUTH2.setBorder(new RoundedBorder(5));
+		pSOUTH2.setBackground(Color.GRAY.brighter());
 		pSOUTH.add(pSOUTH2, BorderLayout.EAST);
-		pSOUTH2.setBorder(new RoundedBorder(3));
-		pSOUTH2.setBackground(Color.GRAY);
-		titoloDifficolta = new JLabel("Difficoltà:"); titoloDifficolta.setForeground(Color.BLACK);
-		pSOUTH2.add(titoloDifficolta,BorderLayout.NORTH);
-		facile = new JRadioButton("Facile"); 
-		facile.setForeground(Color.GREEN); facile.setBackground(Color.GRAY);
-		pSOUTH2.add(facile,BorderLayout.SOUTH);
-		media = new JRadioButton("Media"); 
-		media.setForeground(Color.ORANGE); media.setBackground(Color.GRAY);
-		pSOUTH2.add(media,BorderLayout.SOUTH);
-		difficile = new JRadioButton("Difficile");
-		difficile.setForeground(Color.RED); difficile.setBackground(Color.GRAY);
-		pSOUTH2.add(difficile, BorderLayout.SOUTH);
+		
+		titoloNrRighe = new JLabel("Nr. righe");
+		titoloNrRighe.setForeground(Color.BLACK);
+		pSOUTH2.add(titoloNrRighe);
+		nrRighe = new JTextField();
+		nrRighe.setColumns(2);
+		nrRighe.setToolTipText("Numero Righe");
+		pSOUTH2.add(nrRighe);
+		
+		titoloNrColonne = new JLabel("Nr. colonne");
+		titoloNrColonne.setForeground(Color.BLACK);
+		pSOUTH2.add(titoloNrColonne);
+		nrColonne = new JTextField();
+		nrColonne.setColumns(2);
+		nrColonne.setToolTipText("Numero Colonne");
+		pSOUTH2.add(nrColonne);
+		
+		dimensioniTabellone = new int[2];
 		
 		
-		gestisciRadioButtonDifficolta();
+		
+		
+		
+		
+		
+		
+//		pSOUTH2.setBorder(new RoundedBorder(3));
+//		pSOUTH2.setBackground(Color.GRAY);
+//		titoloDifficolta = new JLabel("Difficoltà:"); titoloDifficolta.setForeground(Color.BLACK);
+//		pSOUTH2.add(titoloDifficolta,BorderLayout.NORTH);
+//		facile = new JRadioButton("Facile"); 
+//		facile.setForeground(Color.GREEN); facile.setBackground(Color.GRAY);
+//		pSOUTH2.add(facile,BorderLayout.SOUTH);
+//		media = new JRadioButton("Media"); 
+//		media.setForeground(Color.ORANGE); media.setBackground(Color.GRAY);
+//		pSOUTH2.add(media,BorderLayout.SOUTH);
+//		difficile = new JRadioButton("Difficile");
+//		difficile.setForeground(Color.RED); difficile.setBackground(Color.GRAY);
+//		pSOUTH2.add(difficile, BorderLayout.SOUTH);
+		
+		
+	//	gestisciRadioButtonDifficolta();
 	}
+	
+	
+	
 
 	
-	private void gestisciRadioButtonDifficolta() {
-		facile.addActionListener(new ActionListener() {
-			@Override public void actionPerformed(ActionEvent e) {
-				media.setSelected(false);
-				difficile.setSelected(false);
-			}
-		});
-		media.addActionListener(new ActionListener() {
-			@Override public void actionPerformed(ActionEvent e) {
-				facile.setSelected(false);
-				difficile.setSelected(false);
-			}
-		});
-		difficile.addActionListener(new ActionListener() {
-			@Override public void actionPerformed(ActionEvent e) {
-				facile.setSelected(false);
-				media.setSelected(false);
-			}
-		});
-	}
+//	private void gestisciRadioButtonDifficolta() {
+//		facile.addActionListener(new ActionListener() {
+//			@Override public void actionPerformed(ActionEvent e) {
+//				media.setSelected(false);
+//				difficile.setSelected(false);
+//			}
+//		});
+//		media.addActionListener(new ActionListener() {
+//			@Override public void actionPerformed(ActionEvent e) {
+//				facile.setSelected(false);
+//				difficile.setSelected(false);
+//			}
+//		});
+//		difficile.addActionListener(new ActionListener() {
+//			@Override public void actionPerformed(ActionEvent e) {
+//				facile.setSelected(false);
+//				media.setSelected(false);
+//			}
+//		});
+//	}
 	
 	private void gestisciRadioButtonModalita() {
 		automatica.addActionListener(new ActionListener() {
@@ -156,14 +191,7 @@ public class PannelloConfigurazione extends PannelloAstratto {
 	
 	
 	
-	@Override protected void defaultExitOperation() {
-		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.addWindowListener(new WindowAdapter() {
-			@Override public void windowClosing(WindowEvent e) {
-				disposeWindow();
-			}
-		});
-	}
+	
 	
 	
 	/**
@@ -183,7 +211,7 @@ public class PannelloConfigurazione extends PannelloAstratto {
 					
 					FinestraIF finestraPrincipale = fPrincipale.createFinestra
 							("FinestraPrincipaleAstratta", "FinestraPrincipaleAutomatica",
-									modalita, numGiocatori, difficolta);
+									modalita, numGiocatori, dimensioniTabellone);
 					finestraPrincipale.inizializzaFinestra();
 				}
 				else {
@@ -202,8 +230,14 @@ public class PannelloConfigurazione extends PannelloAstratto {
 	 */
 	private void gestisciInput() {
 		gestisciNumeroGiocatoriScelto();
-		gestisciDifficoltaScelta();
+		gestisciDimensioniScelte();
+		//gestisciDifficoltaScelta();
 		gestisciModalitaScelta();
+	}
+	
+	private void gestisciDimensioniScelte() {
+		dimensioniTabellone[0] = Integer.valueOf(nrRighe.getText());
+		dimensioniTabellone[1] = Integer.valueOf(nrColonne.getText());
 	}
 	
 	/**
@@ -215,19 +249,19 @@ public class PannelloConfigurazione extends PannelloAstratto {
 		numGiocatori = Integer.valueOf(numeroGiocatori.getText());
 	}
 	
-	/**
-	 * Salva la difficolta scelta tale da essere passata in input alla finestra 
-	 * principale che verra' creata per la nuova sessione di gioco in 
-	 * questione
-	 */
-	private void gestisciDifficoltaScelta() {
-		if(facile.isSelected())
-			difficolta = Difficolta.FACILE;
-		else if(media.isSelected())
-			difficolta = Difficolta.MEDIA;
-		else
-			difficolta = Difficolta.DIFFICILE;
-	}
+//	/**
+//	 * Salva la difficolta scelta tale da essere passata in input alla finestra 
+//	 * principale che verra' creata per la nuova sessione di gioco in 
+//	 * questione
+//	 */
+//	private void gestisciDifficoltaScelta() {
+//		if(facile.isSelected())
+//			difficolta = Difficolta.FACILE;
+//		else if(media.isSelected())
+//			difficolta = Difficolta.MEDIA;
+//		else
+//			difficolta = Difficolta.DIFFICILE;
+//	}
 	
 	/**
 	 * Salva la modalita scelta tale da essere passata in input alla finestra 
@@ -246,10 +280,19 @@ public class PannelloConfigurazione extends PannelloAstratto {
 	 * @return
 	 */
 	private boolean verificaScelte() {
-		if( modalitaScelta() && nrGiocatoriInserito() && difficoltaScelta() )
+		if( modalitaScelta() && nrGiocatoriInserito() && dimensioniScelte() )
 			return true;
 		return false;
 	}
+	
+	
+	private boolean dimensioniScelte() {
+		return (!nrRighe.getText().equals("") && stringaNumerica(nrRighe.getText()) && 
+				Integer.valueOf(nrRighe.getText())>=10 ) && 
+			   (!nrColonne.getText().equals("") && stringaNumerica(nrColonne.getText()) &&
+					   Integer.valueOf(nrColonne.getText())>=10);
+	}
+	
 	
 	/**
 	 * Verifica la correttezza della modalita' scelta per il gioco in questione.

@@ -7,17 +7,20 @@ import javax.swing.SwingConstants;
 public abstract class CellaAstratta extends JLabel {
 	
 	
-	private int ID;
+	private int numeroCella;
 	
-	public CellaAstratta(int ID) {
-		super(""+ID,SwingConstants.CENTER);
-		this.ID = ID;
+	public CellaAstratta(int numeroCella) {
+		super(""+numeroCella,SwingConstants.CENTER);
+		this.numeroCella = numeroCella;
 	}
 	
 	
-	public int getID() {
-		return ID;
+	public int getNumeroCella() {
+		return numeroCella;
 	}
+	
+	
+	public abstract void draw();
 
 
 }

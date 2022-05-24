@@ -17,7 +17,7 @@ public interface FinestraFactoryIF {
 	 * @return
 	 */
 	FinestraIF createFinestra(String tipologiaFinestra, String offset, 
-			Modalita.Mod modalita, int numeroGiocatori, Difficolta difficolta);
+			Modalita.Mod modalita, int numeroGiocatori, int[] dimensioniTabellone);
 	
 
 }

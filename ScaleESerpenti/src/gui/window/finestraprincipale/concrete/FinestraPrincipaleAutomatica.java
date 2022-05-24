@@ -13,23 +13,25 @@ import app.difficolta.Difficolta;
 import app.modalita.Modalita.Mod;
 import app.tabellone.Tabellone;
 import app.tabellone.cella.CellaAstratta;
-import app.tabellone.cella.concrete.Cella;
+import app.tabellone.cella.concrete.CellaStandard;
 import gui.window.finestraprincipale.FinestraPrincipaleAstratta;
 
 @SuppressWarnings("serial")
 public class FinestraPrincipaleAutomatica extends FinestraPrincipaleAstratta{
 	
 	
-	private CellaAstratta[][] matrice;
+	private CellaAstratta[][] matriceTabellone;
 	
 	private JLabel label;
+	
+	private Tabellone tabellone;
 	private GridLayout gl;
 	
 
-	public FinestraPrincipaleAutomatica(Mod modalita, int numeroGiocatori, Difficolta difficolta) {
-		super(modalita, numeroGiocatori, difficolta);
+	public FinestraPrincipaleAutomatica(Mod modalita, int numeroGiocatori, int[] dimensioniTabellone) {
+		super(modalita, numeroGiocatori, dimensioniTabellone);
 		
-		inizializzaTabellone(difficolta);
+		inizializzaTabellone(nrRighe, nrColonne);
 	}
 	
 	public FinestraPrincipaleAutomatica(File file) {
@@ -37,17 +39,23 @@ public class FinestraPrincipaleAutomatica extends FinestraPrincipaleAstratta{
 	}
 	
 	
-	private void inizializzaTabellone(Difficolta difficolta) {
-		if(difficolta == Difficolta.FACILE) {
-			matrice = new Cella[Tabellone.dimensioniFACILE[0]][Tabellone.dimensioniFACILE[1]];
-			matrice = Tabellone.getTabellone("TabelloneFACILE");
-		}else if(difficolta == Difficolta.MEDIA) {
-			matrice = new Cella[Tabellone.dimensioniMEDIA[0]][Tabellone.dimensioniMEDIA[1]];
-			matrice = Tabellone.getTabellone("TabelloneMEDIA");
-		}else {
-			matrice = new Cella[Tabellone.dimensioniDIFFICILE[0]][Tabellone.dimensioniDIFFICILE[1]];
-			matrice = Tabellone.getTabellone("TabelloneDIFFICILE");
-		}
+	@Override protected void inizializzaTabellone(int nrRighe, int nrColonne) {
+		
+		tabellone = new Tabellone(nrRighe, nrColonne);
+		
+		matriceTabellone = new CellaStandard[nrRighe][nrColonne];
+		matriceTabellone = tabellone.getTabellone(nrRighe, nrColonne);
+		
+//		if(difficolta == Difficolta.FACILE) {
+//			matrice = new Cella[Tabellone.dimensioniFACILE[0]][Tabellone.dimensioniFACILE[1]];
+//			matrice = Tabellone.getTabellone("TabelloneFACILE");
+//		}else if(difficolta == Difficolta.MEDIA) {
+//			matrice = new Cella[Tabellone.dimensioniMEDIA[0]][Tabellone.dimensioniMEDIA[1]];
+//			matrice = Tabellone.getTabellone("TabelloneMEDIA");
+//		}else {
+//			matrice = new Cella[Tabellone.dimensioniDIFFICILE[0]][Tabellone.dimensioniDIFFICILE[1]];
+//			matrice = Tabellone.getTabellone("TabelloneDIFFICILE");
+//		}
 	}
 
 	
@@ -71,17 +79,18 @@ public class FinestraPrincipaleAutomatica extends FinestraPrincipaleAstratta{
 		inizializzaLayoutTabellone();
 	}
 	
+	
 	private void inizializzaLayoutTabellone() {
 		int nrRighe, nrColonne;
 		
-		nrRighe = matrice.length;
-		nrColonne = matrice[0].length;
+		nrRighe = matriceTabellone.length;
+		nrColonne = matriceTabellone[0].length;
 		gl = new GridLayout(nrRighe, nrColonne);
 		pCENTER.setLayout(gl);
 		
 		for(int i=0;i<nrRighe;++i)
 			for(int j=0;j<nrColonne;++j)
-				pCENTER.add(matrice[i][j],BorderLayout.CENTER);
+				pCENTER.add(matriceTabellone[i][j],BorderLayout.CENTER);
 		
 		inizializzaTabellone();
 	}

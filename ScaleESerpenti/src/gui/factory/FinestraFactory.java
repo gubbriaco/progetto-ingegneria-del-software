@@ -1,6 +1,7 @@
 package gui.factory;
 
 import app.difficolta.Difficolta;
+import app.exception.FactoryException;
 import app.modalita.Modalita;
 import gui.decorator.concrete.ManualeExecButtonDecorator;
 import gui.window.FinestraIF;
@@ -15,14 +16,14 @@ public class FinestraFactory implements FinestraFactoryIF {
 
 	
 	@Override public FinestraIF createFinestra(String tipologiaFinestra, String offset, 
-			Modalita.Mod modalita, int numeroGiocatori, Difficolta difficolta) {
+			Modalita.Mod modalita, int numeroGiocatori, int[] dimensioniTabellone) {
 		
 		if(tipologiaFinestra.equalsIgnoreCase("FinestraPrincipaleAstratta")) {
 			
 	        if(offset.equalsIgnoreCase("FinestraPrincipaleAutomatica"))
-	        	return new FinestraPrincipaleAutomatica(modalita, numeroGiocatori, difficolta);
+	        	return new FinestraPrincipaleAutomatica(modalita, numeroGiocatori, dimensioniTabellone);
 	        else if(offset.equalsIgnoreCase("FinestraPrincipaleManuale"))
-	        	return (FinestraIF) new ManualeExecButtonDecorator(new FinestraPrincipaleManuale(modalita, numeroGiocatori, difficolta));
+	        	return (FinestraIF) new ManualeExecButtonDecorator(new FinestraPrincipaleManuale(modalita, numeroGiocatori, dimensioniTabellone));
 	        	//new FinestraPrincipaleManuale();
 	        	// TODO il cast
 		}else if(tipologiaFinestra.equalsIgnoreCase("PannelloAstratto")) {
@@ -38,7 +39,7 @@ public class FinestraFactory implements FinestraFactoryIF {
 		else if(tipologiaFinestra.equalsIgnoreCase("FinestraTerminaleAstratta"))
 	        	return new FinestraTerminale();
 
-		return new FinestraErrore();
+		throw new FactoryException();
 	}
 	
 

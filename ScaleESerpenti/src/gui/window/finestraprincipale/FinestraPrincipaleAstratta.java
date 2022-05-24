@@ -18,7 +18,9 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 	
 	protected Modalita.Mod modalita; 
 	protected int numeroGiocatori;
-	protected Difficolta difficolta;
+	//protected Difficolta difficolta;
+	protected int[] dimensioniTabellone;
+	protected int nrRighe, nrColonne;
 	
 	/**File in cui verra' salvata la nuova sessione di gioco o usato come 
 	 * ripristino di una sessione di gioco salvata sul calcolatore*/
@@ -32,14 +34,16 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 	 *        nuova sessione di gioco
 	 * @param difficolta Difficolta' con cui verra' inizializzato il gioco.
 	 */
-	public FinestraPrincipaleAstratta(Modalita.Mod modalita, int numeroGiocatori, Difficolta difficolta ) {
+	public FinestraPrincipaleAstratta(Modalita.Mod modalita, int numeroGiocatori, int[] dimensioniTabellone ) {
 		this.modalita = modalita;
 		this.numeroGiocatori = numeroGiocatori;
-		this.difficolta = difficolta;
+		this.dimensioniTabellone = dimensioniTabellone;
+		nrRighe = dimensioniTabellone[0];
+		nrColonne = dimensioniTabellone[1];
 		 
 		/**creo il terminale tramite il factory method*/
 		terminaleFactory = new FinestraFactory();
-		terminale = terminaleFactory.createFinestra("FinestraTerminaleAstratta", "", null, -1, null);
+		terminale = terminaleFactory.createFinestra("FinestraTerminaleAstratta", "", null, -1, dimensioniTabellone);
 		/**inizializzo la finestra terminale tramite il template method*/
 		terminale.inizializzaFinestra();
 		
@@ -56,6 +60,16 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 		 * precedente*/
 		this.file = file;
 	}
+	
+	/**
+	 * Inizializza un nuovo tabellone o un tabellone gia' inizializzato in una 
+	 * sessione di gioco salvata sul calcolatore ad un numero di righe 
+	 * {@link FinestraPrincipaleAstratta#nrRighe} e ad un numero di colonne
+	 * {@link FinestraPrincipaleAstratta#nrColonne}
+	 * @param nrRighe Numero di righe del tabellone
+	 * @param nrColonne Numero di colonne del tabellone
+	 */
+    protected abstract void inizializzaTabellone(int nrRighe, int nrColonne);
 	
 	
 
