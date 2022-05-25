@@ -1,6 +1,5 @@
 package gui.factory;
 
-import app.difficolta.Difficolta;
 import app.modalita.Modalita;
 import gui.window.FinestraIF;
 

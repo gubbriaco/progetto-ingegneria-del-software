@@ -1,6 +1,5 @@
 package gui.factory;
 
-import app.difficolta.Difficolta;
 import app.exception.FactoryException;
 import app.modalita.Modalita;
 import gui.decorator.concrete.ManualeExecButtonDecorator;

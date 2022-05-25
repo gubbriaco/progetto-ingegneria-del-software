@@ -61,6 +61,8 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 		this.file = file;
 	}
 	
+	protected FinestraPrincipaleAstratta() {}
+	
 	/**
 	 * Inizializza un nuovo tabellone o un tabellone gia' inizializzato in una 
 	 * sessione di gioco salvata sul calcolatore ad un numero di righe 

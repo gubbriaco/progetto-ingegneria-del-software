@@ -10,8 +10,7 @@ public class Main {
 		
 		ScaleESerpenti sep = new Applicazione();
 		sep.start();
-		
-		
+	
 	}
 	
 

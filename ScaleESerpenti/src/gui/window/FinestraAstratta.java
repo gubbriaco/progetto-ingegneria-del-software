@@ -14,7 +14,8 @@ import gui.decorator.FinestraServiceIF;
 public abstract class FinestraAstratta extends JFrame implements FinestraIF,FinestraServiceIF {
 	
 
-	protected JPanel pNORTH, pSOUTH, pCENTER, pWEST, pEAST;
+	protected JPanel pNORTH, pSOUTH, pWEST, pEAST;
+	public static JPanel pCENTER;
 	protected Font font;
 	
 	protected String titolo;

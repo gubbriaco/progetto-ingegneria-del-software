@@ -2,13 +2,11 @@ package gui.window.finestraprincipale.concrete;
 
 import java.io.File;
 
-import app.difficolta.Difficolta;
 import app.modalita.Modalita;
-import app.modalita.Modalita.Mod;
 import gui.window.finestraprincipale.FinestraPrincipaleAstratta;
 
 @SuppressWarnings("serial")
-public class FinestraPrincipaleManuale extends FinestraPrincipaleAstratta {
+public final class FinestraPrincipaleManuale extends FinestraPrincipaleAstratta {
 
 	public FinestraPrincipaleManuale(Modalita.Mod modalita, int numeroGiocatori, int[] dimensioniTabellone) {
 		super(modalita, numeroGiocatori, dimensioniTabellone);
@@ -18,6 +16,17 @@ public class FinestraPrincipaleManuale extends FinestraPrincipaleAstratta {
 	public FinestraPrincipaleManuale(File file) {
 		super(file);
 		
+	}
+	
+	
+	private FinestraPrincipaleManuale() {super();}
+	
+	private static FinestraPrincipaleManuale INSTANCE = null;
+	
+	public static synchronized FinestraPrincipaleManuale getInstance() {
+		if(INSTANCE == null)
+			INSTANCE = new FinestraPrincipaleManuale();
+		return INSTANCE;
 	}
 
 	@Override protected void inizializzaTabellone(int nrRighe, int nrColonne) {
