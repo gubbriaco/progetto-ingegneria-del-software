@@ -8,10 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import gui.decorator.FinestraServiceIF;
-
 @SuppressWarnings("serial")
-public abstract class FinestraAstratta extends JFrame implements FinestraIF,FinestraServiceIF {
+public abstract class FinestraAstratta extends JFrame implements FinestraIF {
 	
 
 	protected JPanel pNORTH, pSOUTH, pWEST, pEAST;
@@ -97,10 +95,6 @@ public abstract class FinestraAstratta extends JFrame implements FinestraIF,Fine
 	protected abstract void inizializzaLayoutEAST();
 	
 
-	@Override public void decorate() {
-		//TODO
-	}
-	
 	
 	/**
 	 * Permette di chiudere la finestra in questione a livello software.
@@ -136,9 +130,6 @@ public abstract class FinestraAstratta extends JFrame implements FinestraIF,Fine
 				JOptionPane.YES_NO_OPTION);
 		return option == JOptionPane.YES_OPTION;
 	}
-	
-	
-	
 
 	
 }

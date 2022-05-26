@@ -3,14 +3,15 @@ package app.tabellone.object;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import app.tabellone.cella.CasellaAstratta;
+import app.tabellone.casella.CasellaAstratta;
 
 @SuppressWarnings("serial")
 public class Serpente extends OggettoTrasferimento {
 
 	
-	public Serpente(CasellaAstratta testa, CasellaAstratta coda) {
-		super(testa, coda);
+	public Serpente(CasellaAstratta testaSerpente, CasellaAstratta codaSerpente) {
+		super(testaSerpente, codaSerpente);
+		//System.out.println(testaSerpente.getNumeroCasella() + "," + codaSerpente.getNumeroCasella());	
 	}
 
 

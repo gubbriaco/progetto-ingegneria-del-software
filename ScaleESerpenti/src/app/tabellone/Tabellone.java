@@ -1,15 +1,15 @@
 package app.tabellone;
 
-import app.tabellone.cella.CasellaAstratta;
-import app.tabellone.cella.concrete.special.CasellaPremio.CasellaPremioTipologia;
-import app.tabellone.cella.concrete.special.CasellaSosta.CasellaSostaTipologia;
-import app.tabellone.cella.strategy.CasellaCreator;
-import app.tabellone.cella.strategy.creators.ScalaCreator;
-import app.tabellone.cella.strategy.creators.SerpenteCreator;
-import app.tabellone.cella.strategy.creators.special.PescaUnaCartaCreator;
-import app.tabellone.cella.strategy.creators.special.PremioCreator;
-import app.tabellone.cella.strategy.creators.special.SostaCreator;
-import app.tabellone.cella.strategy.creators.special.UnSoloDadoCreator;
+import app.tabellone.casella.CasellaAstratta;
+import app.tabellone.casella.concrete.special.CasellaPremio.CasellaPremioTipologia;
+import app.tabellone.casella.concrete.special.CasellaSosta.CasellaSostaTipologia;
+import app.tabellone.casella.strategy.CasellaCreator;
+import app.tabellone.casella.strategy.creators.ScalaCreator;
+import app.tabellone.casella.strategy.creators.SerpenteCreator;
+import app.tabellone.casella.strategy.creators.special.PescaUnaCartaCreator;
+import app.tabellone.casella.strategy.creators.special.PremioCreator;
+import app.tabellone.casella.strategy.creators.special.SostaCreator;
+import app.tabellone.casella.strategy.creators.special.UnSoloDadoCreator;
 
 public class Tabellone extends TabelloneAstratto {
 	

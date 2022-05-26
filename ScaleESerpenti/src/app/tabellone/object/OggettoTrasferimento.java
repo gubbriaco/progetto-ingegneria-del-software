@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 import javax.swing.JComponent;
 
-import app.tabellone.cella.CasellaAstratta;
+import app.tabellone.casella.CasellaAstratta;
 
 @SuppressWarnings("serial")
 public abstract class OggettoTrasferimento extends JComponent {

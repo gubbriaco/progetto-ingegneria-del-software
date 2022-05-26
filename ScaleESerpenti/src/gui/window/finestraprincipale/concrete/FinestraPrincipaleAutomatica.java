@@ -6,14 +6,15 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.io.File;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import app.modalita.Modalita.Mod;
 import app.tabellone.Tabellone;
 import app.tabellone.TabelloneAstratto;
-import app.tabellone.cella.CasellaAstratta;
+import app.tabellone.casella.CasellaAstratta;
+import gui.graphic.panel.LegendaPanel;
+import gui.graphic.panel.PanelAbstract;
 import gui.window.finestraprincipale.FinestraPrincipaleAstratta;
 
 @SuppressWarnings("serial")
@@ -26,6 +27,7 @@ public final class FinestraPrincipaleAutomatica extends FinestraPrincipaleAstrat
 	private TabelloneAstratto tabellone;
 	private GridLayout gl;
 	
+	private PanelAbstract legenda;
 
 	public FinestraPrincipaleAutomatica(Mod modalita, int numeroGiocatori, int[] dimensioniTabellone) {
 		super(modalita, numeroGiocatori, dimensioniTabellone);
@@ -91,13 +93,17 @@ public final class FinestraPrincipaleAutomatica extends FinestraPrincipaleAstrat
 		
 		for(int i=0;i<nrRighe;++i)
 			for(int j=0;j<nrColonne;++j)
-				pCENTER.add(matriceTabellone[i][j],BorderLayout.CENTER);
+				pCENTER.add(matriceTabellone[i][j], BorderLayout.CENTER);
 		
 	}
 
 
 	@Override protected void inizializzaLayoutSOUTH() {
-		//TODO
+		pSOUTH = new JPanel();
+		legenda = new LegendaPanel();
+		pSOUTH.add(new JLabel("Legenda"));
+		pSOUTH.add(legenda);
+		this.add(pSOUTH, BorderLayout.SOUTH);
 	}
 
 	@Override protected void inizializzaLayoutWEST() {}

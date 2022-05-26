@@ -1,12 +1,9 @@
 package app.tabellone.object;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.geom.Line2D;
 
-import app.tabellone.cella.CasellaAstratta;
+import app.tabellone.casella.CasellaAstratta;
 
 @SuppressWarnings("serial")
 public class Scala extends OggettoTrasferimento {
@@ -14,6 +11,7 @@ public class Scala extends OggettoTrasferimento {
 	
 	public Scala(CasellaAstratta testaScala, CasellaAstratta codaScala) {
 		super(testaScala, codaScala);
+		//System.out.println(testaScala.getNumeroCasella() + "," + codaScala.getNumeroCasella());	
 	}
 	
 

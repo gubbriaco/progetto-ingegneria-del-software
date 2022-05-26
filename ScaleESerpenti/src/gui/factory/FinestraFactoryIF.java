@@ -8,7 +8,7 @@ public interface FinestraFactoryIF {
 	
 	/**
 	 * Utilizzando il design pattern Factory Method riesco ad implementare una
-	 * {@link FinestraServiceIF} di una tipologia specificata come parametro ed, inoltre,
+	 * {@link ComponentServiceIF} di una tipologia specificata come parametro ed, inoltre,
 	 * e' possibile implementare una tipologia di {@Finestra} specifica tramite 
 	 * il parametro offset.
 	 * @param tipologiaFinestra

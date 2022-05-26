@@ -2,7 +2,6 @@ package gui.factory;
 
 import app.exception.FactoryException;
 import app.modalita.Modalita;
-import gui.decorator.concrete.ManualeExecButtonDecorator;
 import gui.window.FinestraIF;
 import gui.window.finestraerrore.concrete.FinestraErrore;
 import gui.window.finestraprincipale.concrete.FinestraPrincipaleAutomatica;
@@ -22,7 +21,7 @@ public class FinestraFactory implements FinestraFactoryIF {
 	        if(offset.equalsIgnoreCase("FinestraPrincipaleAutomatica"))
 	        	return new FinestraPrincipaleAutomatica(modalita, numeroGiocatori, dimensioniTabellone);
 	        else if(offset.equalsIgnoreCase("FinestraPrincipaleManuale"))
-	        	return (FinestraIF) new ManualeExecButtonDecorator(new FinestraPrincipaleManuale(modalita, numeroGiocatori, dimensioniTabellone));
+	        	return new FinestraPrincipaleManuale(modalita, numeroGiocatori, dimensioniTabellone);
 	        	//new FinestraPrincipaleManuale();
 	        	// TODO il cast
 		}else if(tipologiaFinestra.equalsIgnoreCase("PannelloAstratto")) {

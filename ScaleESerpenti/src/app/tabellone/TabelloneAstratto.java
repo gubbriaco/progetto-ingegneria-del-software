@@ -2,14 +2,15 @@ package app.tabellone;
 
 import java.util.Random;
 
-import app.tabellone.cella.CasellaAstratta;
-import app.tabellone.cella.concrete.CasellaStandard;
-import app.tabellone.cella.concrete.special.CasellaPescaUnaCarta;
-import app.tabellone.cella.concrete.special.CasellaUnSoloDado;
-import app.tabellone.cella.concrete.special.premio.CasellaPremioDadi;
-import app.tabellone.cella.concrete.special.premio.CasellaPremioMolla;
-import app.tabellone.cella.concrete.special.sosta.CasellaSostaLocanda;
-import app.tabellone.cella.concrete.special.sosta.CasellaSostaPanchina;
+import app.tabellone.casella.CasellaAstratta;
+import app.tabellone.casella.concrete.special.CasellaPescaUnaCarta;
+import app.tabellone.casella.concrete.special.CasellaUnSoloDado;
+import app.tabellone.casella.concrete.special.premio.CasellaPremioDadi;
+import app.tabellone.casella.concrete.special.premio.CasellaPremioMolla;
+import app.tabellone.casella.concrete.special.sosta.CasellaSostaLocanda;
+import app.tabellone.casella.concrete.special.sosta.CasellaSostaPanchina;
+import app.tabellone.casella.factory.CasellaFactory;
+import app.tabellone.casella.factory.CasellaFactoryIF;
 
 public abstract class TabelloneAstratto {
 	
@@ -22,6 +23,8 @@ public abstract class TabelloneAstratto {
 				   randomPremio, randomPescaUnaCarta;
 	
 	public static int[] CELLE_UN_SOLO_DADO;
+	
+	private CasellaFactoryIF casellaFactory = new CasellaFactory(); 
 	
 	
 	
@@ -101,9 +104,10 @@ public abstract class TabelloneAstratto {
 					continue;
 				if(isSpeciale(tabellone[i][j].getClass())) {
 					numeroCorrenteCaselleSpeciali = numeroCorrenteCaselleSpeciali+1;
-					if(numeroCorrenteCaselleSpeciali < NUMERO_MAX_CASELLE_SPECIALI)
-						tabellone[i][j] = new CasellaStandard(tabellone[i][j].getNumeroCasella());
-					else
+					if(numeroCorrenteCaselleSpeciali < NUMERO_MAX_CASELLE_SPECIALI) {
+						tabellone[i][j] = casellaFactory.createCella
+						("Standard", tabellone[i][j].getNumeroCasella());
+					}else
 						break;
 				}
 			}
@@ -178,10 +182,12 @@ public abstract class TabelloneAstratto {
 		for (int i = 0; i < tabellone.length; ++i) {
 			for (int j = 0; j < tabellone[i].length; ++j) {
 				if (sensoOrario) {
-					tabellone[i][j] = new CasellaStandard(numeroCasella);
+					tabellone[i][j] = casellaFactory.createCella
+					("Standard", numeroCasella);
 					numeroCasella = numeroCasella - 1;
 				} else {
-					tabellone[i][j] = new CasellaStandard(numeroCasella);
+					tabellone[i][j] = casellaFactory.createCella
+							("Standard", numeroCasella);
 					numeroCasella = numeroCasella + 1;
 				}
 			}
