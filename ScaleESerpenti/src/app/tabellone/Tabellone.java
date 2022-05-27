@@ -1,36 +1,31 @@
 package app.tabellone;
 
 import app.tabellone.casella.CasellaAstratta;
-import app.tabellone.casella.concrete.special.CasellaPremio.CasellaPremioTipologia;
-import app.tabellone.casella.concrete.special.CasellaSosta.CasellaSostaTipologia;
 import app.tabellone.casella.strategy.CasellaCreator;
 import app.tabellone.casella.strategy.creators.ScalaCreator;
 import app.tabellone.casella.strategy.creators.SerpenteCreator;
 import app.tabellone.casella.strategy.creators.special.PescaUnaCartaCreator;
-import app.tabellone.casella.strategy.creators.special.PremioCreator;
-import app.tabellone.casella.strategy.creators.special.SostaCreator;
 import app.tabellone.casella.strategy.creators.special.UnSoloDadoCreator;
+import app.tabellone.casella.strategy.creators.special.premio.PremioDadiCreator;
+import app.tabellone.casella.strategy.creators.special.premio.PremioMollaCreator;
+import app.tabellone.casella.strategy.creators.special.sosta.SostaLocandaCreator;
+import app.tabellone.casella.strategy.creators.special.sosta.SostaPanchinaCreator;
 
 public class Tabellone extends TabelloneAstratto {
 	
 	
 	private CasellaCreator casellaCreator;
 	
-	private int numeroPanchine, numeroLocande, numeroDadi, numeroMolle;
-	
 	
 	public Tabellone(int nrRighe, int nrColonne) {
 		super(nrRighe, nrColonne);
-		numeroPanchine = 0;
-		numeroLocande = 0;
 	}
 
 	
-	protected void aggiungiCaselleSpeciali(){
+	@Override protected void aggiungiCaselleSpeciali(){
 		
 		casellaCreator = new UnSoloDadoCreator();
 		tabellone = casellaCreator.createCasella(tabellone, -1);
-		
 		
 		for(int i=0;i<tabellone.length;++i) {
 			
@@ -54,9 +49,15 @@ public class Tabellone extends TabelloneAstratto {
 			 * scambio. */
 			if(bounds[0]>bounds[1]) {
 				base = bounds[1];
+				if(base==1) /** evito di assegnare la prima casella del tabellone
+				come casella speciale */
+					base=2;
 				limite = bounds[0];
 			} else {
 				base = bounds[0];
+				if(base==1)/** evito di assegnare la prima casella del tabellone
+				come casella speciale */
+					base=2;
 				limite = bounds[1];
 			}
 			
@@ -64,15 +65,29 @@ public class Tabellone extends TabelloneAstratto {
 			
 			/** numero di cella randomica su cui posizionare la casella speciale
 			 *  Sosta */
-			int randSosta = randomSosta.nextInt(base, limite+1);
-			casellaCreator = new SostaCreator(i, this, numeroPanchine, numeroLocande);
-			tabellone = casellaCreator.createCasella(tabellone, randSosta);
+			int randSostaPanchina = randomSosta.nextInt(base, limite+1);
+			casellaCreator = new SostaPanchinaCreator(i, this);
+			tabellone = casellaCreator.createCasella(tabellone, randSostaPanchina);
+			
+			/** numero di cella randomica su cui posizionare la casella speciale
+			 *  Sosta */
+			int randSostaLocanda = randomSosta.nextInt(base, limite+1);
+			casellaCreator = new SostaLocandaCreator(i, this);
+			tabellone = casellaCreator.createCasella(tabellone, randSostaLocanda);
+				
 			
 			/** numero di cella randomica su cui posizionare la casella speciale
 			 *  Premio */
-			int randPremio = randomPremio.nextInt(base, limite+1);
-			casellaCreator = new PremioCreator(i, this, numeroDadi, numeroMolle);
-			tabellone = casellaCreator.createCasella(tabellone, randPremio);
+			int randPremioDadi = randomPremio.nextInt(base, limite+1);
+			casellaCreator = new PremioDadiCreator(i, this);
+			tabellone = casellaCreator.createCasella(tabellone, randPremioDadi);
+			
+			/** numero di cella randomica su cui posizionare la casella speciale
+			 *  Premio */
+			int randPremioMolla = randomPremio.nextInt(base, limite+1);
+			casellaCreator = new PremioMollaCreator(i, this);
+			tabellone = casellaCreator.createCasella(tabellone, randPremioMolla);
+			
 			
 			/** numero di cella randomica su cui posizionare la casella speciale
 			 *  Pesca Una Carta */
@@ -92,6 +107,7 @@ public class Tabellone extends TabelloneAstratto {
 			casellaCreator = new SerpenteCreator(i, this);
 			tabellone = casellaCreator.createCasella(tabellone, randSerpente);
 			
+			
 		}
 		
 	}
@@ -110,33 +126,6 @@ public class Tabellone extends TabelloneAstratto {
 		
 		return bounds;
 	}
-	
-	/**
-	 * Permette di incrementare le variabili contatore {@link Tabellone#numeroPanchine}
-	 * e {@link Tabellone#numeroLocande} cosi' da mantenere un numero effettivo
-	 * di {@link CasellaSostaPanchina} e {@link CasellaSostaLocanda} presenti 
-	 * nel tabellone.
-	 * @param tipologia Tipologia di Casella Sosta
-	 */
-	public void aggiungiTipologiaSosta(CasellaSostaTipologia tipologia) {
-		if(CasellaSostaTipologia.PANCHINA == tipologia)
-			numeroPanchine = numeroPanchine+1;
-		else
-			numeroLocande = numeroLocande+1;
-	}
-	
-	/**
-	 * Permette di incrementare le variabili contatore {@link Tabellone#numeroPanchine}
-	 * e {@link Tabellone#numeroLocande} cosi' da mantenere un numero effettivo
-	 * di {@link CasellaSostaPanchina} e {@link CasellaSostaLocanda} presenti 
-	 * nel tabellone.
-	 * @param tipologia Tipologia di Casella Sosta
-	 */
-	public void aggiungiTipologiaPremio(CasellaPremioTipologia tipologia) {
-		if(CasellaPremioTipologia.DADI == tipologia)
-			numeroDadi = numeroDadi+1;
-		else
-			numeroMolle = numeroMolle+1;
-	}
+
 
 }

@@ -22,12 +22,22 @@ public abstract class TabelloneAstratto {
 	protected Random randomScala, randomSerpente, randomSosta,
 				   randomPremio, randomPescaUnaCarta;
 	
+	/** Intervallo del numero di celle che devono essere inizializzate come 
+	 * caselle speciali di tipologia {@link CasellaUnSoloDado}*/
 	public static int[] CELLE_UN_SOLO_DADO;
 	
 	private CasellaFactoryIF casellaFactory = new CasellaFactory(); 
 	
 	
-	
+	/**
+	 * Inizializza il Tabellone generico avente un numero di righe pari a nrRighe
+	 * ed un numero di colonne pari a nrColonne. Inoltre, vengono inizializzate 
+	 * le matrici di controllo booleane, relative alle possibili caselle speciali, 
+	 * utili all'algoritmo di assegnazione delle caselle speciali 
+	 * {@link TabelloneAstratto#aggiungiCaselleSpeciali()}.
+	 * @param nrRighe
+	 * @param nrColonne
+	 */
 	public TabelloneAstratto(int nrRighe, int nrColonne) {
 		
 		this.nrRighe = nrRighe;
@@ -67,7 +77,12 @@ public abstract class TabelloneAstratto {
 		 
 		aggiungiCaselleSpeciali();
 		
+		/** Faccio in modo che non siano presenti tante caselle speciali 
+		 * all'interno del tabellone inizializzato secondo un determinato 
+		 * algoritmo*/
 		sfoltisciTabellone();
+		
+	
 		
 		aggiungiGraficaAlleCaselle();
 		
@@ -83,6 +98,8 @@ public abstract class TabelloneAstratto {
 	}
 	
 	
+	
+	
 	/**
 	 * Sfoltisce il tabellone dalle troppe caselle speciali seguendo un 
 	 * determinato algoritmo.
@@ -91,11 +108,11 @@ public abstract class TabelloneAstratto {
 		
 		/** impongo che per ogni riga i-esima del tabellone siano presenti al 
 		 * massimo un NUMERO_MAX_CASELLE_SPECIALI */
-		final int NUMERO_MAX_CASELLE_SPECIALI = 3;
-		int numeroCorrenteCaselleSpeciali = 0;
+		final int NUMERO_MAX_CASELLE_SPECIALI_RIGA = nrColonne/2;
+		int numeroCorrenteCaselleSpecialiPerRiga = 0;
 		
 		for(int i=0;i<nrRighe;++i) {
-			numeroCorrenteCaselleSpeciali = 0;
+			numeroCorrenteCaselleSpecialiPerRiga = 0;
 			for(int j=0;j<nrColonne;++j) {
 				/** verifico che non si tratti di una casella di tipologia Un 
 				 * Solo Dado essendo che quest'ultime sono pre-fissate*/
@@ -103,8 +120,8 @@ public abstract class TabelloneAstratto {
 				tabellone[i][j].getNumeroCasella() <= Tabellone.CELLE_UN_SOLO_DADO[1])
 					continue;
 				if(isSpeciale(tabellone[i][j].getClass())) {
-					numeroCorrenteCaselleSpeciali = numeroCorrenteCaselleSpeciali+1;
-					if(numeroCorrenteCaselleSpeciali < NUMERO_MAX_CASELLE_SPECIALI) {
+					numeroCorrenteCaselleSpecialiPerRiga = numeroCorrenteCaselleSpecialiPerRiga+1;
+					if(numeroCorrenteCaselleSpecialiPerRiga > NUMERO_MAX_CASELLE_SPECIALI_RIGA) {
 						tabellone[i][j] = casellaFactory.createCella
 						("Standard", tabellone[i][j].getNumeroCasella());
 					}else
@@ -114,13 +131,20 @@ public abstract class TabelloneAstratto {
 		}
 	}
 	
+	/**
+	 * Permette di verificare se la casella passata come parametro al metodo e'
+	 * una casella speciale. Per la precisione viene passato come parametro la 
+	 * classe della casella.
+	 * @param tipologiaCasella
+	 * @return La casella e' speciale
+	 */
 	private boolean isSpeciale(Class<? extends CasellaAstratta> tipologiaCasella) {
 		return tipologiaCasella.equals(CasellaPescaUnaCarta.class) ||
 				tipologiaCasella.equals(CasellaPremioDadi.class) ||
 				tipologiaCasella.equals(CasellaPremioMolla.class) ||
 				tipologiaCasella.equals(CasellaSostaLocanda.class) ||
-				tipologiaCasella.equals(CasellaSostaPanchina.class) ||
-				tipologiaCasella.equals(CasellaUnSoloDado.class) ;
+				tipologiaCasella.equals(CasellaSostaPanchina.class) ;
+				//tipologiaCasella.equals(CasellaUnSoloDado.class) ;
 	}
 	
 	

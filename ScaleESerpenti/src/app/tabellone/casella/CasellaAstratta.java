@@ -1,32 +1,33 @@
 package app.tabellone.casella;
 
-import java.awt.Color;
-
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
+import gui.graphic.border.RoundedBorder;
 
 @SuppressWarnings("serial")
 public abstract class CasellaAstratta extends JLabel {
 	
 	
 	private int numeroCasella;
-	private Border border;
+	
 	
 	public CasellaAstratta(int numeroCasella) {
 		super(""+numeroCasella,SwingConstants.CENTER);
 		this.numeroCasella = numeroCasella;
-		border = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK);
-		this.setBorder(border);
+		this.setBorder(new RoundedBorder(5));
 	}
 	
-	
+	/**
+	 * Restituisce il numero di casella della Casella in questione.
+	 * @return Numero della casella
+	 */
 	public int getNumeroCasella() {
 		return numeroCasella;
 	}
 	
-	
+	/**
+	 * Rappresenta graficamente la casella in questione.
+	 */
 	public abstract void draw();
 
 

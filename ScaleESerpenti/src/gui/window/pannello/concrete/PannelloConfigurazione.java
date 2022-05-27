@@ -153,11 +153,18 @@ public class PannelloConfigurazione extends PannelloAstratto {
 				if( verificaScelte() ) {
 					gestisciInput();
 					disposeWindow();
-					
-					FinestraIF finestraPrincipale = fPrincipale.createFinestra
-					("FinestraPrincipaleAstratta", "FinestraPrincipaleAutomatica",
-					  modalita, numGiocatori, dimensioniTabellone);
-					finestraPrincipale.inizializzaFinestra();
+					if(modalita == Modalita.Mod.AUTOMATICA) {
+						FinestraIF finestraPrincipale = fPrincipale.createFinestra
+						("FinestraPrincipaleAstratta", "FinestraPrincipaleAutomatica",
+						  modalita, numGiocatori, dimensioniTabellone);
+						finestraPrincipale.inizializzaFinestra();
+					}
+					else {
+						FinestraIF finestraPrincipale = fPrincipale.createFinestra
+								("FinestraPrincipaleAstratta", "FinestraPrincipaleManuale",
+								  modalita, numGiocatori, dimensioniTabellone);
+								finestraPrincipale.inizializzaFinestra();
+					}
 				}
 				else {
 					FinestraIF finestraErrore = errore.createFinestra

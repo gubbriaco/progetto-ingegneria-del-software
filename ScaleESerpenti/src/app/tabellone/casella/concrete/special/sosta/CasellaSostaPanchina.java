@@ -14,7 +14,7 @@ public class CasellaSostaPanchina extends CasellaSosta {
 
 	@Override public void draw() {
 		this.setOpaque(true);
-		this.setBackground(Color.RED.darker());
+		this.setBackground(Color.RED.brighter());
 		this.setForeground(Color.BLACK.brighter());
 	}
 

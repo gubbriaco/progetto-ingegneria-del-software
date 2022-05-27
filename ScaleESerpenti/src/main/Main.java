@@ -8,7 +8,9 @@ public class Main {
 	
 	public static void main(String...strings) {
 		
-		ScaleESerpenti sep = new Applicazione();
+		/** Applico il design pattern Singleton essendo che deve esistere 
+		 * esattamente solo un'istanza della classe Applicazione.*/
+		ScaleESerpenti sep = Applicazione.getIstance();
 		sep.start();
 	
 	}

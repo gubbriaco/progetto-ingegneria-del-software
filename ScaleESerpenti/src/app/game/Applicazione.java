@@ -4,12 +4,33 @@ import gui.factory.FinestraFactory;
 import gui.factory.FinestraFactoryIF;
 import gui.window.FinestraIF;
 
-public class Applicazione implements ScaleESerpenti {
+public final class Applicazione implements ScaleESerpenti {
 	
 	private FinestraFactoryIF pannelloScelta = new FinestraFactory();
 	
 	
-	public Applicazione() {}
+	/** Assicuro che la classe abbia una sola istanza e che tale istanza sia 
+	 * facilmente accessibile. Pertanto, la classe stessa assicura che 
+	 * nessun'altra istanza possa essere creata e, tramite il metodo statico e 
+	 * synchronized getIstance(), essa fornisce un modo semplice per accedere 
+	 * all'unica istanza creata. Tale tecnica utilizzata e' la cosidetta Lazy
+	 * Inizialization.*/
+	private static Applicazione INSTANCE = null;
+	
+	private Applicazione() {}
+	
+	/**
+	 * Permette di accedere all'unica istanza che si puo' creare della classe in
+	 * questione. Esso e' reso synchronized per garantire l'atomicita' del 
+	 * processo di creazione nel caso di accesso concorrente della classe in 
+	 * questione.
+	 * @return Istanza della classe {@link Applicazione}
+	 */
+	public static synchronized Applicazione getIstance() {
+		if(INSTANCE == null)
+			INSTANCE = new Applicazione();
+		return INSTANCE;
+	}
 
 	/**Inizializza l'esecuzione dell'applicazione in questione. <p>
 	 * Inizialmente comparira' un pannello (il Pannello delle Scelte) che 
