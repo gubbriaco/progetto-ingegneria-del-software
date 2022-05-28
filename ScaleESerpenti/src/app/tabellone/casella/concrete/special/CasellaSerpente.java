@@ -14,7 +14,7 @@ public class CasellaSerpente extends CasellaAstratta {
 	@Override public void draw() {
 		this.setOpaque(true);
 		this.setBackground(new Color(102,51,0));
-		this.setForeground(Color.BLACK.darker());
+		this.setForeground(Color.BLACK);
 	}
 
 }

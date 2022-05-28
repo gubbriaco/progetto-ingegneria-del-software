@@ -14,8 +14,8 @@ public class CasellaPremioDadi extends CasellaPremio {
 
 	@Override public void draw() {
 		this.setOpaque(true);
-		this.setBackground(Color.GREEN.darker());
-		this.setForeground(Color.BLACK.brighter());
+		this.setBackground(Color.GREEN);
+		this.setForeground(Color.BLACK);
 	}
 
 }

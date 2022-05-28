@@ -2,11 +2,12 @@ package gui.window.finestraterminale.concrete;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.util.Arrays;
+import java.util.LinkedList;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import gui.window.finestraterminale.FinestraTerminaleAstratta;
 
@@ -16,17 +17,32 @@ public class FinestraTerminale extends FinestraTerminaleAstratta {
 	private JLabel label;
 	@SuppressWarnings("rawtypes")
 	private JList elencoAttivita;
-	
-	private int numeroAttivitaSvolte;
-	private String[] attivitaSvolte;
+	private LinkedList<String> attivitaSvolte;
+	private JScrollPane sp;
 	
 	public FinestraTerminale() {
 		titolo = "Terminale";
 		this.setTitle(titolo);
 		
-		numeroAttivitaSvolte = 1;
-		attivitaSvolte = new String[numeroAttivitaSvolte];
-		attivitaSvolte[0] = "--- NUOVA SESSIONE DI GIOCO ---";
+		attivitaSvolte = new LinkedList<>();
+		attivitaSvolte.add( "--- NUOVA SESSIONE DI GIOCO ---" );
+		attivitaSvolte.add( "--- Turno 1 ---" );
+	}
+	
+	
+	/**
+	 * Il metodo viene ridefinito cosi' da aggiungere l'operazione 
+	 * {@link java.awt.Frame#setResizable(boolean)} e da non permettere 
+	 * all'utente di ridimensionare la finestra essendo comunque una finestra, 
+	 * in entrambi i casi {@link PannelloConfigurazione} e 
+	 * {@link PannelloScelte}, di configurazione per la sessione di gioco 
+	 * inizializzata.
+	 */
+	@Override protected void visualizzaFinestra() {
+		this.pack();
+		this.setResizable(false);
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
 	}
 	
 
@@ -47,28 +63,34 @@ public class FinestraTerminale extends FinestraTerminaleAstratta {
 		pCENTER = new JPanel();
 		this.add(pCENTER, BorderLayout.CENTER);
 		
-		elencoAttivita = new JList(attivitaSvolte);
-		pCENTER.add(elencoAttivita, BorderLayout.CENTER);
+		elencoAttivita = new JList(attivitaSvolte.toArray());
+		//pCENTER.add(elencoAttivita, BorderLayout.CENTER);
+		sp = new JScrollPane(elencoAttivita);
+		sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		pCENTER.add(sp);
 	}
 	
 	
 
-	@Override protected void espandiAttivita(String attivita) {
-		numeroAttivitaSvolte = numeroAttivitaSvolte + 1;
-		attivitaSvolte = Arrays.copyOf(attivitaSvolte, numeroAttivitaSvolte);
-
-		attivitaSvolte[numeroAttivitaSvolte] = attivita;
+	@Override public void espandiAttivita(String attivita) {
+		attivitaSvolte.add(attivita);
 		
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override protected void repaintTerminale() {
+	@Override public void repaintTerminale() {
 		/**elimino la vecchia lista di attivita' */
-		pCENTER.remove(elencoAttivita);
+		pCENTER.remove(sp);
 		
 		/**aggiungo la nuova lista di attivita'*/
-		elencoAttivita = new JList(attivitaSvolte);
+		elencoAttivita = new JList(attivitaSvolte.toArray());
+		sp = new JScrollPane(elencoAttivita);
+		sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		pCENTER.add(sp, BorderLayout.CENTER);
 		repaint();
+		this.pack();
 	}
 
 	

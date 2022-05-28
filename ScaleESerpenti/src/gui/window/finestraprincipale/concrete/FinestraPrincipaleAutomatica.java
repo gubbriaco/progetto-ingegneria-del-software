@@ -1,23 +1,15 @@
 package gui.window.finestraprincipale.concrete;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.io.File;
+import java.util.LinkedList;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-import app.modalita.Modalita;
+import app.esecuzione.EsecuzioneAutomatica;
+import app.esecuzione.giocatore.Giocatore;
+import app.esecuzione.giocatore.Pedina;
 import app.modalita.Modalita.Mod;
-import gui.decorator.concrete.ExecManualePanel;
-import gui.decorator.concrete.ProssimoTurnoPanel;
-import gui.decorator.concrete.SaveSessionPanel;
-import gui.graphic.border.RoundedBorder;
-import gui.graphic.panel.concrete.CombinazioneDadiCorrentePanel;
-import gui.graphic.panel.concrete.GiocatoreCorrentePanel;
+import app.tabellone.Tabellone;
 import gui.window.finestraprincipale.FinestraPrincipaleAstratta;
+import gui.window.finestraterminale.concrete.FinestraTerminale;
 
 @SuppressWarnings("serial")
 public class FinestraPrincipaleAutomatica extends FinestraPrincipaleAstratta{
@@ -27,83 +19,24 @@ public class FinestraPrincipaleAutomatica extends FinestraPrincipaleAstratta{
 		super(modalita, numeroGiocatori, dimensioniTabellone);
 		
 		inizializzaTabellone(nrRighe, nrColonne);
+		
+		
+		/** inizializzo la lista dei giocatori presenti nella nuova sessione di gioco*/
+		giocatoriInGioco = new LinkedList<>();
+		/** aggiungo i giocatori che intendono giocare nella nuova sessione di gioco */
+		Giocatore nuovoGiocatore;
+		for(int i=0;i<numeroGiocatori;++i){
+			nuovoGiocatore = new Pedina("Giocatore " + (i+1), (Tabellone)tabellone);
+		  	giocatoriInGioco.add( nuovoGiocatore );
+		}
+		esecuzione = new EsecuzioneAutomatica(giocatoriInGioco, (Tabellone) tabellone, modalita, this, (FinestraTerminale) terminale);
+		esecuzione.startNewGame();
 	}
 	
 	public FinestraPrincipaleAutomatica(File file) {
 		super(file);
 	}
-	
-	
-	
 
-	@Override protected void inizializzaLayoutNORTH() {
-		pNORTH = new JPanel();
-		pNORTH.setBackground(Color.GREEN.darker());
-		
-		titoloGioco = new JLabel("Scale e Serpenti");
-		titoloGioco.setForeground(Color.WHITE);
-		
-		font = new Font("Helvetica", Font.BOLD, 14);
-		titoloGioco.setFont(font);
-
-		pNORTH.add(titoloGioco, BorderLayout.CENTER);
-		
-		decoratorePNORTH = new ProssimoTurnoPanel(pNORTH, turnoCorrente, modalita).decorate();
-		pNORTH = decoratorePNORTH;
-		
-
-		this.add(pNORTH, BorderLayout.NORTH);
-		
-	}
-	
-	
-	
-	@Override protected void inizializzaLayoutEAST() {
-		
-		pEAST = new JPanel();
-		
-		final int raggio = 5;
-		
-		pEAST.setLayout(new GridLayout(4,1));
-		
-		giocatoreCorrenteLabel = new GiocatoreCorrentePanel(giocatoreCorrente);
-		titoloGiocatoreCorrente = new JLabel("Giocatore corrente");
-		titoloGiocatoreCorrente.setOpaque(true);
-		titoloGiocatoreCorrente.setBackground(Color.BLACK);
-		titoloGiocatoreCorrente.setForeground(Color.WHITE);
-		titoloGiocatoreCorrente.setBorder(new RoundedBorder(raggio));
-		
-		pEAST.add(titoloGiocatoreCorrente);
-		pEAST.add(giocatoreCorrenteLabel);
-		
-		
-		titoloCombinazioneDadi = new JLabel("Combinazione dadi");
-		titoloCombinazioneDadi.setOpaque(true);
-		titoloCombinazioneDadi.setBackground(Color.BLACK);
-		titoloCombinazioneDadi.setForeground(Color.WHITE);
-		titoloCombinazioneDadi.setBorder(new RoundedBorder(raggio));
-		
-		combinazioneDadiCorrenteLabel = new CombinazioneDadiCorrentePanel(combinazioneDadiCorrente);
-		
-		pEAST.add(titoloCombinazioneDadi);
-		pEAST.add(combinazioneDadiCorrenteLabel);
-		
-		
-		decoratorePEAST = new ExecManualePanel( pEAST, Modalita.Mod.MANUALE ).decorate();
-		pEAST = decoratorePEAST;
-		
-		decoratorePEAST = new SaveSessionPanel( pEAST ).decorate();
-		pEAST = decoratorePEAST;
-
-		this.add(pEAST, BorderLayout.EAST);
-		
-	}
-
-
-	
 	@Override protected void inizializzaLayoutWEST() {}
 	
-
-
-
 }

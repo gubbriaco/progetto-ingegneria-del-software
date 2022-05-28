@@ -15,7 +15,7 @@ public class CasellaSostaLocanda extends CasellaSosta {
 	@Override public void draw() {
 		this.setOpaque(true);
 		this.setBackground(Color.RED.darker());
-		this.setForeground(Color.BLACK.darker());
+		this.setForeground(Color.BLACK);
 	}
 
 }

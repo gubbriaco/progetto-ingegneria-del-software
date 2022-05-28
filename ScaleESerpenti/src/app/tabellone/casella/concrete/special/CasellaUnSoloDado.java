@@ -15,7 +15,7 @@ public class CasellaUnSoloDado extends CasellaAstratta {
 	@Override public void draw() {
 		this.setOpaque(true);
 		this.setBackground(Color.GRAY);
-		this.setForeground(Color.BLACK.darker());
+		this.setForeground(Color.BLACK);
 	}
 
 	

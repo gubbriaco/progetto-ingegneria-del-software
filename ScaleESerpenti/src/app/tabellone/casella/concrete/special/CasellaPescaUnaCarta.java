@@ -14,7 +14,7 @@ public class CasellaPescaUnaCarta extends CasellaAstratta  {
 	@Override public void draw() {
 		this.setOpaque(true);
 		this.setBackground(Color.ORANGE);
-		this.setForeground(Color.BLACK.darker());
+		this.setForeground(Color.BLACK);
 	}
 
 }

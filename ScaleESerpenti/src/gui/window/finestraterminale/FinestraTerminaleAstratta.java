@@ -15,7 +15,16 @@ public abstract class FinestraTerminaleAstratta extends FinestraAstratta  {
 		repaintTerminale();
 	}
 	
-	protected abstract void espandiAttivita(String attivita);
-	protected abstract void repaintTerminale();
+	/**
+	 * Aggiunge una nuova attivita' alla Finestra Terminale avvenuta durante la 
+	 * sessione di gioco. 
+	 * @param attivita
+	 */
+	public abstract void espandiAttivita(String attivita);
+	
+	/**
+	 * Aggiorna graficamente la Finestra Terminale.
+	 */
+	public abstract void repaintTerminale();
 	
 }

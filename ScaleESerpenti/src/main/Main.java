@@ -13,6 +13,7 @@ public class Main {
 		ScaleESerpenti sep = Applicazione.getIstance();
 		sep.start();
 	
+		
 	}
 	
 
