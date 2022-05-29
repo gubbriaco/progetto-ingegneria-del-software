@@ -4,17 +4,17 @@ import java.util.LinkedList;
 
 import app.esecuzione.dadi.Dado;
 import app.esecuzione.giocatore.Giocatore;
-import app.modalita.Modalita.Mod;
+import app.modalita.Modalita;
 import app.tabellone.Tabellone;
 import gui.window.finestraprincipale.FinestraPrincipaleAstratta;
 import gui.window.finestraterminale.concrete.FinestraTerminale;
 
 public class EsecuzioneAutomatica extends Esecuzione {
 
-	public EsecuzioneAutomatica(LinkedList<Giocatore> giocatoriInGioco, Tabellone tabellone, 
-				           Mod modalita, FinestraPrincipaleAstratta finestraPrincipale, 
-			               FinestraTerminale terminale) {
-		super(giocatoriInGioco, tabellone, modalita, finestraPrincipale, terminale);
+	public EsecuzioneAutomatica(LinkedList<Giocatore> giocatoriInGioco, Tabellone tabellone,
+			FinestraPrincipaleAstratta finestraPrincipale, FinestraTerminale terminale, 
+			Modalita.Mod modalita) {
+		super(giocatoriInGioco, tabellone, finestraPrincipale, terminale, modalita);
 	}
 
 	
@@ -61,21 +61,26 @@ public class EsecuzioneAutomatica extends Esecuzione {
 				if(nuovaCasella == finestraPrincipale.getMatriceTabellone()[0][0].getNumeroCasella()) {
 					turno = turno+1;
 					finestraPrincipale.setNuovoTurno(turno);
+					finestraPrincipale.repaint();
 					victory = true;
 				}
+				
 
 			}
 			
 			if(victory)
 				break;
-			
-			turno = turno+1;
-			finestraPrincipale.setNuovoTurno(turno);
-			
-			terminale.espandiAttivita("--- " + "Turno " + turno + " ---");
-			terminale.repaintTerminale();
-
+			else {
+				turno = turno+1;
+				finestraPrincipale.setNuovoTurno(turno);
+				finestraPrincipale.repaint();
+				
+				terminale.espandiAttivita("--- " + "Turno " + turno + " ---");
+				terminale.repaintTerminale();
+			}
 		}
+		
+		
 	}
 
 

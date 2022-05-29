@@ -29,8 +29,9 @@ public class FinestraPrincipaleAutomatica extends FinestraPrincipaleAstratta{
 			nuovoGiocatore = new Pedina("Giocatore " + (i+1), (Tabellone)tabellone);
 		  	giocatoriInGioco.add( nuovoGiocatore );
 		}
-		esecuzione = new EsecuzioneAutomatica(giocatoriInGioco, (Tabellone) tabellone, modalita, this, (FinestraTerminale) terminale);
-		esecuzione.startNewGame();
+		esecuzione = new EsecuzioneAutomatica(giocatoriInGioco, (Tabellone) tabellone,
+				this, (FinestraTerminale) terminale, modalita);
+		esecuzione.start();
 	}
 	
 	public FinestraPrincipaleAutomatica(File file) {

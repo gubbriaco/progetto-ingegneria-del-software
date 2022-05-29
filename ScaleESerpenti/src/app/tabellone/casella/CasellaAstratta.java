@@ -32,7 +32,6 @@ public abstract class CasellaAstratta extends JPanel {
 		
 		giocatori = new LinkedList<>();
 		elencoGiocatori = new JList(giocatori.toArray());
-		
 	}
 	
 	/**
@@ -41,6 +40,9 @@ public abstract class CasellaAstratta extends JPanel {
 	 * @param giocatore Giocatore che ha raggiunto la casella in questione.
 	 */
 	public void aggiungiGiocatore(Giocatore giocatore) {
+		for(int i=0;i<giocatori.size();++i)
+			if(giocatori.get(i).equalsIgnoreCase(giocatore.toString()))
+				return;
 		giocatori.add(giocatore.toString());
 	}
 	
@@ -49,7 +51,11 @@ public abstract class CasellaAstratta extends JPanel {
 	 * una nuova combinazione di dadi.
 	 * @param giocatore Giocatore che si e' spostato verso una nuova casella.
 	 */
+	@SuppressWarnings("unlikely-arg-type")
 	public void rimuoviGiocatore(Giocatore giocatore) {
+//		for(int i=0;i<giocatori.size();++i)
+//			if(giocatori.get(i).equals(giocatore.toString()))
+//				giocatori.remove(i);
 		giocatori.remove(giocatore);
 	}
 	

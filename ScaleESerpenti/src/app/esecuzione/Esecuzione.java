@@ -26,22 +26,22 @@ public abstract class Esecuzione {
 	
 	
 	
-	public Esecuzione(LinkedList<Giocatore> giocatoriInGioco, Tabellone tabellone,
-					  Modalita.Mod modalita, FinestraPrincipaleAstratta finestraPrincipale,	
-	                  FinestraTerminale terminale) {
+	public Esecuzione(LinkedList<Giocatore> giocatoriInGioco, Tabellone tabellone, FinestraPrincipaleAstratta finestraPrincipale,	
+	                  FinestraTerminale terminale, Modalita.Mod modalita) {
 		this.giocatoriInGioco = giocatoriInGioco;
 		this.tabellone = tabellone;
-		this.modalita = modalita;
 		this.finestraPrincipale = finestraPrincipale;
 		this.terminale = terminale;
+		this.modalita = modalita;
 	}
 	
 	
 	/**
 	 * Inizializza una nuova sessione di gioco.
 	 */
-	public void startNewGame() {
-		inizializzaGioco();
+	public void start() {
+		if(modalita == Modalita.Mod.AUTOMATICA)
+			inizializzaGioco();
 		esegui();
 	}
 	

@@ -121,10 +121,6 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 		return null;
 	}
 	
-//	public FinestraIF getTerminale() {
-//		return terminale;
-//	}
-//	
 	
 	protected TabelloneAstratto tabellone;
 	protected CasellaAstratta[][] matriceTabellone;
@@ -203,7 +199,7 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 	private JLabel titoloGioco;
 	protected String turnoCorrente;
 	private JLabel turno;
-	private JButton prossimoTurno;
+	protected JButton prossimoTurno;
 
 	@Override protected void inizializzaLayoutNORTH() {
 		pNORTH = new JPanel();
@@ -231,6 +227,9 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 			prossimoTurno.setForeground(Color.BLACK);
 			prossimoTurno.setBorder(new RoundedBorder(raggio));
 			pNORTH.add(prossimoTurno);
+			
+			
+			
 
 		}
 	

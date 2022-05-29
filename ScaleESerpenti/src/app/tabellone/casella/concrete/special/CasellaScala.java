@@ -14,7 +14,7 @@ public class CasellaScala extends CasellaAstratta {
 	@Override public void draw() {
 		this.setOpaque(true);
 		this.setBackground(Color.BLUE.brighter());
-		this.setForeground(Color.BLACK);
+		this.setForeground(Color.BLACK.darker());
 	}
 
 }
