@@ -85,15 +85,20 @@ public class Pedina extends PedinaAstratta {
 		for(int i=0;i<matriceTabellone.length;++i)
 			for(int j=0;j<matriceTabellone[i].length;++j)
 				if(matriceTabellone[i][j].getNumeroCasella() == casellaCorrente) {
-					matriceTabellone[i][j].rimuoviGiocatore(giocatore);
-					matriceTabellone[i][j].repaintCasella();
+					/** essendo che la casella con il primo numero del tabellone
+					 *  e' stata gia' inizializzata */
+					if(matriceTabellone[i][j].getNumeroCasella() == 1)
+						continue;
+					else {
+						matriceTabellone[i][j].rimuoviGiocatore(giocatore);
+						matriceTabellone[i][j].repaintCasella();
+					}
 				}
 		
 		/** il numero della nuova casella */
 		int nuovaCasella = casellaCorrente+combinazioneDadi;
 		for(int i=0;i<matriceTabellone.length;++i)
 			for(int j=0;j<matriceTabellone[i].length;++j) 
-			
 				if(matriceTabellone[i][j].getNumeroCasella() == nuovaCasella) {
 					matriceTabellone[i][j].aggiungiGiocatore(giocatore);
 					matriceTabellone[i][j].repaintCasella();

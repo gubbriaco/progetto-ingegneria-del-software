@@ -4,8 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.LinkedList;
 
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 
 import app.esecuzione.giocatore.Giocatore;
@@ -15,11 +15,13 @@ import gui.graphic.border.RoundedBorder;
 public abstract class CasellaAstratta extends JPanel {
 	
 	
+	
+	
 	private int numeroCasella;
 	
 	
 	@SuppressWarnings("rawtypes")
-	public JList elencoGiocatori;
+	public JComboBox elencoGiocatori;
 	
 	private LinkedList<String> giocatori;
 	
@@ -31,7 +33,7 @@ public abstract class CasellaAstratta extends JPanel {
 		this.setBorder(new RoundedBorder(5));
 		
 		giocatori = new LinkedList<>();
-		elencoGiocatori = new JList(giocatori.toArray());
+		elencoGiocatori = new JComboBox(giocatori.toArray());
 	}
 	
 	/**
@@ -68,10 +70,11 @@ public abstract class CasellaAstratta extends JPanel {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void repaintCasella() {
 		this.remove(elencoGiocatori);
-		elencoGiocatori = new JList(giocatori.toArray());
+		elencoGiocatori = new JComboBox(giocatori.toArray());
 		elencoGiocatori.setBackground(this.getBackground());
 		elencoGiocatori.setForeground(Color.BLACK);
-		this.add(elencoGiocatori, BorderLayout.SOUTH);
+		if(giocatori.size()!=0)
+			this.add(elencoGiocatori, BorderLayout.SOUTH);
 		this.repaint();
 	}
 	
@@ -89,9 +92,19 @@ public abstract class CasellaAstratta extends JPanel {
 	 */
 	public abstract void draw();
 
-	
-	
-	
+//	
+//	protected int xArrivo, yArrivo;
+//	
+//	public void setArrivo(int x, int y) {
+//		xArrivo = x;
+//		yArrivo = y;
+//	}
+//	
+//	public int[] getCasellaArrivo() {
+//		int[] posizioni = {xArrivo, yArrivo};
+//		return posizioni;
+//	}
+//	
 	
 	
 	

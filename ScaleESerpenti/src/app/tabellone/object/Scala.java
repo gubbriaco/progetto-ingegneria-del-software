@@ -1,29 +1,51 @@
 package app.tabellone.object;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Graphics;
+
+import javax.swing.JLabel;
 
 import app.tabellone.casella.CasellaAstratta;
 
 @SuppressWarnings("serial")
 public class Scala extends OggettoTrasferimento {
 	
+	JLabel testaScalaLabel, codaScalaLabel;
 	
 	public Scala(CasellaAstratta testaScala, CasellaAstratta codaScala) {
 		super(testaScala, codaScala);
+		
+		testaScalaLabel = new JLabel("TESTA: " + testa.getNumeroCasella());
+		testaScalaLabel.setOpaque(true);
+		testaScalaLabel.setForeground(Color.WHITE);
+		testaScalaLabel.setBackground(Color.BLUE.brighter());
+		codaScalaLabel = new JLabel("CODA: " + coda.getNumeroCasella());
+		codaScalaLabel.setOpaque(true);
+		codaScalaLabel.setForeground(Color.WHITE);
+		codaScalaLabel.setBackground(Color.BLUE.brighter());
+		
+		if(testaScala.getNumeroCasella()>codaScala.getNumeroCasella()) {
+			testa.add(codaScalaLabel, BorderLayout.NORTH);
+			coda.add(testaScalaLabel,BorderLayout.NORTH);
+		}
+		else {
+			testa.add(testaScalaLabel, BorderLayout.NORTH);
+			coda.add(codaScalaLabel,BorderLayout.NORTH);
+		}
+		
 		//System.out.println(testaScala.getNumeroCasella() + "," + codaScala.getNumeroCasella());	
 	}
 	
+//	@SuppressWarnings("deprecation")
+//	@Override public void paint(Graphics g) {
+//		Graphics2D g2 = (Graphics2D)g;
+//		super.paintComponent(g2);
+//		g2.setStroke(new BasicStroke(15));
+//		g2.setColor(testa.getBackground());
+//		g2.drawLine(testa.location().x, testa.location().y, coda.location().x, coda.location().y);
+//		
+//	}
 
-	@Override protected void draw(Graphics graphics, CasellaAstratta testa, CasellaAstratta coda) {
-//		Graphics2D g2 = (Graphics2D)graphics;
-		graphics.setColor(Color.BLUE.brighter());
-//		g2.setStroke(new BasicStroke(2f));
-//		g2.draw(new Line2D.Double(testa.getLocation().x, testa.getLocation().y,
-//     			  coda.getLocation().x, coda.getLocation().y));
-		graphics.drawLine(testa.getLocation().x, testa.getLocation().y,
-						  coda.getLocation().x, coda.getLocation().y);
-	}
 	
 
 }

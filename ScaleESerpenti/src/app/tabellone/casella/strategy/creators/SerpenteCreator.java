@@ -38,6 +38,8 @@ public class SerpenteCreator implements CasellaCreator {
 		
 		CasellaAstratta testaSerpente = null;
 		
+//		int[] posizioniArrivo = new int[2];
+		
 		for(int j=0;j<tabellone[nrRiga].length;++j) {
 			
 			/** verifico che non si tratti di una casella di tipologia Un 
@@ -58,6 +60,9 @@ public class SerpenteCreator implements CasellaCreator {
 				    "Serpente", tabellone[nrRiga][j].getNumeroCasella());
 							
 					testaSerpente = tabellone[nrRiga][j];
+					
+//					posizioniArrivo[0] = testaSerpente.getLocation().x;
+//					posizioniArrivo[1] = testaSerpente.getLocation().y;
 					
 					/** Effettuo la break perche' ormai una testa di un serpente 
 					 *  per tale riga e' stata posizionata  */
@@ -81,10 +86,32 @@ public class SerpenteCreator implements CasellaCreator {
 		 * riceve due argomenti dove il primo deve essere minore del secondo 
 		 * essendo un intervallo di valori. Nel caso in cui il primo e' maggiore
 		 *  del secondo allora li scambio. */
-		if(nrRiga > tabellone.length-nrRiga)
-			randomRigaCoda = rigaCodaSerpente.nextInt(tabellone.length-nrRiga, nrRiga);
-		else if(nrRiga < tabellone.length-nrRiga)
-			randomRigaCoda = rigaCodaSerpente.nextInt(nrRiga,tabellone.length-nrRiga);
+		if(nrRiga > tabellone.length-nrRiga) {
+			randomRigaCoda = rigaCodaSerpente.nextInt((tabellone.length-nrRiga), nrRiga);
+			if(nrRiga==randomRigaCoda) {
+				t.serpenti[nrRiga][colonnaTesta] = false;
+				
+				tabellone[nrRiga][colonnaTesta] = casellaFactory.createCella(
+			    "Standard", tabellone[nrRiga][colonnaTesta].getNumeroCasella());
+				return tabellone;
+			}
+			/** non si possono assegnare testa e coda sulla stessa riga */
+//			while(nrRiga == randomRigaCoda)
+//				randomRigaCoda = rigaCodaSerpente.nextInt((tabellone.length-nrRiga), nrRiga);
+		}
+		else if(nrRiga < tabellone.length-nrRiga) {
+			randomRigaCoda = rigaCodaSerpente.nextInt(nrRiga,(tabellone.length-nrRiga));
+			if(nrRiga==randomRigaCoda) {
+				t.serpenti[nrRiga][colonnaTesta] = false;
+				
+				tabellone[nrRiga][colonnaTesta] = casellaFactory.createCella(
+			    "Standard", tabellone[nrRiga][colonnaTesta].getNumeroCasella());
+				return tabellone;
+			}
+			/** non si possono assegnare testa e coda sulla stessa riga */
+//			while(nrRiga == randomRigaCoda)
+//				randomRigaCoda = rigaCodaSerpente.nextInt(nrRiga,(tabellone.length-nrRiga));
+		}
 		else {
 			/** semplicemente dealloco la testa del serpente trovata 
 			 * precedentemente poiche' se il numero della riga in questione e
@@ -116,6 +143,8 @@ public class SerpenteCreator implements CasellaCreator {
 			/** controllo che tale casella sia una casella non speciale */
 			if( t.verificaCellaNonSpeciale(randomRigaCoda, j) ) {
 				
+				
+				
 				codaPosizionata = true;
 				t.serpenti[randomRigaCoda][j] = true;
 				
@@ -123,6 +152,10 @@ public class SerpenteCreator implements CasellaCreator {
 			    "Serpente", tabellone[randomRigaCoda][j].getNumeroCasella());
 						
 				codaSerpente = tabellone[randomRigaCoda][j];
+				
+				codaSerpente = tabellone[randomRigaCoda][j];
+//				codaSerpente.setArrivo(posizioniArrivo[0], posizioniArrivo[1]);
+				codaSerpente.repaint();
 				
 				/** coda trovata quindi mi fermo */
 				break;
@@ -134,13 +167,30 @@ public class SerpenteCreator implements CasellaCreator {
 		if(testaPosizionata && !codaPosizionata) {
 			t.serpenti[nrRiga][colonnaTesta] = false;
 			
+			
+			
 			tabellone[nrRiga][colonnaTesta] = casellaFactory.createCella(
 		    "Standard", tabellone[nrRiga][colonnaTesta].getNumeroCasella());
+			tabellone[nrRiga][colonnaTesta].repaint();
 			
 		}
 		else if(testaPosizionata && codaPosizionata) { //TODO
-			serpente = new Serpente(testaSerpente, codaSerpente);
-			FinestraPrincipaleAutomatica.pCENTER.getRootPane().add(serpente);
+			
+			if(testaSerpente.getNumeroCasella()>codaSerpente.getNumeroCasella())
+				serpente = new Serpente(testaSerpente, codaSerpente);
+			/** Controllo che non vengono posizionate nella stessa posizione.
+			 *  Se si allora dealloco anche la testa */
+			else if(testaSerpente.getNumeroCasella()>codaSerpente.getNumeroCasella()) {
+				t.serpenti[nrRiga][colonnaTesta] = false;
+				
+				tabellone[nrRiga][colonnaTesta] = casellaFactory.createCella(
+			    "Standard", tabellone[nrRiga][colonnaTesta].getNumeroCasella());
+				tabellone[nrRiga][colonnaTesta].repaint();
+				
+			}
+			else
+				serpente = new Serpente(codaSerpente, testaSerpente);
+//			FinestraPrincipaleAutomatica.pCENTER.getRootPane().add(serpente);
 		}
 		
 		return tabellone;

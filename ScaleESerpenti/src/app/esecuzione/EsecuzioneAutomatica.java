@@ -18,7 +18,8 @@ public class EsecuzioneAutomatica extends Esecuzione {
 	}
 
 	
-	@Override protected void esegui() {
+	@Override
+	public void esegui() {
 		
 		boolean victory = false;
 		

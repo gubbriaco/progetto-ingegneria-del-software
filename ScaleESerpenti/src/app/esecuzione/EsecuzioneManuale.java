@@ -19,9 +19,8 @@ public class EsecuzioneManuale extends Esecuzione {
 	}
 	
 
-	@Override protected void esegui() {
+	@Override public void esegui() {
 		
-
 		boolean victory = false;
 		
 		System.out.println(finestraPrincipale.getTurnoCorrente());
@@ -64,7 +63,7 @@ public class EsecuzioneManuale extends Esecuzione {
 
 			
 			if(victory)
-				break;
+				return;
 			else {
 				turno = turno+1;
 				finestraPrincipale.setNuovoTurno(turno);

@@ -22,8 +22,7 @@ public class FinestraFactory implements FinestraFactoryIF {
 	        	return new FinestraPrincipaleAutomatica(modalita, numeroGiocatori, dimensioniTabellone);
 	        else if(offset.equalsIgnoreCase("FinestraPrincipaleManuale"))
 	        	return new FinestraPrincipaleManuale(modalita, numeroGiocatori, dimensioniTabellone);
-	        	//new FinestraPrincipaleManuale();
-	        	// TODO il cast
+	        	
 		}else if(tipologiaFinestra.equalsIgnoreCase("PannelloAstratto")) {
 			
 	        if(offset.equalsIgnoreCase("PannelloConfigurazione"))

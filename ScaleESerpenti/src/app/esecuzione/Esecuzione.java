@@ -3,7 +3,7 @@ package app.esecuzione;
 import java.awt.BorderLayout;
 import java.util.LinkedList;
 
-import javax.swing.JList;
+import javax.swing.JComboBox;
 
 import app.esecuzione.giocatore.Giocatore;
 import app.modalita.Modalita;
@@ -19,7 +19,6 @@ public abstract class Esecuzione {
 	protected LinkedList<Giocatore> giocatoriInGioco;
 	@SuppressWarnings("unused")
 	private TabelloneAstratto tabellone;
-	@SuppressWarnings("unused")
 	private Modalita.Mod modalita;
 	protected FinestraPrincipaleAstratta finestraPrincipale;
 	protected FinestraTerminaleAstratta terminale;
@@ -40,8 +39,7 @@ public abstract class Esecuzione {
 	 * Inizializza una nuova sessione di gioco.
 	 */
 	public void start() {
-		if(modalita == Modalita.Mod.AUTOMATICA)
-			inizializzaGioco();
+		inizializzaGioco();
 		esegui();
 	}
 	
@@ -50,8 +48,8 @@ public abstract class Esecuzione {
 	 * nella prima casella del tabellone.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private void inizializzaGioco() {
-		JList giocatori;
+	public void inizializzaGioco() {
+		JComboBox giocatori;
 		CasellaAstratta primaCasella = finestraPrincipale.getPrimaCasella();
 		String giocatore = "";
 		
@@ -62,7 +60,7 @@ public abstract class Esecuzione {
 			terminale.repaintTerminale();
 			System.out.println(giocatore + " entra nella sessione di gioco!");
 		}
-		giocatori = new JList(giocatoriInGioco.toArray());
+		giocatori = new JComboBox(giocatoriInGioco.toArray());
 		
 		primaCasella.add(giocatori, BorderLayout.SOUTH);
 	}
@@ -70,7 +68,7 @@ public abstract class Esecuzione {
 	/**
 	 * Esegue una nuova sessione di gioco.
 	 */
-	protected abstract void esegui() ;
+	public abstract void esegui() ;
 
 
 }

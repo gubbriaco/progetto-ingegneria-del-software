@@ -3,7 +3,11 @@ package gui.window.finestraprincipale;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.LinkedList;
 
@@ -14,6 +18,7 @@ import javax.swing.JPanel;
 import app.difficolta.Difficolta;
 import app.esecuzione.Esecuzione;
 import app.esecuzione.EsecuzioneAutomatica;
+import app.esecuzione.EsecuzioneManuale;
 import app.esecuzione.giocatore.Giocatore;
 import app.esecuzione.giocatore.Pedina;
 import app.modalita.Modalita;
@@ -51,7 +56,7 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 	private File file;
 	
 	/** raggio per arrotondare i bordi */
-	private static final int raggio = 5;
+	protected static final int raggio = 5;
 	
 	protected LinkedList<Giocatore> giocatoriInGioco;
 	protected Esecuzione esecuzione;
@@ -99,6 +104,17 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 		this.file = file;
 	}
 	
+	/**
+	 * Imposto la visualizzazione della finestra su full screen.
+	 */
+	protected void visualizzaFinestra() {
+		this.setLocationRelativeTo(null);
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    GraphicsDevice cc = ge.getDefaultScreenDevice();
+	    cc.setFullScreenWindow(this);
+		this.setVisible(true);
+	
+	}
 	
 	
 	/**
@@ -196,9 +212,9 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 	}
 	
 	
-	private JLabel titoloGioco;
+	protected JLabel titoloGioco;
 	protected String turnoCorrente;
-	private JLabel turno;
+	protected JLabel turno;
 	protected JButton prossimoTurno;
 
 	@Override protected void inizializzaLayoutNORTH() {
@@ -218,20 +234,7 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 		turno.setForeground(Color.BLACK);
 		turno.setBorder(new RoundedBorder(raggio));
 		pNORTH.add(turno);
-		
-		if(modalita == Modalita.Mod.MANUALE) {
-			
-			prossimoTurno = new JButton("Prossimo turno");
-			prossimoTurno.setOpaque(true);
-			prossimoTurno.setBackground(Color.GRAY.brighter());
-			prossimoTurno.setForeground(Color.BLACK);
-			prossimoTurno.setBorder(new RoundedBorder(raggio));
-			pNORTH.add(prossimoTurno);
-			
-			
-			
-
-		}
+	
 	
 		this.add(pNORTH, BorderLayout.NORTH);
 		
