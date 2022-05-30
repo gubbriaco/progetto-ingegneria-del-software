@@ -20,7 +20,6 @@ public class FinestraPrincipaleAutomatica extends FinestraPrincipaleAstratta{
 		
 		inizializzaTabellone(nrRighe, nrColonne);
 		
-		
 		/** inizializzo la lista dei giocatori presenti nella nuova sessione di gioco*/
 		giocatoriInGioco = new LinkedList<>();
 		/** aggiungo i giocatori che intendono giocare nella nuova sessione di gioco */
@@ -29,8 +28,9 @@ public class FinestraPrincipaleAutomatica extends FinestraPrincipaleAstratta{
 			nuovoGiocatore = new Pedina("Giocatore " + (i+1), (Tabellone)tabellone);
 		  	giocatoriInGioco.add( nuovoGiocatore );
 		}
+		
 		esecuzione = new EsecuzioneAutomatica(giocatoriInGioco, (Tabellone) tabellone,
-				this, (FinestraTerminale) terminale, modalita);
+				                              this, (FinestraTerminale) terminale);
 		esecuzione.start();
 	}
 	

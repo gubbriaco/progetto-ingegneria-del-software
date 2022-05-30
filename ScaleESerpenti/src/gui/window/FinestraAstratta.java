@@ -14,7 +14,7 @@ public abstract class FinestraAstratta extends JFrame implements FinestraIF {
 	/** JPanel che verranno utilizzati per implementare l'interfaccia grafica
 	 *  della finestra generica */
 	protected JPanel pNORTH, pSOUTH, pWEST, pEAST;
-	public static JPanel pCENTER;
+	protected JPanel pCENTER;
 	
 	protected Font font;
 	

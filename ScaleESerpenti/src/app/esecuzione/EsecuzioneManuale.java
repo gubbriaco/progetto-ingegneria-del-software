@@ -4,28 +4,26 @@ import java.util.LinkedList;
 
 import app.esecuzione.dadi.Dado;
 import app.esecuzione.giocatore.Giocatore;
-import app.modalita.Modalita;
 import app.tabellone.Tabellone;
 import gui.window.finestraprincipale.FinestraPrincipaleAstratta;
 import gui.window.finestraterminale.concrete.FinestraTerminale;
 
 public class EsecuzioneManuale extends Esecuzione {
+	
+	
 
 	public EsecuzioneManuale(LinkedList<Giocatore> giocatoriInGioco, Tabellone tabellone,
-			FinestraPrincipaleAstratta finestraPrincipale, FinestraTerminale terminale,
-			Modalita.Mod modalita) {
-		super(giocatoriInGioco, tabellone, finestraPrincipale, terminale, modalita);
+			FinestraPrincipaleAstratta finestraPrincipale, FinestraTerminale terminale) {
+		super(giocatoriInGioco, tabellone, finestraPrincipale, terminale);
 		
 	}
 	
 
 	@Override public void esegui() {
 		
-		boolean victory = false;
-		
 		System.out.println(finestraPrincipale.getTurnoCorrente());
 		Dado dado1, dado2;
-		int combinazioneDadi = 0, lancio1, lancio2, nuovaCasella, turno = 1;
+		int combinazioneDadi = 0, lancio1, lancio2, nuovaCasella;
 		Giocatore giocatoreCorrente;
 
 		for (int i = 0; i < giocatoriInGioco.size(); ++i) {
@@ -50,31 +48,29 @@ public class EsecuzioneManuale extends Esecuzione {
 			System.out.println(giocatoreCorrente.toString() + " e' nella casella " + nuovaCasella);
 			terminale.repaintTerminale();
 
-			finestraPrincipale.setGiocatoreCorrente(giocatoreCorrente.toString());
-			finestraPrincipale.setDadi("" + combinazioneDadi);
+			finestraPrincipale.revalidate();
+			finestraPrincipale.repaint();
 
 			if (nuovaCasella == finestraPrincipale.getMatriceTabellone()[0][0].getNumeroCasella()) {
-				turno = turno + 1;
-				finestraPrincipale.setNuovoTurno(turno);
 				finestraPrincipale.repaint();
 				victory = true;
 			}
 				
-
-			
-			if(victory)
-				return;
-			else {
-				turno = turno+1;
-				finestraPrincipale.setNuovoTurno(turno);
-				finestraPrincipale.repaint();
-				
-				terminale.espandiAttivita("--- " + "Turno " + turno + " ---");
-				terminale.repaintTerminale();
-			}
 		}
-		
-		
+			
+		if (victory)
+			return;
+		else {
+			turno = turno + 1;
+			finestraPrincipale.setNuovoTurno(turno);
+			finestraPrincipale.repaint();
+
+			terminale.espandiAttivita("--- " + "Turno " + turno + " ---");
+			terminale.repaintTerminale();
+		}
+			
 	}
+		
+		
 
 }

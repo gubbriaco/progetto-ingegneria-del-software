@@ -156,14 +156,14 @@ public class PannelloConfigurazione extends PannelloAstratto {
 					if(modalita == Modalita.Mod.AUTOMATICA) {
 						FinestraIF finestraPrincipale = fPrincipale.createFinestra
 						("FinestraPrincipaleAstratta", "FinestraPrincipaleAutomatica",
-						  modalita, numGiocatori, dimensioniTabellone);
+						modalita, numGiocatori, dimensioniTabellone);
 						finestraPrincipale.inizializzaFinestra();
 					}
 					else {
 						FinestraIF finestraPrincipale = fPrincipale.createFinestra
-								("FinestraPrincipaleAstratta", "FinestraPrincipaleManuale",
-								  modalita, numGiocatori, dimensioniTabellone);
-								finestraPrincipale.inizializzaFinestra();
+						("FinestraPrincipaleAstratta", "FinestraPrincipaleManuale",
+						modalita, numGiocatori, dimensioniTabellone);
+						finestraPrincipale.inizializzaFinestra();
 					}
 				}
 				else {

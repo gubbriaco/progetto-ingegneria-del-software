@@ -12,5 +12,6 @@ public interface FinestraIF {
 	 */
 	void inizializzaFinestra();
 	
+	
 
 }

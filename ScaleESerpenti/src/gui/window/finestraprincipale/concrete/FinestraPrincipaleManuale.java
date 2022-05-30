@@ -39,8 +39,10 @@ public class FinestraPrincipaleManuale extends FinestraPrincipaleAstratta {
 		  	giocatoriInGioco.add( nuovoGiocatore );
 		}	
 		
+		
+		
 		esecuzione = new EsecuzioneManuale(giocatoriInGioco, (Tabellone) tabellone, 
-				this, (FinestraTerminale) terminale, modalita);
+				                           this, (FinestraTerminale) terminale);
 		esecuzione.inizializzaGioco();
 		
 	}
@@ -48,6 +50,7 @@ public class FinestraPrincipaleManuale extends FinestraPrincipaleAstratta {
 	public FinestraPrincipaleManuale(File file) {
 		super(file);	
 	}
+	
 	
 	@Override protected void inizializzaLayoutNORTH() {
 		pNORTH = new JPanel();
@@ -74,24 +77,35 @@ public class FinestraPrincipaleManuale extends FinestraPrincipaleAstratta {
 		prossimoTurno.setBorder(new RoundedBorder(raggio));
 		pNORTH.add(prossimoTurno);
 
+		
+		gestisciProssimoTurno();
+	
+	
 		this.add(pNORTH, BorderLayout.NORTH);
 		
-		
+	}
+	
+	private void gestisciProssimoTurno() {
 		prossimoTurno.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				esecuzioneManuale();
+			@Override public void actionPerformed(ActionEvent e) {
+				if( ((EsecuzioneManuale)esecuzione).victory==true )
+					return;
+				else
+					esecuzioneManuale();
 			}
 		});
-		
-		
 	}
+	
 	
 	private void esecuzioneManuale() {
 		
 		esecuzione.esegui();
+		this.validate();
 		this.repaint();
 	}
+	
+	
+
 	
 	
 	

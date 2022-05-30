@@ -64,7 +64,6 @@ public class FinestraTerminale extends FinestraTerminaleAstratta {
 		this.add(pCENTER, BorderLayout.CENTER);
 		
 		elencoAttivita = new JList(attivitaSvolte.toArray());
-		//pCENTER.add(elencoAttivita, BorderLayout.CENTER);
 		sp = new JScrollPane(elencoAttivita);
 		sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);

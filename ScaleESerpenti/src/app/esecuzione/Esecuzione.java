@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import javax.swing.JComboBox;
 
 import app.esecuzione.giocatore.Giocatore;
-import app.modalita.Modalita;
 import app.tabellone.Tabellone;
 import app.tabellone.TabelloneAstratto;
 import app.tabellone.casella.CasellaAstratta;
@@ -19,19 +18,19 @@ public abstract class Esecuzione {
 	protected LinkedList<Giocatore> giocatoriInGioco;
 	@SuppressWarnings("unused")
 	private TabelloneAstratto tabellone;
-	private Modalita.Mod modalita;
 	protected FinestraPrincipaleAstratta finestraPrincipale;
 	protected FinestraTerminaleAstratta terminale;
 	
+	public boolean victory = false;
+	public int turno = 1;
 	
 	
 	public Esecuzione(LinkedList<Giocatore> giocatoriInGioco, Tabellone tabellone, FinestraPrincipaleAstratta finestraPrincipale,	
-	                  FinestraTerminale terminale, Modalita.Mod modalita) {
+	                  FinestraTerminale terminale) {
 		this.giocatoriInGioco = giocatoriInGioco;
 		this.tabellone = tabellone;
 		this.finestraPrincipale = finestraPrincipale;
 		this.terminale = terminale;
-		this.modalita = modalita;
 	}
 	
 	
@@ -49,6 +48,7 @@ public abstract class Esecuzione {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void inizializzaGioco() {
+		
 		JComboBox giocatori;
 		CasellaAstratta primaCasella = finestraPrincipale.getPrimaCasella();
 		String giocatore = "";

@@ -86,13 +86,9 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 		 * salvato sul Desktop*/
 		file = new File(System.getProperty("user.home") + "/Desktop");
 		
-		
-		//TODO 
-		giocatoreCorrente = "";
-		combinazioneDadiCorrente = "";
-		
-		// TODO
+
 		turnoCorrente = "Turno 1";
+		turno = new JLabel(turnoCorrente);
 		
 	}
 	
@@ -104,17 +100,6 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 		this.file = file;
 	}
 	
-	/**
-	 * Imposto la visualizzazione della finestra su full screen.
-	 */
-	protected void visualizzaFinestra() {
-		this.setLocationRelativeTo(null);
-		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-	    GraphicsDevice cc = ge.getDefaultScreenDevice();
-	    cc.setFullScreenWindow(this);
-		this.setVisible(true);
-	
-	}
 	
 	
 	/**
@@ -185,28 +170,21 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 	}
 	
 	
-	public String giocatoreCorrente, combinazioneDadiCorrente;
-	
-	public void setGiocatoreCorrente(String giocatoreCorrente) {
-		this.giocatoreCorrente = giocatoreCorrente;
-		
-		this.inizializzaLayoutEAST();
-		this.repaint();
-	}
-	
-	public void setDadi(String combinazioneDadiCorrente) {
-		this.combinazioneDadiCorrente = combinazioneDadiCorrente;
-		
-		this.inizializzaLayoutEAST();
-		this.repaint();
-	}
-	
+	/**
+	 * Imposta un nuovo turno e aggiorna il {@link JLabel} corrispondente.
+	 * @param nuovoTurno Nuovo turno
+	 */
 	public void setNuovoTurno(int nuovoTurno) {
 		this.turnoCorrente = "Turno " + nuovoTurno;
-		this.inizializzaLayoutNORTH();
-		this.repaint();
+		turno.setText(turnoCorrente);
+		turno.revalidate();
+		turno.repaint();
 	}
 	
+	/**
+	 * Restituisce il turno corrente.
+	 * @return Turno corrente
+	 */
 	public String getTurnoCorrente() {
 		return turnoCorrente;
 	}
@@ -234,12 +212,12 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 		turno.setForeground(Color.BLACK);
 		turno.setBorder(new RoundedBorder(raggio));
 		pNORTH.add(turno);
-	
+
 	
 		this.add(pNORTH, BorderLayout.NORTH);
 		
 	}
-	
+
 	
 	private JLabel titoloLegenda; 
 	private PanelAbstract legenda;
@@ -276,24 +254,6 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 		pEAST.setLayout(new GridLayout(4,1));
 		pEAST.setBackground(Color.LIGHT_GRAY);
 		
-		giocatoreCorrenteLabel = new GiocatoreCorrentePanel(giocatoreCorrente);
-		titoloGiocatoreCorrente = new JLabel("Giocatore corrente");
-		titoloGiocatoreCorrente.setOpaque(true);
-		titoloGiocatoreCorrente.setBackground(Color.BLACK.brighter());
-		titoloGiocatoreCorrente.setForeground(Color.WHITE);
-		titoloGiocatoreCorrente.setBorder(new RoundedBorder(raggio));
-		pEAST.add(titoloGiocatoreCorrente);
-		pEAST.add(giocatoreCorrenteLabel);
-		
-		titoloCombinazioneDadi = new JLabel("Combinazione dadi");
-		titoloCombinazioneDadi.setOpaque(true);
-		titoloCombinazioneDadi.setBackground(Color.BLACK.brighter());
-		titoloCombinazioneDadi.setForeground(Color.WHITE);
-		titoloCombinazioneDadi.setBorder(new RoundedBorder(raggio));
-		combinazioneDadiCorrenteLabel = new CombinazioneDadiCorrentePanel(combinazioneDadiCorrente);
-		
-		pEAST.add(titoloCombinazioneDadi);
-		pEAST.add(combinazioneDadiCorrenteLabel);
 		
 		if(modalita == Modalita.Mod.AUTOMATICA) {
 			tipologiaModalita = "Esecuzione Manuale";
