@@ -9,6 +9,9 @@ import app.esecuzione.giocatore.Giocatore;
 import app.tabellone.Tabellone;
 import app.tabellone.TabelloneAstratto;
 import app.tabellone.casella.CasellaAstratta;
+import gui.factory.FinestraFactory;
+import gui.factory.FinestraFactoryIF;
+import gui.window.FinestraIF;
 import gui.window.finestraprincipale.FinestraPrincipaleAstratta;
 import gui.window.finestraterminale.FinestraTerminaleAstratta;
 import gui.window.finestraterminale.concrete.FinestraTerminale;
@@ -23,6 +26,10 @@ public abstract class Esecuzione {
 	
 	public boolean victory = false;
 	public int turno = 1;
+	
+	
+	protected FinestraFactoryIF victoryFactory = new FinestraFactory();
+	protected FinestraIF victoryWindow;
 	
 	
 	public Esecuzione(LinkedList<Giocatore> giocatoriInGioco, Tabellone tabellone, FinestraPrincipaleAstratta finestraPrincipale,	

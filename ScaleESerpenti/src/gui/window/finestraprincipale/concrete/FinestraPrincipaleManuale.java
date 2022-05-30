@@ -52,6 +52,8 @@ public class FinestraPrincipaleManuale extends FinestraPrincipaleAstratta {
 	}
 	
 	
+	public JButton prossimoTurno;
+	
 	@Override protected void inizializzaLayoutNORTH() {
 		pNORTH = new JPanel();
 		pNORTH.setBorder(new RoundedBorder(raggio));

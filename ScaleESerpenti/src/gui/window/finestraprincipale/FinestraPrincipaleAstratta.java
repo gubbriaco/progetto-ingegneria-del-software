@@ -190,33 +190,13 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 	}
 	
 	
+	
+	// JComponent utili per l'inizializzazione del JPanel pNORTH
 	protected JLabel titoloGioco;
 	protected String turnoCorrente;
 	protected JLabel turno;
-	protected JButton prossimoTurno;
-
-	@Override protected void inizializzaLayoutNORTH() {
-		pNORTH = new JPanel();
-		pNORTH.setBorder(new RoundedBorder(raggio));
-		pNORTH.setBackground(Color.LIGHT_GRAY);
-		
-		titoloGioco = new JLabel("Scale e Serpenti");
-		titoloGioco.setForeground(Color.BLACK);
-		font = new Font("Helvetica", Font.BOLD, 14);
-		titoloGioco.setFont(font);
-		pNORTH.add(titoloGioco, BorderLayout.CENTER);
-		
-		turno = new JLabel(turnoCorrente);
-		turno.setOpaque(true);
-		turno.setBackground(Color.LIGHT_GRAY);
-		turno.setForeground(Color.BLACK);
-		turno.setBorder(new RoundedBorder(raggio));
-		pNORTH.add(turno);
-
 	
-		this.add(pNORTH, BorderLayout.NORTH);
-		
-	}
+
 
 	
 	private JLabel titoloLegenda; 

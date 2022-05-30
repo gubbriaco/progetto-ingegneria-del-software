@@ -9,8 +9,6 @@ import app.tabellone.casella.factory.CasellaFactoryIF;
 import app.tabellone.casella.strategy.CasellaCreator;
 import app.tabellone.object.OggettoTrasferimento;
 import app.tabellone.object.Scala;
-import app.tabellone.object.Serpente;
-import gui.window.finestraprincipale.concrete.FinestraPrincipaleAutomatica;
 
 public class ScalaCreator implements CasellaCreator {
 	
@@ -20,6 +18,7 @@ public class ScalaCreator implements CasellaCreator {
 	
 	private CasellaFactoryIF casellaFactory = new CasellaFactory(); 
 
+	@SuppressWarnings("unused")
 	private OggettoTrasferimento scala;
 	
 	public ScalaCreator(int nrRiga, Tabellone t) {
@@ -39,8 +38,6 @@ public class ScalaCreator implements CasellaCreator {
 		int colonnaTesta = -1;
 		
 		CasellaAstratta testaScala = null;
-		
-//		int[] posizioniArrivo = new int[2];
 		
 		for(int j=0;j<tabellone[nrRiga].length;++j) {
 			
@@ -63,8 +60,6 @@ public class ScalaCreator implements CasellaCreator {
 				    "Scala", tabellone[nrRiga][j].getNumeroCasella());
 					
 					testaScala = tabellone[nrRiga][j];
-//					posizioniArrivo[0] = testaScala.getLocation().x;
-//					posizioniArrivo[1] = testaScala.getLocation().y;
 					
 					/** Effettuo la break perche' ormai una testa di una scala 
 					 *  per tale riga e' stata posizionata  */
@@ -162,8 +157,6 @@ public class ScalaCreator implements CasellaCreator {
 			    "Scala", tabellone[randomRigaCoda][j].getNumeroCasella());
 				
 				codaScala = tabellone[randomRigaCoda][j];
-//				codaScala.setArrivo(posizioniArrivo[0], posizioniArrivo[1]);
-//				codaScala.paintComponents(codaScala.getGraphics());
 				codaScala.repaint();
 				break;
 			}
@@ -180,7 +173,7 @@ public class ScalaCreator implements CasellaCreator {
 			tabellone[nrRiga][colonnaTesta].repaint();
 			
 		}
-		else if(testaPosizionata && codaPosizionata){//TODO
+		else if(testaPosizionata && codaPosizionata){
 
 			if(testaScala.getNumeroCasella()>codaScala.getNumeroCasella())
 				scala = new Scala(testaScala, codaScala);
@@ -196,7 +189,6 @@ public class ScalaCreator implements CasellaCreator {
 			}
 			else
 				scala = new Scala(codaScala, testaScala);
-//			FinestraPrincipaleAutomatica.pCENTER.getRootPane().add(scala);
 		}
 		
 		

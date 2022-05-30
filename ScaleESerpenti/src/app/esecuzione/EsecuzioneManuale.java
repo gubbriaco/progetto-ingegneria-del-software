@@ -6,7 +6,9 @@ import app.esecuzione.dadi.Dado;
 import app.esecuzione.giocatore.Giocatore;
 import app.tabellone.Tabellone;
 import gui.window.finestraprincipale.FinestraPrincipaleAstratta;
+import gui.window.finestraprincipale.concrete.FinestraPrincipaleManuale;
 import gui.window.finestraterminale.concrete.FinestraTerminale;
+import gui.window.finestravittoria.FinestraVittoria;
 
 public class EsecuzioneManuale extends Esecuzione {
 	
@@ -58,8 +60,19 @@ public class EsecuzioneManuale extends Esecuzione {
 				
 		}
 			
-		if (victory)
+		if (victory) {
+			
+			victoryWindow = victoryFactory.createFinestra("FinestraVittoriaAstratta", "", null, -1, null);
+			victoryWindow.inizializzaFinestra();
+			
+			((FinestraVittoria)victoryWindow).setGiocatoriVincenti
+			( finestraPrincipale.getMatriceTabellone()[0][0].getGiocatori(), (FinestraVittoria)victoryWindow );
+			
+			((FinestraPrincipaleManuale)finestraPrincipale).prossimoTurno.setEnabled(false);
+			
 			return;
+			
+		}
 		else {
 			turno = turno + 1;
 			finestraPrincipale.setNuovoTurno(turno);

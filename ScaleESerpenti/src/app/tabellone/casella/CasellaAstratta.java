@@ -14,9 +14,6 @@ import gui.graphic.border.RoundedBorder;
 @SuppressWarnings("serial")
 public abstract class CasellaAstratta extends JPanel {
 	
-	
-	
-	
 	private int numeroCasella;
 	
 	
@@ -34,6 +31,17 @@ public abstract class CasellaAstratta extends JPanel {
 		
 		giocatori = new LinkedList<>();
 		elencoGiocatori = new JComboBox(giocatori.toArray());
+		elencoGiocatori.setBackground(Color.BLACK);
+		elencoGiocatori.setForeground(Color.BLACK);
+		elencoGiocatori.setOpaque(true);
+	}
+	
+	/**
+	 * Restituisce i giocatori presenti nella casella in questione.
+	 * @return Giocatori presenti sulla casella
+	 */
+	public LinkedList<String> getGiocatori() {
+		return giocatori;
 	}
 	
 	/**

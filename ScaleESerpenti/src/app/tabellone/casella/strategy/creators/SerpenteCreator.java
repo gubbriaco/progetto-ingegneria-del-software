@@ -9,7 +9,6 @@ import app.tabellone.casella.factory.CasellaFactoryIF;
 import app.tabellone.casella.strategy.CasellaCreator;
 import app.tabellone.object.OggettoTrasferimento;
 import app.tabellone.object.Serpente;
-import gui.window.finestraprincipale.concrete.FinestraPrincipaleAutomatica;
 
 public class SerpenteCreator implements CasellaCreator {
 	
@@ -19,6 +18,7 @@ public class SerpenteCreator implements CasellaCreator {
 	
 	private CasellaFactoryIF casellaFactory = new CasellaFactory(); 
 	
+	@SuppressWarnings("unused")
 	private OggettoTrasferimento serpente;
 	
 	public SerpenteCreator(int nrRiga, Tabellone t) {
@@ -38,7 +38,6 @@ public class SerpenteCreator implements CasellaCreator {
 		
 		CasellaAstratta testaSerpente = null;
 		
-//		int[] posizioniArrivo = new int[2];
 		
 		for(int j=0;j<tabellone[nrRiga].length;++j) {
 			
@@ -60,9 +59,6 @@ public class SerpenteCreator implements CasellaCreator {
 				    "Serpente", tabellone[nrRiga][j].getNumeroCasella());
 							
 					testaSerpente = tabellone[nrRiga][j];
-					
-//					posizioniArrivo[0] = testaSerpente.getLocation().x;
-//					posizioniArrivo[1] = testaSerpente.getLocation().y;
 					
 					/** Effettuo la break perche' ormai una testa di un serpente 
 					 *  per tale riga e' stata posizionata  */
@@ -154,7 +150,6 @@ public class SerpenteCreator implements CasellaCreator {
 				codaSerpente = tabellone[randomRigaCoda][j];
 				
 				codaSerpente = tabellone[randomRigaCoda][j];
-//				codaSerpente.setArrivo(posizioniArrivo[0], posizioniArrivo[1]);
 				codaSerpente.repaint();
 				
 				/** coda trovata quindi mi fermo */
@@ -174,7 +169,7 @@ public class SerpenteCreator implements CasellaCreator {
 			tabellone[nrRiga][colonnaTesta].repaint();
 			
 		}
-		else if(testaPosizionata && codaPosizionata) { //TODO
+		else if(testaPosizionata && codaPosizionata) {
 			
 			if(testaSerpente.getNumeroCasella()>codaSerpente.getNumeroCasella())
 				serpente = new Serpente(testaSerpente, codaSerpente);
@@ -190,7 +185,6 @@ public class SerpenteCreator implements CasellaCreator {
 			}
 			else
 				serpente = new Serpente(codaSerpente, testaSerpente);
-//			FinestraPrincipaleAutomatica.pCENTER.getRootPane().add(serpente);
 		}
 		
 		return tabellone;

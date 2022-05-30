@@ -6,7 +6,6 @@ import app.tabellone.casella.CasellaAstratta;
 
 public class Pedina extends PedinaAstratta {
 	
-	
 	private CasellaAstratta[][] matriceTabellone;
 
 	public Pedina(String nomePedina, Tabellone tabellone) {
@@ -58,8 +57,7 @@ public class Pedina extends PedinaAstratta {
 		else if(nuovaCasella == matriceTabellone[0][0].getNumeroCasella()) {
 			movement(casellaCorrente, this, combinazioneDadi);
 			return nuovaCasella;
-			// TODO
-			//victory();
+			
 		}
 		
 		/** gestisce il movimento generico della casella */
