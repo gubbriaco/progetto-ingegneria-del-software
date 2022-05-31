@@ -4,6 +4,7 @@ import java.util.Random;
 
 import app.tabellone.Tabellone;
 import app.tabellone.casella.CasellaAstratta;
+import app.tabellone.casella.concrete.special.CasellaScala;
 import app.tabellone.casella.factory.CasellaFactory;
 import app.tabellone.casella.factory.CasellaFactoryIF;
 import app.tabellone.casella.strategy.CasellaCreator;
@@ -18,7 +19,6 @@ public class ScalaCreator implements CasellaCreator {
 	
 	private CasellaFactoryIF casellaFactory = new CasellaFactory(); 
 
-	@SuppressWarnings("unused")
 	private OggettoTrasferimento scala;
 	
 	public ScalaCreator(int nrRiga, Tabellone t) {
@@ -35,7 +35,7 @@ public class ScalaCreator implements CasellaCreator {
 			return tabellone;
 		
 		boolean testaPosizionata = false;
-		int colonnaTesta = -1;
+		int rigaTesta=-1, colonnaTesta = -1;
 		
 		CasellaAstratta testaScala = null;
 		
@@ -52,6 +52,7 @@ public class ScalaCreator implements CasellaCreator {
 				/** controllo che tale casella sia una casella non speciale */
 				if( t.verificaCellaNonSpeciale(nrRiga, j) ) {
 					
+					rigaTesta = nrRiga;
 					colonnaTesta = j;
 					testaPosizionata = true;
 					t.scale[nrRiga][j] = true;
@@ -86,11 +87,18 @@ public class ScalaCreator implements CasellaCreator {
 		 *  del secondo allora li scambio. */
 		if(nrRiga > (tabellone.length-nrRiga)) {
 			randomRigaCoda = rigaCodaScala.nextInt((tabellone.length-nrRiga), nrRiga);
+			
 			if(nrRiga==randomRigaCoda) {
+				
+				
 				t.scale[nrRiga][colonnaTesta] = false;
 				
 				tabellone[nrRiga][colonnaTesta] = casellaFactory.createCella(
 			    "Standard", tabellone[nrRiga][colonnaTesta].getNumeroCasella());
+				
+				rigaTesta = -1;
+				colonnaTesta = -1;
+				
 				return tabellone;
 			}
 			/** non si possono assegnare testa e coda sulla stessa riga */
@@ -99,10 +107,15 @@ public class ScalaCreator implements CasellaCreator {
 		}
 		else if(nrRiga < (tabellone.length-nrRiga)) {
 			if(nrRiga==randomRigaCoda) {
+				
 				t.scale[nrRiga][colonnaTesta] = false;
 				
 				tabellone[nrRiga][colonnaTesta] = casellaFactory.createCella(
 			    "Standard", tabellone[nrRiga][colonnaTesta].getNumeroCasella());
+				
+				rigaTesta = -1;
+				colonnaTesta = -1;
+				
 				return tabellone;
 			}
 			randomRigaCoda = rigaCodaScala.nextInt(nrRiga, (tabellone.length-nrRiga));
@@ -115,16 +128,23 @@ public class ScalaCreator implements CasellaCreator {
 			 * precedentemente poiche' se il numero della riga in questione e
 			 * il numero delle righe rimanenti e' uguale significa che sta
 			 * cercando di creare una scala sulla stessa riga*/
+			
 			t.scale[nrRiga][colonnaTesta] = false;
 			
 			tabellone[nrRiga][colonnaTesta] = casellaFactory.createCella(
 		    "Standard", tabellone[nrRiga][colonnaTesta].getNumeroCasella());
+			
+			rigaTesta = -1;
+			colonnaTesta = -1;
+			
 			return tabellone;
 		}
 		
 		boolean codaPosizionata = false;
 		
 		CasellaAstratta codaScala = null;
+		
+		int rigaCoda=-1 , colonnaCoda=-1;
 		
 		/** assegno la coda della scala corrispondente alla cella booleana che 
 		 * soddisfa la condizione*/
@@ -139,16 +159,36 @@ public class ScalaCreator implements CasellaCreator {
 			/** controllo che tale casella sia una casella non speciale */
 			if( t.verificaCellaNonSpeciale(randomRigaCoda, j) ) {
 				
-				/** Controllo che non vengono posizionate nella stessa posizione.
-				 *  Se si allora dealloco anche la testa */
-				if(tabellone[randomRigaCoda][j].getNumeroCasella()==tabellone[nrRiga][colonnaTesta].getNumeroCasella()) {
+				rigaCoda = randomRigaCoda;
+				colonnaCoda = j;
+				
+				if(rigaTesta == rigaCoda) {
 					t.scale[nrRiga][colonnaTesta] = false;
 					
 					tabellone[nrRiga][colonnaTesta] = casellaFactory.createCella(
 				    "Standard", tabellone[nrRiga][colonnaTesta].getNumeroCasella());
 					tabellone[nrRiga][colonnaTesta].repaint();
+					
+					rigaTesta = -1;
+					colonnaTesta = -1;
 					return tabellone;
 				}
+				
+//				/** Controllo che non vengono posizionate nella stessa posizione.
+//				 *  Se si allora dealloco anche la testa */
+//				if(tabellone[randomRigaCoda][j].getNumeroCasella()==tabellone[nrRiga][colonnaTesta].getNumeroCasella()) {
+//					
+//					t.scale[nrRiga][colonnaTesta] = false;
+//					
+//					tabellone[nrRiga][colonnaTesta] = casellaFactory.createCella(
+//				    "Standard", tabellone[nrRiga][colonnaTesta].getNumeroCasella());
+//					tabellone[nrRiga][colonnaTesta].repaint();
+//
+//					rigaCoda = -1;
+//					colonnaCoda = -1;
+//					
+//					return tabellone;
+//				}
 				
 				codaPosizionata = true;
 				t.scale[randomRigaCoda][j] = true;
@@ -172,23 +212,54 @@ public class ScalaCreator implements CasellaCreator {
 		    "Standard", tabellone[nrRiga][colonnaTesta].getNumeroCasella());
 			tabellone[nrRiga][colonnaTesta].repaint();
 			
+			rigaTesta = -1;
+			colonnaTesta = -1;
+			
 		}
 		else if(testaPosizionata && codaPosizionata){
 
-			if(testaScala.getNumeroCasella()>codaScala.getNumeroCasella())
+			if(testaScala.getNumeroCasella()>codaScala.getNumeroCasella()) {
 				scala = new Scala(testaScala, codaScala);
-			/** Controllo che non vengono posizionate nella stessa posizione.
-			 *  Se si allora dealloco anche la testa */
-			else if(testaScala.getNumeroCasella()>codaScala.getNumeroCasella()) {
-				t.scale[nrRiga][colonnaTesta] = false;
+
+				((CasellaScala) codaScala).setScala((Scala) scala);
+				((CasellaScala) testaScala).setScala((Scala) scala);
+			}
+			else if(testaScala.getNumeroCasella()<codaScala.getNumeroCasella()) {
+				scala = new Scala(codaScala, testaScala);
+
+				((CasellaScala) codaScala).setScala((Scala) scala);
+				((CasellaScala) testaScala).setScala((Scala) scala);
+			}
+//			/** Controllo che non vengono posizionate nella stessa posizione.
+//			 *  Se si allora dealloco anche la testa */
+//			else if(testaScala.getNumeroCasella()>codaScala.getNumeroCasella()) {
+//				t.scale[nrRiga][colonnaTesta] = false;
+//				
+//				tabellone[nrRiga][colonnaTesta] = casellaFactory.createCella(
+//			    "Standard", tabellone[nrRiga][colonnaTesta].getNumeroCasella());
+//				tabellone[nrRiga][colonnaTesta].repaint();
+//				
+//			}
+			else {
+				t.scale[rigaTesta][colonnaTesta] = false;
 				
-				tabellone[nrRiga][colonnaTesta] = casellaFactory.createCella(
-			    "Standard", tabellone[nrRiga][colonnaTesta].getNumeroCasella());
-				tabellone[nrRiga][colonnaTesta].repaint();
+				tabellone[rigaTesta][colonnaTesta] = casellaFactory.createCella(
+			    "Standard", tabellone[rigaTesta][colonnaTesta].getNumeroCasella());
+				tabellone[rigaTesta][colonnaTesta].repaint();
+				
+				rigaTesta = -1;
+				colonnaTesta = -1;
+				
+				t.scale[rigaCoda][colonnaCoda] = false;
+				
+				tabellone[rigaCoda][colonnaCoda] = casellaFactory.createCella(
+			    "Standard", tabellone[rigaCoda][colonnaCoda].getNumeroCasella());
+				tabellone[rigaCoda][colonnaCoda].repaint();
+				
+				rigaCoda = -1;
+				colonnaCoda = -1;
 				
 			}
-			else
-				scala = new Scala(codaScala, testaScala);
 		}
 		
 		

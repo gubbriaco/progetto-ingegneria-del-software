@@ -4,6 +4,7 @@ import java.util.Random;
 
 import app.tabellone.Tabellone;
 import app.tabellone.casella.CasellaAstratta;
+import app.tabellone.casella.concrete.special.CasellaSerpente;
 import app.tabellone.casella.factory.CasellaFactory;
 import app.tabellone.casella.factory.CasellaFactoryIF;
 import app.tabellone.casella.strategy.CasellaCreator;
@@ -18,7 +19,6 @@ public class SerpenteCreator implements CasellaCreator {
 	
 	private CasellaFactoryIF casellaFactory = new CasellaFactory(); 
 	
-	@SuppressWarnings("unused")
 	private OggettoTrasferimento serpente;
 	
 	public SerpenteCreator(int nrRiga, Tabellone t) {
@@ -34,7 +34,7 @@ public class SerpenteCreator implements CasellaCreator {
 			return tabellone;
 
 		boolean testaPosizionata = false;
-		int colonnaTesta = -1;
+		int rigaTesta=-1, colonnaTesta=-1;
 		
 		CasellaAstratta testaSerpente = null;
 		
@@ -51,7 +51,9 @@ public class SerpenteCreator implements CasellaCreator {
 				/** controllo che tale casella sia una casella non speciale */
 				if( t.verificaCellaNonSpeciale(nrRiga, j) ) {
 					
+					rigaTesta = nrRiga;
 					colonnaTesta = j;
+					
 					testaPosizionata = true;
 					t.serpenti[nrRiga][j] = true;
 					
@@ -85,10 +87,15 @@ public class SerpenteCreator implements CasellaCreator {
 		if(nrRiga > tabellone.length-nrRiga) {
 			randomRigaCoda = rigaCodaSerpente.nextInt((tabellone.length-nrRiga), nrRiga);
 			if(nrRiga==randomRigaCoda) {
+				
 				t.serpenti[nrRiga][colonnaTesta] = false;
 				
 				tabellone[nrRiga][colonnaTesta] = casellaFactory.createCella(
 			    "Standard", tabellone[nrRiga][colonnaTesta].getNumeroCasella());
+				
+				rigaTesta = -1;
+				colonnaTesta = -1;
+				
 				return tabellone;
 			}
 			/** non si possono assegnare testa e coda sulla stessa riga */
@@ -102,6 +109,10 @@ public class SerpenteCreator implements CasellaCreator {
 				
 				tabellone[nrRiga][colonnaTesta] = casellaFactory.createCella(
 			    "Standard", tabellone[nrRiga][colonnaTesta].getNumeroCasella());
+				
+				rigaTesta = -1;
+				colonnaTesta = -1;
+				
 				return tabellone;
 			}
 			/** non si possono assegnare testa e coda sulla stessa riga */
@@ -117,6 +128,10 @@ public class SerpenteCreator implements CasellaCreator {
 			
 			tabellone[nrRiga][colonnaTesta] = casellaFactory.createCella(
 		    "Standard", tabellone[nrRiga][colonnaTesta].getNumeroCasella());
+			
+			rigaTesta = -1;
+			colonnaTesta = -1;
+			
 			return tabellone;
 		}
 			
@@ -124,6 +139,8 @@ public class SerpenteCreator implements CasellaCreator {
 		boolean codaPosizionata = false;
 		
 		CasellaAstratta codaSerpente = null;
+		
+		int rigaCoda=-1, colonnaCoda=-1;
 		
 		/** assegno la coda della scala corrispondente alla casella booleana che 
 		 * soddisfa la condizione*/
@@ -139,7 +156,32 @@ public class SerpenteCreator implements CasellaCreator {
 			/** controllo che tale casella sia una casella non speciale */
 			if( t.verificaCellaNonSpeciale(randomRigaCoda, j) ) {
 				
+				rigaCoda = randomRigaCoda;
+				colonnaCoda = j;
 				
+				if(rigaTesta == rigaCoda) {
+					t.scale[nrRiga][colonnaTesta] = false;
+					
+					tabellone[nrRiga][colonnaTesta] = casellaFactory.createCella(
+				    "Standard", tabellone[nrRiga][colonnaTesta].getNumeroCasella());
+					tabellone[nrRiga][colonnaTesta].repaint();
+					
+					rigaTesta = -1;
+					colonnaTesta = -1;
+					return tabellone;
+				}
+				
+				if(rigaTesta == rigaCoda) {
+					t.serpenti[nrRiga][colonnaTesta] = false;
+					
+					tabellone[nrRiga][colonnaTesta] = casellaFactory.createCella(
+				    "Standard", tabellone[nrRiga][colonnaTesta].getNumeroCasella());
+					tabellone[nrRiga][colonnaTesta].repaint();
+					
+					rigaTesta = -1;
+					colonnaTesta = -1;
+					break;
+				}
 				
 				codaPosizionata = true;
 				t.serpenti[randomRigaCoda][j] = true;
@@ -160,31 +202,51 @@ public class SerpenteCreator implements CasellaCreator {
 		/** se la testa del serpente e' stata posizionata mentre la coda no 
 		 * allora deassegno anche la testa del serpente posizionata */
 		if(testaPosizionata && !codaPosizionata) {
-			t.serpenti[nrRiga][colonnaTesta] = false;
 			
+			t.serpenti[nrRiga][colonnaTesta] = false;
 			
 			
 			tabellone[nrRiga][colonnaTesta] = casellaFactory.createCella(
 		    "Standard", tabellone[nrRiga][colonnaTesta].getNumeroCasella());
 			tabellone[nrRiga][colonnaTesta].repaint();
 			
+			rigaTesta = -1;
+			colonnaTesta=-1;
+			
 		}
 		else if(testaPosizionata && codaPosizionata) {
 			
-			if(testaSerpente.getNumeroCasella()>codaSerpente.getNumeroCasella())
+			if(testaSerpente.getNumeroCasella()>codaSerpente.getNumeroCasella()) {
 				serpente = new Serpente(testaSerpente, codaSerpente);
-			/** Controllo che non vengono posizionate nella stessa posizione.
-			 *  Se si allora dealloco anche la testa */
-			else if(testaSerpente.getNumeroCasella()>codaSerpente.getNumeroCasella()) {
-				t.serpenti[nrRiga][colonnaTesta] = false;
+				((CasellaSerpente) codaSerpente).setSerpente((Serpente) serpente);
+				((CasellaSerpente) testaSerpente).setSerpente((Serpente) serpente);
+			}
+			else if(testaSerpente.getNumeroCasella()<codaSerpente.getNumeroCasella()) {
+				serpente = new Serpente(codaSerpente, testaSerpente);
+				((CasellaSerpente) codaSerpente).setSerpente((Serpente) serpente);
+				((CasellaSerpente) testaSerpente).setSerpente((Serpente) serpente);
+			}
+			
+			else {
+				t.serpenti[rigaTesta][colonnaTesta] = false;
 				
-				tabellone[nrRiga][colonnaTesta] = casellaFactory.createCella(
-			    "Standard", tabellone[nrRiga][colonnaTesta].getNumeroCasella());
-				tabellone[nrRiga][colonnaTesta].repaint();
+				tabellone[rigaTesta][colonnaTesta] = casellaFactory.createCella(
+			    "Standard", tabellone[rigaTesta][colonnaTesta].getNumeroCasella());
+				tabellone[rigaTesta][colonnaTesta].repaint();
+				
+				rigaTesta = -1;
+				colonnaTesta = -1;
+				
+				t.serpenti[rigaCoda][colonnaCoda] = false;
+				
+				tabellone[rigaCoda][colonnaCoda] = casellaFactory.createCella(
+			    "Standard", tabellone[rigaCoda][colonnaCoda].getNumeroCasella());
+				tabellone[rigaCoda][colonnaCoda].repaint();
+				
+				rigaCoda = -1;
+				colonnaCoda = -1;
 				
 			}
-			else
-				serpente = new Serpente(codaSerpente, testaSerpente);
 		}
 		
 		return tabellone;

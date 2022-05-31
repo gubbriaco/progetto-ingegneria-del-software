@@ -3,12 +3,14 @@ package app.tabellone.casella.concrete.special;
 import java.awt.Color;
 
 import app.tabellone.casella.CasellaAstratta;
+import app.tabellone.casella.concrete.TipologiaCasella;
 
 @SuppressWarnings("serial")
 public class CasellaUnSoloDado extends CasellaAstratta {
 
 	public CasellaUnSoloDado(int numeroCella) {
 		super(numeroCella);
+		tipologiaCasella = TipologiaCasella.UNSOLODADADO;
 		
 	}
 
@@ -18,6 +20,5 @@ public class CasellaUnSoloDado extends CasellaAstratta {
 		this.setForeground(Color.BLACK);
 	}
 
-	
 
 }

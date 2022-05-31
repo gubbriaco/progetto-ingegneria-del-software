@@ -1,4 +1,4 @@
-package gui.window.finestravittoria;
+package gui.window.finestravittoria.concrete;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,6 +14,7 @@ import gui.factory.FinestraFactory;
 import gui.factory.FinestraFactoryIF;
 import gui.graphic.border.RoundedBorder;
 import gui.window.FinestraIF;
+import gui.window.finestravittoria.FinestraVittoriaAstratta;
 
 @SuppressWarnings("serial")
 public class FinestraVittoria extends FinestraVittoriaAstratta {

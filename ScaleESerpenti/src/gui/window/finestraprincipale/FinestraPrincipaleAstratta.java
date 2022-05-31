@@ -28,10 +28,7 @@ import app.tabellone.casella.CasellaAstratta;
 import gui.factory.FinestraFactory;
 import gui.factory.FinestraFactoryIF;
 import gui.graphic.border.RoundedBorder;
-import gui.graphic.panel.PanelAbstract;
-import gui.graphic.panel.concrete.CombinazioneDadiCorrentePanel;
-import gui.graphic.panel.concrete.GiocatoreCorrentePanel;
-import gui.graphic.panel.concrete.LegendaPanel;
+import gui.graphic.panel.LegendaPanel;
 import gui.window.FinestraAstratta;
 import gui.window.FinestraIF;
 import gui.window.finestraterminale.concrete.FinestraTerminale;
@@ -200,7 +197,7 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 
 	
 	private JLabel titoloLegenda; 
-	private PanelAbstract legenda;
+	private JPanel legenda;
 	
 	@Override protected void inizializzaLayoutSOUTH() {
 		pSOUTH = new JPanel();
@@ -219,9 +216,6 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 	}
 	
 	
-	private PanelAbstract giocatoreCorrenteLabel;
-	private PanelAbstract combinazioneDadiCorrenteLabel;
-	private JLabel titoloGiocatoreCorrente, titoloCombinazioneDadi;
 	private String tipologiaModalita;
 	private JLabel titoloModalita;
 	private JButton pulsanteModalita;

@@ -6,10 +6,10 @@ import app.tabellone.casella.CasellaAstratta;
 
 @SuppressWarnings("serial")
 public class CasellaStandard extends CasellaAstratta {
-
 	
 	public CasellaStandard(int numeroCella) {
 		super(numeroCella);
+		tipologiaCasella = TipologiaCasella.STANDARD;
 	}
 
 	@Override public void draw() {
@@ -18,7 +18,5 @@ public class CasellaStandard extends CasellaAstratta {
 		this.setForeground(Color.BLACK);
 	}
 
-	
-	
 
 }

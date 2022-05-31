@@ -1,14 +1,13 @@
-package gui.graphic.panel.concrete;
+package gui.graphic.panel;
 
 import java.awt.Color;
 
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import gui.graphic.border.RoundedBorder;
-import gui.graphic.panel.PanelAbstract;
-
 @SuppressWarnings("serial")
-public class LegendaPanel extends PanelAbstract {
+public class LegendaPanel extends JPanel {
 	
 	
 	private final static int raggio = 5;

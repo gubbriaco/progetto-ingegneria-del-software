@@ -99,6 +99,7 @@ public class FinestraPrincipaleAutomatica extends FinestraPrincipaleAstratta{
 	 * Invoca l'esecuzione automatica della sessione di gioco.
 	 */
 	private void esecuzioneAutomatica() {
+		
 		esecuzione.esegui();
 		this.validate();
 		this.repaint();

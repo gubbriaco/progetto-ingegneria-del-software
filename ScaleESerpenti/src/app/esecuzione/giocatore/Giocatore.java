@@ -29,4 +29,29 @@ public interface Giocatore {
 	 */
 	int getCasellaCorrente();
 	
+	/**
+	 * Restituisce quanti turni deve stare fermo il giocatore.
+	 * @return
+	 */
+	int getTurniFermo();
+	
+	/**
+	 * Imposta quanti turni deve rimanere fermo il giocatore.
+	 * @param turniFermo
+	 */
+	void setTurniFermo(int turniFermo);
+	
+	/**
+	 * Restituisce la combinazione dei dadi ottenuta dal giocatore.
+	 * @return Combinazione dei dadi
+	 */
+	int getCombinazioneDadi();
+	
+	/**
+	 * Imposta la nuova combinazione dei dadi ottenuta dal giocatore.
+	 * @param combinazioneDadi Nuova combinazione dei dadi
+	 */
+	void setCombinazioneDadi(int combinazioneDadi);
+	
+	
 }

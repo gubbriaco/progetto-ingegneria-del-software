@@ -7,7 +7,7 @@ import gui.window.finestraerrore.concrete.FinestraErrore;
 import gui.window.finestraprincipale.concrete.FinestraPrincipaleAutomatica;
 import gui.window.finestraprincipale.concrete.FinestraPrincipaleManuale;
 import gui.window.finestraterminale.concrete.FinestraTerminale;
-import gui.window.finestravittoria.FinestraVittoria;
+import gui.window.finestravittoria.concrete.FinestraVittoria;
 import gui.window.pannello.concrete.PannelloConfigurazione;
 import gui.window.pannello.concrete.PannelloScelte;
 

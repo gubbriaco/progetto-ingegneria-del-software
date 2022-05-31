@@ -14,12 +14,14 @@ public abstract class OggettoTrasferimento extends JComponent {
 		this.coda = coda;
 	}
 	
-//	@Override public void paintComponent(Graphics graphics) {
-//		super.paintComponent(graphics);
-//		draw(graphics, testa, coda);
-//	}
 	
-//	protected abstract void draw(Graphics graphics, CasellaAstratta testa, CasellaAstratta coda);
+	public int getTesta() {
+		return testa.getNumeroCasella();
+	}
 	
-
+	public int getCoda() {
+		return coda.getNumeroCasella();
+	}
+	
+	
 }

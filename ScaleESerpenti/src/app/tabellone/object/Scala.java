@@ -10,7 +10,7 @@ import app.tabellone.casella.CasellaAstratta;
 @SuppressWarnings("serial")
 public class Scala extends OggettoTrasferimento {
 	
-	JLabel testaScalaLabel, codaScalaLabel;
+	private JLabel testaScalaLabel, codaScalaLabel;
 	
 	public Scala(CasellaAstratta testaScala, CasellaAstratta codaScala) {
 		super(testaScala, codaScala);
@@ -35,17 +35,6 @@ public class Scala extends OggettoTrasferimento {
 		
 		//System.out.println(testaScala.getNumeroCasella() + "," + codaScala.getNumeroCasella());	
 	}
-	
-//	@SuppressWarnings("deprecation")
-//	@Override public void paint(Graphics g) {
-//		Graphics2D g2 = (Graphics2D)g;
-//		super.paintComponent(g2);
-//		g2.setStroke(new BasicStroke(15));
-//		g2.setColor(testa.getBackground());
-//		g2.drawLine(testa.location().x, testa.location().y, coda.location().x, coda.location().y);
-//		
-//	}
 
 	
-
 }

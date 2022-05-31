@@ -9,12 +9,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import app.esecuzione.giocatore.Giocatore;
+import app.tabellone.casella.concrete.TipologiaCasella;
 import gui.graphic.border.RoundedBorder;
 
 @SuppressWarnings("serial")
 public abstract class CasellaAstratta extends JPanel {
 	
 	private int numeroCasella;
+	
+	public TipologiaCasella tipologiaCasella;
 	
 	
 	@SuppressWarnings("rawtypes")
@@ -61,12 +64,11 @@ public abstract class CasellaAstratta extends JPanel {
 	 * una nuova combinazione di dadi.
 	 * @param giocatore Giocatore che si e' spostato verso una nuova casella.
 	 */
-	@SuppressWarnings("unlikely-arg-type")
 	public void rimuoviGiocatore(Giocatore giocatore) {
-//		for(int i=0;i<giocatori.size();++i)
-//			if(giocatori.get(i).equals(giocatore.toString()))
-//				giocatori.remove(i);
-		giocatori.remove(giocatore);
+		for(int i=0;i<giocatori.size();++i)
+			if(giocatori.get(i).equalsIgnoreCase(giocatore.toString()))
+				giocatori.remove(i);
+		//giocatori.remove(giocatore);
 	}
 	
 	/**

@@ -10,7 +10,7 @@ import app.tabellone.casella.CasellaAstratta;
 @SuppressWarnings("serial")
 public class Serpente extends OggettoTrasferimento {
 
-	JLabel testaSerpenteLabel, codaSerpenteLabel;
+	private JLabel testaSerpenteLabel, codaSerpenteLabel;
 	
 	public Serpente(CasellaAstratta testaSerpente, CasellaAstratta codaSerpente) {
 		super(testaSerpente, codaSerpente);
@@ -37,13 +37,6 @@ public class Serpente extends OggettoTrasferimento {
 		
 		
 	}
-
-//	@Override public void paint(Graphics g) {
-//		super.paintComponent(g);
-//		g.setColor(testa.getBackground());
-//		g.drawLine(testa.location().x, testa.location().y, coda.location().x, coda.location().y);
-//		
-//	}
 
 	
 	

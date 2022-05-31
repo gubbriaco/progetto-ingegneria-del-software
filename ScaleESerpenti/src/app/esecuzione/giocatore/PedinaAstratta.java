@@ -9,6 +9,8 @@ public abstract class PedinaAstratta implements Giocatore {
 	
 	protected String nomePedina;
 	
+	private int combinazioneDadi, turniFermo;
+	
 	protected LinkedList<Carta> carteConservate;
 	
 	@SuppressWarnings("unused")
@@ -27,6 +29,9 @@ public abstract class PedinaAstratta implements Giocatore {
 		carteConservate = new LinkedList<>();
 		
 		caselleRimanenti = 0;
+		
+		turniFermo = 0;
+		combinazioneDadi = 0;
 	}
 	
 	@Override public void setCasellaCorrente(int casellaNuova) {
@@ -36,5 +41,24 @@ public abstract class PedinaAstratta implements Giocatore {
 	@Override public int getCasellaCorrente() {
 		return casellaCorrente;
 	}
+	
+	
+	@Override public int getTurniFermo() {
+		return turniFermo;
+	}
+	
+	@Override public void setTurniFermo(int turniFermo) {
+		this.turniFermo = turniFermo;
+	}
+	
+	
+	@Override public int getCombinazioneDadi() {
+		return combinazioneDadi;
+	}
+	
+	@Override public void setCombinazioneDadi(int combinazioneDadi) {
+		this.combinazioneDadi = combinazioneDadi;
+	}
+	
 	
 }

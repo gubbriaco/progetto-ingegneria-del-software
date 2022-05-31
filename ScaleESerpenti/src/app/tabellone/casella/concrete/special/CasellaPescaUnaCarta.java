@@ -3,12 +3,14 @@ package app.tabellone.casella.concrete.special;
 import java.awt.Color;
 
 import app.tabellone.casella.CasellaAstratta;
+import app.tabellone.casella.concrete.TipologiaCasella;
 
 @SuppressWarnings("serial")
 public class CasellaPescaUnaCarta extends CasellaAstratta  {
 
 	public CasellaPescaUnaCarta(int numeroCella) {
 		super(numeroCella);
+		tipologiaCasella = TipologiaCasella.PESCAUNACARTA;
 	}
 
 	@Override public void draw() {
@@ -17,4 +19,5 @@ public class CasellaPescaUnaCarta extends CasellaAstratta  {
 		this.setForeground(Color.BLACK);
 	}
 
+	
 }
