@@ -2,7 +2,7 @@ package app.esecuzione.giocatore;
 
 import java.util.LinkedList;
 
-import app.esecuzione.mazzo.Carta;
+import app.esecuzione.mazzo.carte.Carta;
 import app.tabellone.Tabellone;
 
 public abstract class PedinaAstratta implements Giocatore {
@@ -18,6 +18,8 @@ public abstract class PedinaAstratta implements Giocatore {
 	
 	private int casellaCorrente;
 	
+	private int[] lancioDeiDadi;
+	
 	/** variabile per contare di quante caselle bisogna indietreggiare nel caso
 	 * in cui si supera il traguardo */
 	protected int caselleRimanenti;
@@ -32,6 +34,8 @@ public abstract class PedinaAstratta implements Giocatore {
 		
 		turniFermo = 0;
 		combinazioneDadi = 0;
+		
+		lancioDeiDadi=new int[2];
 	}
 	
 	@Override public void setCasellaCorrente(int casellaNuova) {
@@ -58,6 +62,15 @@ public abstract class PedinaAstratta implements Giocatore {
 	
 	@Override public void setCombinazioneDadi(int combinazioneDadi) {
 		this.combinazioneDadi = combinazioneDadi;
+	}
+	
+	@Override public int[] getLancioDeiDadi() {
+		return lancioDeiDadi;
+	}
+	
+	@Override public void setLancioDeiDadi(int lancio1, int lancio2) {
+		lancioDeiDadi[0] = lancio1;
+		lancioDeiDadi[1] = lancio2;
 	}
 	
 	

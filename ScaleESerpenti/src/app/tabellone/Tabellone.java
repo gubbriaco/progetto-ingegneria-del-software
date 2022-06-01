@@ -10,6 +10,7 @@ import app.tabellone.casella.strategy.creators.special.premio.PremioDadiCreator;
 import app.tabellone.casella.strategy.creators.special.premio.PremioMollaCreator;
 import app.tabellone.casella.strategy.creators.special.sosta.SostaLocandaCreator;
 import app.tabellone.casella.strategy.creators.special.sosta.SostaPanchinaCreator;
+import gui.window.pannello.concrete.PannelloConfigurazione;
 
 public class Tabellone extends TabelloneAstratto {
 	
@@ -24,8 +25,10 @@ public class Tabellone extends TabelloneAstratto {
 	
 	@Override protected void aggiungiCaselleSpeciali(){
 		
-		casellaCreator = new UnSoloDadoCreator();
-		tabellone = casellaCreator.createCasella(tabellone, -1);
+		if(PannelloConfigurazione.caselleUnSoloDadoINSIDE) {
+			casellaCreator = new UnSoloDadoCreator();
+			tabellone = casellaCreator.createCasella(tabellone, -1);
+		}
 		
 		for(int i=0;i<tabellone.length;++i) {
 			
@@ -61,52 +64,60 @@ public class Tabellone extends TabelloneAstratto {
 				limite = bounds[1];
 			}
 			
+			// TODO possibilita di scelta caselle speciali con if e booleane
 			
-			
-			/** numero di cella randomica su cui posizionare la casella speciale
-			 *  Sosta */
-			int randSostaPanchina = randomSosta.nextInt(base, limite+1);
-			casellaCreator = new SostaPanchinaCreator(i, this);
-			tabellone = casellaCreator.createCasella(tabellone, randSostaPanchina);
-			
-			/** numero di cella randomica su cui posizionare la casella speciale
-			 *  Sosta */
-			int randSostaLocanda = randomSosta.nextInt(base, limite+1);
-			casellaCreator = new SostaLocandaCreator(i, this);
-			tabellone = casellaCreator.createCasella(tabellone, randSostaLocanda);
+			if(PannelloConfigurazione.caselleSostaINSIDE) {
 				
+				/** numero di cella randomica su cui posizionare la casella speciale
+				 *  Sosta */
+				int randSostaPanchina = randomSosta.nextInt(base, limite+1);
+				casellaCreator = new SostaPanchinaCreator(i, this);
+				tabellone = casellaCreator.createCasella(tabellone, randSostaPanchina);
+				
+				/** numero di cella randomica su cui posizionare la casella speciale
+				 *  Sosta */
+				int randSostaLocanda = randomSosta.nextInt(base, limite+1);
+				casellaCreator = new SostaLocandaCreator(i, this);
+				tabellone = casellaCreator.createCasella(tabellone, randSostaLocanda);
+			}
 			
-			/** numero di cella randomica su cui posizionare la casella speciale
-			 *  Premio */
-			int randPremioDadi = randomPremio.nextInt(base, limite+1);
-			casellaCreator = new PremioDadiCreator(i, this);
-			tabellone = casellaCreator.createCasella(tabellone, randPremioDadi);
+			else if(PannelloConfigurazione.casellePremioINSIDE) {
+				/** numero di cella randomica su cui posizionare la casella speciale
+				 *  Premio */
+				int randPremioDadi = randomPremio.nextInt(base, limite+1);
+				casellaCreator = new PremioDadiCreator(i, this);
+				tabellone = casellaCreator.createCasella(tabellone, randPremioDadi);
+				
+				/** numero di cella randomica su cui posizionare la casella speciale
+				 *  Premio */
+				int randPremioMolla = randomPremio.nextInt(base, limite+1);
+				casellaCreator = new PremioMollaCreator(i, this);
+				tabellone = casellaCreator.createCasella(tabellone, randPremioMolla);
+			}
 			
-			/** numero di cella randomica su cui posizionare la casella speciale
-			 *  Premio */
-			int randPremioMolla = randomPremio.nextInt(base, limite+1);
-			casellaCreator = new PremioMollaCreator(i, this);
-			tabellone = casellaCreator.createCasella(tabellone, randPremioMolla);
+			else if(PannelloConfigurazione.casellePescaUnaCartaINSIDE) {
+				/** numero di cella randomica su cui posizionare la casella speciale
+				 *  Pesca Una Carta */
+				int randPescaUnaCarta = randomPescaUnaCarta.nextInt(base, limite+1);
+				casellaCreator = new PescaUnaCartaCreator(i, this);
+				tabellone = casellaCreator.createCasella(tabellone, randPescaUnaCarta);
+			}
 			
+			else if(PannelloConfigurazione.scaleINSIDE) {
+				/** numero di cella randomica su cui posizionare la testa della 
+				 *  scala */
+				int randScala = randomScala.nextInt(base, limite+1);
+				casellaCreator = new ScalaCreator(i, this);
+				tabellone = casellaCreator.createCasella(tabellone, randScala);
+			}
 			
-			/** numero di cella randomica su cui posizionare la casella speciale
-			 *  Pesca Una Carta */
-			int randPescaUnaCarta = randomPescaUnaCarta.nextInt(base, limite+1);
-			casellaCreator = new PescaUnaCartaCreator(i, this);
-			tabellone = casellaCreator.createCasella(tabellone, randPescaUnaCarta);
-			
-			/** numero di cella randomica su cui posizionare la testa della 
-			 *  scala */
-			int randScala = randomScala.nextInt(base, limite+1);
-			casellaCreator = new ScalaCreator(i, this);
-			tabellone = casellaCreator.createCasella(tabellone, randScala);
-			
-			/** numero di cella randomica su cui posizionare la testa del 
-			 *  serpente */
-			int randSerpente = randomSerpente.nextInt(base, limite+1);
-			casellaCreator = new SerpenteCreator(i, this);
-			tabellone = casellaCreator.createCasella(tabellone, randSerpente);
-			
+			else if(PannelloConfigurazione.serpentiINSIDE) {
+				/** numero di cella randomica su cui posizionare la testa del 
+				 *  serpente */
+				int randSerpente = randomSerpente.nextInt(base, limite+1);
+				casellaCreator = new SerpenteCreator(i, this);
+				tabellone = casellaCreator.createCasella(tabellone, randSerpente);
+			}
 			
 		}
 		

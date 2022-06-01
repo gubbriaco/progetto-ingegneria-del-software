@@ -22,7 +22,7 @@ public class EsecuzioneAutomatica extends Esecuzione {
 		
 		
 		while( !victory ) {
-
+			
 			System.out.println(finestraPrincipale.getTurnoCorrente());
 			Dado dado1, dado2;
 			int combinazioneDadi = 0, lancio1, lancio2, nuovaCasella;
@@ -50,6 +50,9 @@ public class EsecuzioneAutomatica extends Esecuzione {
 				lancio1 = dado1.lancio();
 				lancio2 = dado2.lancio();
 				combinazioneDadi = lancio1 + lancio2;
+				
+				giocatoriInGioco.get(i).setLancioDeiDadi(lancio1, lancio2);
+				giocatoriInGioco.get(i).setCombinazioneDadi(combinazioneDadi);
 				
 				giocatoriInGioco.get(i).setCombinazioneDadi(combinazioneDadi);
 				
@@ -81,6 +84,7 @@ public class EsecuzioneAutomatica extends Esecuzione {
 				
 
 			}
+			
 			
 			if(victory) {
 				

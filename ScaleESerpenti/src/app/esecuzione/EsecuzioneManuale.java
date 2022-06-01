@@ -52,6 +52,7 @@ public class EsecuzioneManuale extends Esecuzione {
 			lancio2 = dado2.lancio();
 			combinazioneDadi = lancio1 + lancio2;
 			
+			giocatoriInGioco.get(i).setLancioDeiDadi(lancio1, lancio2);
 			giocatoriInGioco.get(i).setCombinazioneDadi(combinazioneDadi);
 
 			/** la pedina si muove verso la nuova casella */

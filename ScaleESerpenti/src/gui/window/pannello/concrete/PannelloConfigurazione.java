@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -24,17 +25,25 @@ import gui.window.pannello.PannelloAstratto;
 public class PannelloConfigurazione extends PannelloAstratto {
 	
 	private JLabel label, titoloModalita, titoloTextField,
-				   titoloNrRighe, titoloNrColonne;
+				   titoloNrRighe, titoloNrColonne, titoloNrDadi;
 	private JButton ok;
 	private JRadioButton automatica, manuale;
-	private JTextField numeroGiocatori, nrRighe, nrColonne;
-	private JPanel pSOUTH1, pSOUTH2;
+	private JTextField numeroGiocatori, nrRighe, nrColonne, nrDadi;
+	private JPanel pSOUTH1, pSOUTH2, pSOUTH3, pCENTER1, pCENTER2;
+	
+	private JCheckBox caselleUnSoloDado, doppioSei, caselleSosta, 
+			          casellePremio, casellePescaUnaCarta, scale, serpenti ;
+	
+	public static boolean caselleUnSoloDadoINSIDE, caselleSostaINSIDE, 
+	               casellePremioINSIDE, casellePescaUnaCartaINSIDE,
+	               doppioSeiINSIDE, scaleINSIDE, serpentiINSIDE;
 	
 	private FinestraFactoryIF errore = new FinestraFactory(),
 							  fPrincipale = new FinestraFactory();
 	private Modalita.Mod modalita;
 	private int numGiocatori;
-	//private Difficolta difficolta;
+	
+	public static int numeroDadi;
 	
 	protected int[] dimensioniTabellone;
  	
@@ -42,6 +51,15 @@ public class PannelloConfigurazione extends PannelloAstratto {
 	public PannelloConfigurazione() {
 		titolo = "Pannello Configurazione";
 		this.setTitle(titolo);
+		
+		caselleUnSoloDadoINSIDE = false;
+		caselleSostaINSIDE = false;
+        casellePremioINSIDE = false;
+        casellePescaUnaCartaINSIDE = false;
+        scaleINSIDE = false;
+        serpentiINSIDE = false;
+        
+        doppioSeiINSIDE = false;
 	}
 
 	@Override protected void inizializzaLayoutNORTH() {
@@ -69,62 +87,62 @@ public class PannelloConfigurazione extends PannelloAstratto {
 		pCENTER = new JPanel();
 		this.add(pCENTER, BorderLayout.CENTER); pCENTER.setBackground(Color.GRAY.brighter());
 		
-		pCENTER.setBackground(Color.GRAY); pCENTER.setBorder(new RoundedBorder(1));
+		pCENTER1 = new JPanel();
+		pCENTER1.setBorder(new RoundedBorder(5));
+		pCENTER1.setBackground(Color.GRAY);
+		pCENTER.add(pCENTER1);
 		titoloModalita = new JLabel("Modalità:"); titoloModalita.setForeground(Color.BLACK);
-		pCENTER.add(titoloModalita);
+		pCENTER1.add(titoloModalita, BorderLayout.NORTH);
 		automatica = new JRadioButton("Automatica"); 
 		automatica.setForeground(Color.BLACK.brighter()); automatica.setBackground(Color.GRAY);
-		pCENTER.add(automatica,BorderLayout.WEST);
+		pCENTER1.add(automatica,BorderLayout.WEST);
 		manuale = new JRadioButton("Manuale"); 
 		manuale.setForeground(Color.BLACK.brighter()); manuale.setBackground(Color.GRAY);
-		pCENTER.add(manuale,BorderLayout.EAST);
-		
+		pCENTER1.add(manuale,BorderLayout.EAST);
+
 		gestisciRadioButtonModalita();
-	}
-
-	@Override protected void inizializzaLayoutSOUTH() {
-		pSOUTH = new JPanel();
-		this.add(pSOUTH,BorderLayout.SOUTH); pSOUTH.setBackground(Color.GRAY.brighter());
-		
-		pSOUTH1 = new JPanel(); 
-		pSOUTH.add(pSOUTH1, BorderLayout.WEST);
-		pSOUTH1.setBorder(new RoundedBorder(5));
-		pSOUTH1.setBackground(Color.GRAY);
-		titoloTextField = new JLabel("Nr. giocatori:");
-		pSOUTH1.add(titoloTextField, BorderLayout.WEST);
-		titoloTextField.setForeground(Color.BLACK);titoloTextField.setBackground(Color.GRAY);
-		numeroGiocatori = new JTextField();
-		numeroGiocatori.setColumns(2);
-		numeroGiocatori.setToolTipText("Nr. giocatori");
-		pSOUTH1.add(numeroGiocatori,BorderLayout.EAST);
 		
 		
-		pSOUTH2 = new JPanel();
-		pSOUTH2.setBorder(new RoundedBorder(5));
-		pSOUTH2.setBackground(Color.GRAY.brighter());
-		pSOUTH.add(pSOUTH2, BorderLayout.EAST);
+		pCENTER2 = new JPanel();
+		pCENTER2.setBorder(new RoundedBorder(5));
+		caselleUnSoloDado = new JCheckBox("Caselle un solo dado");
+		caselleUnSoloDado.setForeground(Color.BLACK);
+		caselleUnSoloDado.setBackground(Color.LIGHT_GRAY);
+		pCENTER2.add(caselleUnSoloDado);
+		caselleSosta = new JCheckBox("Caselle sosta");
+		caselleSosta.setForeground(Color.BLACK);
+		caselleSosta.setBackground(Color.LIGHT_GRAY);
+		pCENTER2.add(caselleSosta);
+		casellePremio = new JCheckBox("Caselle premio");
+		casellePremio.setForeground(Color.BLACK);
+		casellePremio.setBackground(Color.LIGHT_GRAY);
+		pCENTER2.add(casellePremio);
+		casellePescaUnaCarta = new JCheckBox("Caselle pesca una carta");
+		casellePescaUnaCarta.setForeground(Color.BLACK);
+		casellePescaUnaCarta.setBackground(Color.LIGHT_GRAY);
+		pCENTER2.add(casellePescaUnaCarta);
+		pCENTER2.setBackground(Color.LIGHT_GRAY);
+		scale = new JCheckBox("Scale");
+		scale.setForeground(Color.BLACK);
+		scale.setBackground(Color.LIGHT_GRAY);
+		pCENTER2.add(scale);
+		pCENTER2.setBackground(Color.LIGHT_GRAY);
+		serpenti = new JCheckBox("Serpenti");
+		serpenti.setForeground(Color.BLACK);
+		serpenti.setBackground(Color.LIGHT_GRAY);
+		pCENTER2.add(serpenti);
+		pCENTER2.setBackground(Color.LIGHT_GRAY);
+		pCENTER.add(pCENTER2);
 		
-		titoloNrRighe = new JLabel("Nr. righe");
-		titoloNrRighe.setForeground(Color.BLACK);
-		pSOUTH2.add(titoloNrRighe);
-		nrRighe = new JTextField();
-		nrRighe.setColumns(2);
-		nrRighe.setToolTipText("Numero Righe");
-		pSOUTH2.add(nrRighe);
 		
-		titoloNrColonne = new JLabel("Nr. colonne");
-		titoloNrColonne.setForeground(Color.BLACK);
-		pSOUTH2.add(titoloNrColonne);
-		nrColonne = new JTextField();
-		nrColonne.setColumns(2);
-		nrColonne.setToolTipText("Numero Colonne");
-		pSOUTH2.add(nrColonne);
-		
-		dimensioniTabellone = new int[2];
+		gestisciCheckBoxCaselle();
 		
 	}
-
 	
+	/**
+	 * Gestisce le scelte effettuate riguardo la modalita' di gioco per la nuova
+	 * sessione di Scale e Serpenti.
+	 */
 	private void gestisciRadioButtonModalita() {
 		automatica.addActionListener(new ActionListener() {
 			@Override public void actionPerformed(ActionEvent e) {
@@ -138,6 +156,87 @@ public class PannelloConfigurazione extends PannelloAstratto {
 		});
 	}
 	
+	/**
+	 * Gestisce le scelte effettuate riguardo le varianti delle caselle speciali
+	 * da inserire all'interno della nuova sessione di gioco.
+	 */
+	private void gestisciCheckBoxCaselle() {
+		if(caselleUnSoloDado.isSelected())
+			caselleUnSoloDadoINSIDE = true;
+		else if(caselleSosta.isSelected())
+			caselleSostaINSIDE = true;
+		else if(casellePremio.isSelected())
+			casellePremioINSIDE = true;
+		else if(casellePescaUnaCarta.isSelected())
+			casellePescaUnaCartaINSIDE = true;
+		else if(scale.isSelected())
+			scaleINSIDE = true;
+		else if(serpenti.isSelected())
+			serpentiINSIDE = true;
+	}
+
+	@Override protected void inizializzaLayoutSOUTH() {
+		pSOUTH = new JPanel();
+		this.add(pSOUTH,BorderLayout.SOUTH); pSOUTH.setBackground(Color.GRAY.brighter());
+		
+		pSOUTH1 = new JPanel(); 
+		pSOUTH1.setBorder(new RoundedBorder(5));
+		pSOUTH1.setBackground(Color.GRAY);
+		titoloTextField = new JLabel("Nr. giocatori:");
+		pSOUTH1.add(titoloTextField, BorderLayout.WEST);
+		titoloTextField.setForeground(Color.BLACK);titoloTextField.setBackground(Color.GRAY);
+		numeroGiocatori = new JTextField();
+		numeroGiocatori.setColumns(2);
+		numeroGiocatori.setToolTipText("Nr. giocatori");
+		pSOUTH1.add(numeroGiocatori,BorderLayout.EAST);
+		pSOUTH.add(pSOUTH1, BorderLayout.WEST);
+
+		pSOUTH2 = new JPanel();
+		pSOUTH2.setBorder(new RoundedBorder(5));
+		pSOUTH2.setBackground(Color.GRAY.brighter());
+		titoloNrRighe = new JLabel("Nr. righe");
+		titoloNrRighe.setForeground(Color.BLACK);
+		pSOUTH2.add(titoloNrRighe);
+		nrRighe = new JTextField();
+		nrRighe.setColumns(2);
+		nrRighe.setToolTipText("Numero Righe");
+		pSOUTH2.add(nrRighe);
+		titoloNrColonne = new JLabel("Nr. colonne");
+		titoloNrColonne.setForeground(Color.BLACK);
+		pSOUTH2.add(titoloNrColonne);
+		nrColonne = new JTextField();
+		nrColonne.setColumns(2);
+		nrColonne.setToolTipText("Numero Colonne");
+		pSOUTH2.add(nrColonne);
+		pSOUTH.add(pSOUTH2, BorderLayout.CENTER);
+		
+		dimensioniTabellone = new int[2];
+		
+		pSOUTH3 = new JPanel();
+		pSOUTH3.setBorder(new RoundedBorder(5));
+		pSOUTH3.setBackground(Color.LIGHT_GRAY);
+		titoloNrDadi = new JLabel("Nr. dadi");
+		titoloNrDadi.setForeground(Color.BLACK);
+		pSOUTH3.add(titoloNrDadi);
+		nrDadi = new JTextField();
+		nrDadi.setColumns(2);
+		nrDadi.setToolTipText("Numero Dadi");
+		pSOUTH3.add(nrDadi);
+		doppioSei = new JCheckBox("Modalita doppio sei");
+		doppioSei.setForeground(Color.BLACK);
+		doppioSei.setBackground(Color.LIGHT_GRAY);
+		pSOUTH3.add(doppioSei);
+		pSOUTH.add(pSOUTH3, BorderLayout.EAST);
+		
+		gestisciDadi();
+		
+	}
+	
+	private void gestisciDadi() {
+		if(doppioSei.isSelected())
+			doppioSeiINSIDE = true;
+	}
+
 	
 	/**
 	 * Gestisce la ricezione degli ActioneEvent per il {@link JButton}
@@ -184,7 +283,14 @@ public class PannelloConfigurazione extends PannelloAstratto {
 		gestisciNumeroGiocatoriScelto();
 		gestisciDimensioniScelte();
 		gestisciModalitaScelta();
+		gestisciNumeroDadi();
+		
 	}
+	
+	private void gestisciNumeroDadi() {
+		numeroDadi = Integer.valueOf(nrDadi.getText());
+	}
+	
 	
 	private void gestisciDimensioniScelte() {
 		dimensioniTabellone[0] = Integer.valueOf(nrRighe.getText());
@@ -199,20 +305,7 @@ public class PannelloConfigurazione extends PannelloAstratto {
 	private void gestisciNumeroGiocatoriScelto() {
 		numGiocatori = Integer.valueOf(numeroGiocatori.getText());
 	}
-	
-//	/**
-//	 * Salva la difficolta scelta tale da essere passata in input alla finestra 
-//	 * principale che verra' creata per la nuova sessione di gioco in 
-//	 * questione
-//	 */
-//	private void gestisciDifficoltaScelta() {
-//		if(facile.isSelected())
-//			difficolta = Difficolta.FACILE;
-//		else if(media.isSelected())
-//			difficolta = Difficolta.MEDIA;
-//		else
-//			difficolta = Difficolta.DIFFICILE;
-//	}
+
 	
 	/**
 	 * Salva la modalita scelta tale da essere passata in input alla finestra 
@@ -231,19 +324,33 @@ public class PannelloConfigurazione extends PannelloAstratto {
 	 * @return
 	 */
 	private boolean verificaScelte() {
-		if( modalitaScelta() && nrGiocatoriInserito() && dimensioniScelte() )
+		if( modalitaScelta() && nrGiocatoriInserito() && dimensioniScelte() &&
+				nrDadiScelto() )
 			return true;
 		return false;
 	}
 	
+	/**
+	 * Verifica l'integrita' del numero dei dadi scelto all'interno del pannello
+	 * di configurazione
+	 * @return Numero dei dadi scelto corretto
+	 */
+	private boolean nrDadiScelto() {
+		return (!nrDadi.getText().equals("") && stringaNumerica(nrDadi.getText())
+				&& Integer.valueOf(nrDadi.getText())>=1 );
+	}
 	
+	/**
+	 * Verifica l'integrita' delle dimensioni inserite all'interno del pannello 
+	 * di configurazione.
+	 * @return Dimensioni scelte corrette 
+	 */
 	private boolean dimensioniScelte() {
 		return (!nrRighe.getText().equals("") && stringaNumerica(nrRighe.getText()) && 
 				Integer.valueOf(nrRighe.getText())>=10 ) && 
 			   (!nrColonne.getText().equals("") && stringaNumerica(nrColonne.getText()) &&
 					   Integer.valueOf(nrColonne.getText())>=10);
 	}
-	
 	
 	/**
 	 * Verifica la correttezza della modalita' scelta per il gioco in questione.

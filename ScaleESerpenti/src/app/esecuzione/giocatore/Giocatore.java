@@ -1,6 +1,6 @@
 package app.esecuzione.giocatore;
 
-import app.esecuzione.mazzo.Carta;
+import app.esecuzione.mazzo.carte.Carta;
 
 public interface Giocatore {
 
@@ -52,6 +52,19 @@ public interface Giocatore {
 	 * @param combinazioneDadi Nuova combinazione dei dadi
 	 */
 	void setCombinazioneDadi(int combinazioneDadi);
+	
+	/**
+	 * Restituisce i lanci dei dadi effettuati dal giocatore.
+	 * @return Lanci dei dadi effettuati
+	 */
+	int[] getLancioDeiDadi();
+	
+	/**
+	 * Imposta i nuovi lanci effettuati dal giocatore.
+	 * @param lancio1 Lancio del Dado 1
+	 * @param lancio2 Lancio del Dado 2
+	 */
+	void setLancioDeiDadi(int lancio1, int lancio2);
 	
 	
 }
