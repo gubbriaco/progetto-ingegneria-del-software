@@ -89,23 +89,25 @@ public class EsecuzioneManuale extends Esecuzione {
 				finestraPrincipale.repaint();
 				victory = true;
 			}
+			
+			
+			if (victory) {
+				
+				victoryWindow = victoryFactory.createFinestra("FinestraVittoriaAstratta", "", null, -1, null);
+				victoryWindow.inizializzaFinestra();
+				
+				((FinestraVittoria)victoryWindow).setGiocatoriVincenti
+				( finestraPrincipale.getMatriceTabellone()[0][0].getGiocatori(), (FinestraVittoria)victoryWindow );
+				
+				((FinestraPrincipaleManuale)finestraPrincipale).prossimoTurno.setEnabled(false);
+				
+				return;
+				
+			}
 				
 		}
 			
-		if (victory) {
-			
-			victoryWindow = victoryFactory.createFinestra("FinestraVittoriaAstratta", "", null, -1, null);
-			victoryWindow.inizializzaFinestra();
-			
-			((FinestraVittoria)victoryWindow).setGiocatoriVincenti
-			( finestraPrincipale.getMatriceTabellone()[0][0].getGiocatori(), (FinestraVittoria)victoryWindow );
-			
-			((FinestraPrincipaleManuale)finestraPrincipale).prossimoTurno.setEnabled(false);
-			
-			return;
-			
-		}
-		else {
+		
 			turno = turno + 1;
 			finestraPrincipale.setNuovoTurno(turno);
 			finestraPrincipale.repaint();
@@ -113,7 +115,7 @@ public class EsecuzioneManuale extends Esecuzione {
 			System.out.println("********* TURNO : " + turno + " *********");
 			terminale.espandiAttivita("--- " + "Turno " + turno + " ---");
 			terminale.repaintTerminale();
-		}
+		
 			
 	}
 		

@@ -7,8 +7,6 @@ import javax.swing.JComboBox;
 
 import app.esecuzione.dadi.Dado;
 import app.esecuzione.giocatore.Giocatore;
-import app.esecuzione.mazzo.Mazzo;
-import app.esecuzione.mazzo.MazzoBuffer;
 import app.tabellone.Tabellone;
 import app.tabellone.TabelloneAstratto;
 import app.tabellone.casella.CasellaAstratta;

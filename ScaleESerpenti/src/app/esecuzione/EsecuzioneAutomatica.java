@@ -21,6 +21,7 @@ public class EsecuzioneAutomatica extends Esecuzione {
 	@Override public void esegui() {
 		
 		
+		
 		while( !victory ) {
 			
 			System.out.println(finestraPrincipale.getTurnoCorrente());
@@ -94,23 +95,27 @@ public class EsecuzioneAutomatica extends Esecuzione {
 					victory = true;
 				}
 				
+				
+				if(victory) {
+					
+					victoryWindow = victoryFactory.createFinestra("FinestraVittoriaAstratta", "", null, -1, null);
+					victoryWindow.inizializzaFinestra();
+					
+					((FinestraVittoria)victoryWindow).setGiocatoriVincenti
+					( finestraPrincipale.getMatriceTabellone()[0][0].getGiocatori(), (FinestraVittoria)victoryWindow );
+					
+					((FinestraPrincipaleAutomatica)finestraPrincipale).iniziaEsecuzioneAutomatica.setEnabled(false);
+					
+					break;
+				}
+				
 
 			}
 			
+			if(victory)
+				return;
 			
-			if(victory) {
-				
-				victoryWindow = victoryFactory.createFinestra("FinestraVittoriaAstratta", "", null, -1, null);
-				victoryWindow.inizializzaFinestra();
-				
-				((FinestraVittoria)victoryWindow).setGiocatoriVincenti
-				( finestraPrincipale.getMatriceTabellone()[0][0].getGiocatori(), (FinestraVittoria)victoryWindow );
-				
-				((FinestraPrincipaleAutomatica)finestraPrincipale).iniziaEsecuzioneAutomatica.setEnabled(false);
-				
-				break;
-			}
-			else {
+			
 				turno = turno+1;
 				finestraPrincipale.setNuovoTurno(turno);
 				finestraPrincipale.repaint();
@@ -118,7 +123,7 @@ public class EsecuzioneAutomatica extends Esecuzione {
 				System.out.println("********* TURNO : " + turno + " *********");
 				terminale.espandiAttivita("--- " + "Turno " + turno + " ---");
 				terminale.repaintTerminale();
-			}
+			
 		}
 		
 		
