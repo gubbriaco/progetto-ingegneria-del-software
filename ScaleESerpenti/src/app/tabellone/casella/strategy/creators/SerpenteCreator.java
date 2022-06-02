@@ -29,7 +29,7 @@ public class SerpenteCreator implements CasellaCreator {
 	@Override public CasellaAstratta[][] createCasella(CasellaAstratta[][] tabellone, int random) {
 		
 		/** Controllo che il serpente che sto andando a creare non si posizioni 
-		 * sull'ultima casella o sulla prima */
+		 * sull'ultima casella o sulla prima riga o sulla prima casella*/
 		if(random == tabellone[0][0].getNumeroCasella() || nrRiga==tabellone.length-1)
 			return tabellone;
 

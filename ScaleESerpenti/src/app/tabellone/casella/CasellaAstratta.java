@@ -116,7 +116,9 @@ public abstract class CasellaAstratta extends JPanel {
 //	}
 //	
 	
-	
+	@Override public String toString() {
+		return "";
+	}
 	
 
 }

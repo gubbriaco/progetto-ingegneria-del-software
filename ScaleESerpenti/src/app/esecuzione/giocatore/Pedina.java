@@ -2,6 +2,7 @@ package app.esecuzione.giocatore;
 
 import app.esecuzione.dadi.Dado;
 import app.esecuzione.mazzo.carte.Carta;
+import app.esecuzione.mazzo.carte.TipologiaCarta;
 import app.tabellone.Tabellone;
 import app.tabellone.casella.CasellaAstratta;
 import app.tabellone.casella.concrete.TipologiaCasella;
@@ -9,6 +10,7 @@ import app.tabellone.casella.concrete.special.CasellaSerpente;
 import app.tabellone.casella.concrete.special.CasellaScala;
 import app.tabellone.object.Scala;
 import app.tabellone.object.Serpente;
+import gui.window.pannello.concrete.PannelloConfigurazione;
 
 public class Pedina extends PedinaAstratta {
 	
@@ -25,42 +27,228 @@ public class Pedina extends PedinaAstratta {
 		this.setCombinazioneDadi(combinazioneDadi);
 		this.setCasellaCorrente(casellaCorrente);
 		
+		/** All'interno del tabellone prendo la casella corrispondente al numero
+		 *  di casella casellaCorrente */
 		CasellaAstratta tmp = getCasella(matriceTabellone, casellaCorrente);
+		System.out.println("TMP " + tmp.getNumeroCasella());
+		
+		/** se la pedina si trova su una casella di tipologia un solo dado allora
+		 *  usera' un solo dado altrimenti due dadi come nella configurazione 
+		 *  normale*/
 		int nuovaCasella = gestisciUNSOLODADO(tmp);
 		
+		/** se supera il numero massimo di casella possibile allora lo faccio 
+		 *  indietreggiare */
 		if( nuovaCasella > matriceTabellone[0][0].getNumeroCasella() ) {
-			
+			/** faccio indietreggiare la pedina */
 			nuovaCasella = indietreggia( casellaCorrente, this.getCombinazioneDadi() );
+			this.setCasellaCorrente(nuovaCasella);
 			System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
 			
-			tmp = getCasella(matriceTabellone, nuovaCasella);
-			
-			nuovaCasella = manageRules( tmp );
-			
-			while( verificaUlterioreMovimento( getCasella(matriceTabellone, nuovaCasella) ) ) {
-				CasellaAstratta nuovaCasellaC = getCasella(matriceTabellone, nuovaCasella);
-				nuovaCasella = manageRules(nuovaCasellaC);
-			}
-			
+//			tmp = getCasella(matriceTabellone, nuovaCasella);
+//			
+//			/** gestisco le regole */
+//			nuovaCasella = manageRules( tmp );
+//			
+//			/** verifico se e' finito su qualche casella speciale e gestisco le 
+//			 *  regole fin quando non e' su una casella che non lo porta a spostarsi
+//			 *  verso una nuova casella in base alle regole del gioco.*/
+//			while( verificaUlterioreMovimento( getCasella(matriceTabellone, nuovaCasella) ) ) {
+//				CasellaAstratta nuovaCasellaC = getCasella(matriceTabellone, nuovaCasella);
+//				nuovaCasella = manageRules(nuovaCasellaC);
+//			}
+//			
+//			/** dopo aver effettuato tutti i vari movimenti verifico che sia attiva 
+//			 * la modalita doppio sei e caso mai la gestisco  */
+//			if(PannelloConfigurazione.doppioSeiINSIDE) {
+//				int tmpNuovaCasella = nuovaCasella;
+//				nuovaCasella = gestisciDoppioSei(tmpNuovaCasella);
+//			}
+			/** essendo che la pedina ha indietreggiato, nel caso peggiore in cui
+			 *  deve indietreggiare di 6 caselle, finira' sempre su una casella 
+			 *  di tipologia UN SOLO DADO quindi non dovro' fare ulteriori 
+			 *  movimenti relativi alle regole del gioco */
 			movement( casellaCorrente, this, nuovaCasella );
 			
 			return nuovaCasella;
 			
-		}else {
+		}
+		else { /** significa che il numero della nuova casella e' minore del 
+		        massimo numero di casella possibile */
 			
 			tmp = getCasella(matriceTabellone, nuovaCasella);
 			
+			/** gestisco le regole */
 			nuovaCasella = manageRules( tmp );
+			this.setCasellaCorrente(nuovaCasella);
+			/** verifico se il numero di casella ottenuto dopo aver gestito le 
+			 *  regole non sia maggiore del massimo numero di casella possibile.
+			 *  Se si allora faccio indietreggiare la pedina e restituisco il 
+			 *  nuovo numero di casella che sara' sicuramente o un numero di 
+			 *  casella corrispondente ad un numero di casella di tipologia
+			 *  UN SOLO DADO oppure il massimo numero di casella possibile e 
+			 *  pertanto il giocatore avra' vinto*/
+			if (nuovaCasella > matriceTabellone[0][0].getNumeroCasella()) {
+				/** faccio indietreggiare la pedina */
+				nuovaCasella = indietreggia(casellaCorrente, this.getCombinazioneDadi());
+				System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
+				this.setCasellaCorrente(nuovaCasella);
+				movement(casellaCorrente, this, nuovaCasella);
+				return nuovaCasella;
+			}
 			
+			/** se, invece, il numero di casella e' minore del massimo numero di 
+			 * casella possibile, verifico che la casella corrispondente al nuovo
+			 * numero di casella ottenuto non sia un'altra casella tale per cui 
+			 * bisogna applicare le regole del gioco.  Se si allora finche' non
+			 * bisognera' piu' applicarle propago la richiesta sempre verso la 
+			 * nuova casella calcolata. Ovviamente controllo sempre che il numero
+			 * di casella ottenuto sia minore del massimo numero di casella possibile
+			 * altrimenti faccio indietreggiare la pedina e restituisco il numero
+			 * di casella ottetuto.*/
 			while( verificaUlterioreMovimento( getCasella(matriceTabellone, nuovaCasella) ) ) {
 				CasellaAstratta nuovaCasellaC = getCasella(matriceTabellone, nuovaCasella);
 				nuovaCasella = manageRules(nuovaCasellaC);
+				this.setCasellaCorrente(nuovaCasella);
+				
+				if (nuovaCasella > matriceTabellone[0][0].getNumeroCasella()) {
+					/** faccio indietreggiare la pedina */
+					nuovaCasella = indietreggia(casellaCorrente, this.getCombinazioneDadi());
+					System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
+					this.setCasellaCorrente(nuovaCasella);
+					movement(casellaCorrente, this, nuovaCasella);
+					return nuovaCasella;
+				}
 			}
 			
+//			if (nuovaCasella > matriceTabellone[0][0].getNumeroCasella()) {
+//				/** faccio indietreggiare la pedina */
+//				nuovaCasella = indietreggia(casellaCorrente, this.getCombinazioneDadi());
+//				System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
+//				movement(casellaCorrente, this, nuovaCasella);
+//				return nuovaCasella;
+//			}
+			
+			
+			/** Se la modalita' doppio sei e' attiva allora gestisco questa modalita' */
+			if(PannelloConfigurazione.doppioSeiINSIDE) {
+				
+				/** Controllo che la pedina non sia finita su una casella di 
+				 *  tipologia Sosta con i movimenti di pedina precedenti. Se si
+				 *  allora restituisco il numero della casella perche' la pedina
+				 *  dovra' rimanere ferma per un certo numero di turni*/
+				CasellaAstratta nuovaCasellaConcrete = getCasella(matriceTabellone, nuovaCasella);
+				if(nuovaCasellaConcrete.tipologiaCasella==TipologiaCasella.SOSTAPANCHINA ||
+				   nuovaCasellaConcrete.tipologiaCasella==TipologiaCasella.SOSTALOCANDA) {
+					this.setCasellaCorrente(nuovaCasella);
+					movement(casellaCorrente, this, nuovaCasella);
+					return nuovaCasella;
+				}
+				
+				/** altrimenti gestisco la modalita doppio sei tramite il metodo
+				 * gestisciDoppioSei(int casella) */
+				int tmpNuovaCasella = nuovaCasella;
+				nuovaCasella = gestisciDoppioSei(tmpNuovaCasella);
+				this.setCasellaCorrente(nuovaCasella);
+				
+				/** Verifico se con il nuovo lancio dei dadi non sia andato oltre
+				 *  il massimo numero di casella possibile. Se si faccio indietreggiare
+				 *  la pedina e restituisco il numero di casella ottenuto */
+				if (nuovaCasella > matriceTabellone[0][0].getNumeroCasella()) {
+					/** faccio indietreggiare la pedina */
+					nuovaCasella = indietreggia(casellaCorrente, this.getCombinazioneDadi());
+					System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
+					this.setCasellaCorrente(nuovaCasella);
+					movement(casellaCorrente, this, nuovaCasella);
+					return nuovaCasella;
+				}
+				
+
+				/** se, invece, il numero di casella e' minore del massimo numero di 
+				 * casella possibile, verifico che la casella corrispondente al nuovo
+				 * numero di casella ottenuto non sia un'altra casella tale per cui 
+				 * bisogna applicare le regole del gioco.  Se si allora finche' non
+				 * bisognera' piu' applicarle propago la richiesta sempre verso la 
+				 * nuova casella calcolata. Ovviamente controllo sempre che il numero
+				 * di casella ottenuto sia minore del massimo numero di casella possibile
+				 * altrimenti faccio indietreggiare la pedina e restituisco il numero
+				 * di casella ottetuto.*/
+				while( verificaUlterioreMovimento( getCasella(matriceTabellone, nuovaCasella) ) ) {
+					CasellaAstratta nuovaCasellaC = getCasella(matriceTabellone, nuovaCasella);
+					nuovaCasella = manageRules(nuovaCasellaC);
+					this.setCasellaCorrente(nuovaCasella);
+					
+					if(nuovaCasellaC.tipologiaCasella==TipologiaCasella.SOSTAPANCHINA ||
+					   nuovaCasellaC.tipologiaCasella==TipologiaCasella.SOSTALOCANDA)
+						return nuovaCasella;
+					
+					if (nuovaCasella > matriceTabellone[0][0].getNumeroCasella()) {
+						/** faccio indietreggiare la pedina */
+						nuovaCasella = indietreggia(casellaCorrente, this.getCombinazioneDadi());
+						System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
+						this.setCasellaCorrente(nuovaCasella);
+						movement(casellaCorrente, this, nuovaCasella);
+						return nuovaCasella;
+					}
+				}
+				
+//				if (nuovaCasella > matriceTabellone[0][0].getNumeroCasella()) {
+//					/** faccio indietreggiare la pedina */
+//					nuovaCasella = indietreggia(casellaCorrente, this.getCombinazioneDadi());
+//					System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
+//					movement(casellaCorrente, this, nuovaCasella);
+//					return nuovaCasella;
+//				}
+				
+			}
+			this.setCasellaCorrente(nuovaCasella);
 			movement( casellaCorrente, this, nuovaCasella );
 			
 			return nuovaCasella;
 		}
+		
+	}
+	
+	/**
+	 * Verifica che la pedina ha ottenuto un doppio sei. Se ha ottenuto un doppio
+	 * sei allora permette alla pedina di rilanciare i dadi e spostarsi nella 
+	 * nuova casella.
+	 * @param casella Casella corrente
+	 * @return Nuova casella
+	 */
+	private int gestisciDoppioSei(int casella) {
+		
+		int numeroSei = 0;
+		for(int i=0;i<dadi.length;++i)
+			if(dadi[i].getLancio()==6)
+				numeroSei = numeroSei+1;
+		
+		if(numeroSei<2)
+			return casella;
+	
+		System.out.println("-----DOPPIO SEI----");
+		
+		for(int i=0;i<dadi.length;++i)
+			dadi[i] = new Dado(6);
+		
+		int lancio = 0, combinazioneDadiDoppioSei=0;
+		
+		for(int i=0;i<dadi.length;++i) {
+			lancio = dadi[i].lancio();
+			combinazioneDadiDoppioSei =  combinazioneDadiDoppioSei + lancio;
+		}
+		
+		String attivita="";
+		
+		for(int w=0;w<dadi.length;++w)
+			attivita += dadi[w];
+		
+		
+		System.out.println("La combinazione per il DOPPIO SEI e' " + attivita);
+		
+		int nuovaCasella = casella + combinazioneDadiDoppioSei;
+		
+		return nuovaCasella;
 		
 	}
 	
@@ -83,8 +271,8 @@ public class Pedina extends PedinaAstratta {
 		
 		if(tmp.tipologiaCasella == TipologiaCasella.UNSOLODADADO) {
 			System.out.println(this.toString() + " e' in casella UN SOLO DADO");
-			System.out.println("-------------------------" + this.getLancioDeiDadi()[1]);
-			int tmpDadi = this.getCombinazioneDadi()-(this.getLancioDeiDadi()[1]);
+			System.out.println("-------------------------" + this.getLancioDeiDadi()[0]);
+			int tmpDadi = this.getLancioDeiDadi()[0].getLancio();
 			this.setCombinazioneDadi(tmpDadi);
 			System.out.println("LA NUOVA COMBINAZIONE DEI DADI PER UN SOLO DADO E' :" + this.getCombinazioneDadi());
 			nuovaCasella = this.getCasellaCorrente() + this.getCombinazioneDadi();
@@ -146,7 +334,16 @@ public class Pedina extends PedinaAstratta {
 		
 		System.out.println(this.toString() + " è in " + prossimaCasella.tipologiaCasella);
 		
-		if(prossimaCasella.tipologiaCasella == TipologiaCasella.SOSTAPANCHINA) {
+		if(prossimaCasella.tipologiaCasella == TipologiaCasella.SOSTAPANCHINA 
+				|| cartaPanchina) {
+			
+			if(cartaPanchina)
+				cartaPanchina = false;
+			
+			if(!carteConservate.isEmpty()) {
+				carteConservate.remove();
+				return nuovaCasella;
+			}
 			
 			System.out.println(this.toString() + " TURNI="+this.getTurniFermo());
 			
@@ -158,7 +355,16 @@ public class Pedina extends PedinaAstratta {
 			return nuovaCasella;
 		}
 		
-		else if(prossimaCasella.tipologiaCasella == TipologiaCasella.SOSTALOCANDA) {
+		else if(prossimaCasella.tipologiaCasella == TipologiaCasella.SOSTALOCANDA
+				|| cartaLocanda) {
+			
+			if(cartaLocanda)
+				cartaLocanda = false;
+			
+			if(!carteConservate.isEmpty()) {
+				carteConservate.remove();
+				return nuovaCasella;
+			}
 			
 			System.out.println(this.toString() + " TURNI="+this.getTurniFermo());
 			
@@ -170,38 +376,49 @@ public class Pedina extends PedinaAstratta {
 			return nuovaCasella;
 		}
 		
-		else if(prossimaCasella.tipologiaCasella == TipologiaCasella.PREMIODADI) {
+		else if(prossimaCasella.tipologiaCasella == TipologiaCasella.PREMIODADI 
+				|| cartaDadi) {
 			
-			Dado dado1 = new Dado(6), dado2 = new Dado(6);
-			int lancio1 = dado1.lancio(), lancio2 = dado2.lancio();
-			System.out.println("premio dadi e' " + lancio1 + " " + lancio2);
+			for(int i=0;i<dadi.length;++i)
+				dadi[i] = new Dado(6);
 			
-			int nuovaCombinazioneDadi = lancio1 + lancio2;
+			int lancio = 0, combinazioneDadiPremioDadi=0;
 			
-			this.setCombinazioneDadi( nuovaCombinazioneDadi );
+			for(int i=0;i<dadi.length;++i) {
+				lancio = dadi[i].lancio();
+				combinazioneDadiPremioDadi =  combinazioneDadiPremioDadi + lancio;
+			}
+			
+			String attivita="";
+			
+			for(int w=0;w<dadi.length;++w)
+				attivita += dadi[w];
+			
+			System.out.println("premio dadi e' " + attivita);
+			
+			this.setCombinazioneDadi( combinazioneDadiPremioDadi );
 			
 			System.out.println(this.toString() + " è in " + this.getCasellaCorrente());
-		
 			
 			nuovaCasella = prossimaCasella.getNumeroCasella()+this.getCombinazioneDadi();
-			
+//			this.setCasellaCorrente(nuovaCasella);
 			return nuovaCasella;
 		}
 		
-		else if(prossimaCasella.tipologiaCasella == TipologiaCasella.PREMIOMOLLA) {
+		else if(prossimaCasella.tipologiaCasella == TipologiaCasella.PREMIOMOLLA 
+				|| cartaMolla) {
 			
 			System.out.println(this.toString() + " è in " + this.getCasellaCorrente());
 			
-			
 			nuovaCasella = prossimaCasella.getNumeroCasella()+this.getCombinazioneDadi();
-			
+//			this.setCasellaCorrente(nuovaCasella);
 			return nuovaCasella;
 		}
 		
 		else if(prossimaCasella.tipologiaCasella == TipologiaCasella.PESCAUNACARTA) {
 
-			// TODO
-			
+			nuovaCasella = this.pescaUnaCarta();
+			this.setCasellaCorrente(nuovaCasella);
 			return nuovaCasella;
 		}
 		
@@ -213,18 +430,15 @@ public class Pedina extends PedinaAstratta {
 				System.out.println("SERPENTEEEEE-----------------------");
 				nuovaCasella = serpente.getCoda();
 			}
-			
 			return nuovaCasella;
 		}
 		
 		else if(prossimaCasella.tipologiaCasella == TipologiaCasella.SCALA) {
 			
-			
 			Scala scala = ((CasellaScala)prossimaCasella).getScala();
 			
 			if( scala.getCoda() == prossimaCasella.getNumeroCasella() )
 				nuovaCasella = scala.getTesta();
-			
 			return nuovaCasella;
 		}
 		
@@ -269,29 +483,192 @@ public class Pedina extends PedinaAstratta {
 	 * Restituisce la casella corrispondente al numero di casella passato in 
 	 * input al metodo.
 	 * @param matriceTabellone Matrice del tabellone di gioco
-	 * @param numeroProssimaCasella Numero della casella
+	 * @param numeroCasella Numero della casella
 	 * @return Casella
 	 */
-	private CasellaAstratta getCasella(CasellaAstratta[][] matriceTabellone, int numeroProssimaCasella) {
+	private CasellaAstratta getCasella(CasellaAstratta[][] matriceTabellone, int numeroCasella) {
+		CasellaAstratta ret = null;
 		
-		for(int i=0;i<matriceTabellone.length;++i)
-			for(int j=0;j<matriceTabellone[i].length;++j)
-				if(matriceTabellone[i][j].getNumeroCasella()==numeroProssimaCasella)
-					return matriceTabellone[i][j];
-		return null;
+		for(int i=0;i<matriceTabellone.length;i++)
+			for(int j=0;j<matriceTabellone[i].length;j++)
+				if(matriceTabellone[i][j].getNumeroCasella()==numeroCasella) {
+					ret = matriceTabellone[i][j];
+				}
+		System.out.println("----**------**--" + ret.toString());
+		return ret;
 		
 	}
 	
+	private boolean cartaDadi, cartaMolla, cartaPanchina, cartaLocanda;
 	
-	
-	@Override public void pescaUnaCarta() {
-		// TODO Auto-generated method stub
+	@Override public int pescaUnaCarta() {
+		Carta carta = tabellone.getMazzo().get();
+		if(carta.tipologiaCarta == TipologiaCarta.DIVIETODISOSTA) {
+			System.out.println(this.toString() + " ha pescato una carta DIVIETO DI SOSTA");
+			this.conservaCarta(carta);
+			return this.getCasellaCorrente();
+		}
+		else {
+			int nuovaCasella = this.getCasellaCorrente();
+			
+			if(carta.tipologiaCarta == TipologiaCarta.DADI) {
+				System.out.println(this.toString() + " ha pescato una carta DADI");
+				cartaDadi = true;
+			}
+			
+			if(carta.tipologiaCarta == TipologiaCarta.MOLLA) {
+				System.out.println(this.toString() + " ha pescato una carta MOLLA");
+				cartaMolla = true;
+			}
+			
+			if(carta.tipologiaCarta == TipologiaCarta.PANCHINA) {
+				System.out.println(this.toString() + " ha pescato una carta PANCHINA");
+				cartaPanchina = true;
+				nuovaCasella = this.getCasellaCorrente()+combinazioneDadi;
+			}
+			
+			if(carta.tipologiaCarta == TipologiaCarta.LOCANDA) {
+				System.out.println(this.toString() + " ha pescato una carta LOCANDA");
+				cartaLocanda = true;
+				nuovaCasella = this.getCasellaCorrente()+combinazioneDadi;
+				
+			}
+			
+			
+
+			CasellaAstratta tmp = getCasella(matriceTabellone, nuovaCasella);
+			
+			/** gestisco le regole */
+			nuovaCasella = manageRules( tmp );
+			
+			/** verifico se il numero di casella ottenuto dopo aver gestito le 
+			 *  regole non sia maggiore del massimo numero di casella possibile.
+			 *  Se si allora faccio indietreggiare la pedina e restituisco il 
+			 *  nuovo numero di casella che sara' sicuramente o un numero di 
+			 *  casella corrispondente ad un numero di casella di tipologia
+			 *  UN SOLO DADO oppure il massimo numero di casella possibile e 
+			 *  pertanto il giocatore avra' vinto*/
+			if (nuovaCasella > matriceTabellone[0][0].getNumeroCasella()) {
+				/** faccio indietreggiare la pedina */
+				nuovaCasella = indietreggia(this.getCasellaCorrente(), this.getCombinazioneDadi());
+				this.setCasellaCorrente(nuovaCasella);
+				System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
+				movement(this.getCasellaCorrente(), this, nuovaCasella);
+				return nuovaCasella;
+			}
+			
+			/** se, invece, il numero di casella e' minore del massimo numero di 
+			 * casella possibile, verifico che la casella corrispondente al nuovo
+			 * numero di casella ottenuto non sia un'altra casella tale per cui 
+			 * bisogna applicare le regole del gioco.  Se si allora finche' non
+			 * bisognera' piu' applicarle propago la richiesta sempre verso la 
+			 * nuova casella calcolata. Ovviamente controllo sempre che il numero
+			 * di casella ottenuto sia minore del massimo numero di casella possibile
+			 * altrimenti faccio indietreggiare la pedina e restituisco il numero
+			 * di casella ottetuto.*/
+			while( verificaUlterioreMovimento( getCasella(matriceTabellone, nuovaCasella) ) ) {
+				CasellaAstratta nuovaCasellaC = getCasella(matriceTabellone, nuovaCasella);
+				nuovaCasella = manageRules(nuovaCasellaC);
+				this.setCasellaCorrente(nuovaCasella);
+				
+				if (nuovaCasella > matriceTabellone[0][0].getNumeroCasella()) {
+					/** faccio indietreggiare la pedina */
+					nuovaCasella = indietreggia(this.getCasellaCorrente(), this.getCombinazioneDadi());
+					System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
+					this.setCasellaCorrente(nuovaCasella);
+					movement(this.getCasellaCorrente(), this, nuovaCasella);
+					return nuovaCasella;
+				}
+			}
+			
+//			if (nuovaCasella > matriceTabellone[0][0].getNumeroCasella()) {
+//				/** faccio indietreggiare la pedina */
+//				nuovaCasella = indietreggia(casellaCorrente, this.getCombinazioneDadi());
+//				System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
+//				movement(casellaCorrente, this, nuovaCasella);
+//				return nuovaCasella;
+//			}
+			
+			
+			/** Se la modalita' doppio sei e' attiva allora gestisco questa modalita' */
+			if(PannelloConfigurazione.doppioSeiINSIDE) {
+				
+				/** Controllo che la pedina non sia finita su una casella di 
+				 *  tipologia Sosta con i movimenti di pedina precedenti. Se si
+				 *  allora restituisco il numero della casella perche' la pedina
+				 *  dovra' rimanere ferma per un certo numero di turni*/
+				CasellaAstratta nuovaCasellaConcrete = getCasella(matriceTabellone, nuovaCasella);
+				if(nuovaCasellaConcrete.tipologiaCasella==TipologiaCasella.SOSTAPANCHINA ||
+				   nuovaCasellaConcrete.tipologiaCasella==TipologiaCasella.SOSTALOCANDA) {
+					this.setCasellaCorrente(nuovaCasella);
+					movement(this.getCasellaCorrente(), this, nuovaCasella);
+					return nuovaCasella;
+				}
+				
+				/** altrimenti gestisco la modalita doppio sei tramite il metodo
+				 * gestisciDoppioSei(int casella) */
+				int tmpNuovaCasella = nuovaCasella;
+				nuovaCasella = gestisciDoppioSei(tmpNuovaCasella);
+				this.setCasellaCorrente(nuovaCasella);
+				
+				/** Verifico se con il nuovo lancio dei dadi non sia andato oltre
+				 *  il massimo numero di casella possibile. Se si faccio indietreggiare
+				 *  la pedina e restituisco il numero di casella ottenuto */
+				if (nuovaCasella > matriceTabellone[0][0].getNumeroCasella()) {
+					/** faccio indietreggiare la pedina */
+					nuovaCasella = indietreggia(this.getCasellaCorrente(), this.getCombinazioneDadi());
+					System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
+					this.setCasellaCorrente(nuovaCasella);
+					movement(this.getCasellaCorrente(), this, nuovaCasella);
+					return nuovaCasella;
+				}
+				
+
+				/** se, invece, il numero di casella e' minore del massimo numero di 
+				 * casella possibile, verifico che la casella corrispondente al nuovo
+				 * numero di casella ottenuto non sia un'altra casella tale per cui 
+				 * bisogna applicare le regole del gioco.  Se si allora finche' non
+				 * bisognera' piu' applicarle propago la richiesta sempre verso la 
+				 * nuova casella calcolata. Ovviamente controllo sempre che il numero
+				 * di casella ottenuto sia minore del massimo numero di casella possibile
+				 * altrimenti faccio indietreggiare la pedina e restituisco il numero
+				 * di casella ottetuto.*/
+				while( verificaUlterioreMovimento( getCasella(matriceTabellone, nuovaCasella) ) ) {
+					CasellaAstratta nuovaCasellaC = getCasella(matriceTabellone, nuovaCasella);
+					nuovaCasella = manageRules(nuovaCasellaC);
+					this.setCasellaCorrente(nuovaCasella);
+					
+					if (nuovaCasella > matriceTabellone[0][0].getNumeroCasella()) {
+						/** faccio indietreggiare la pedina */
+						nuovaCasella = indietreggia(this.getCasellaCorrente(), this.getCombinazioneDadi());
+						System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
+						this.setCasellaCorrente(nuovaCasella);
+						movement(this.getCasellaCorrente(), this, nuovaCasella);
+						return nuovaCasella;
+					}
+				}
+				
+//				if (nuovaCasella > matriceTabellone[0][0].getNumeroCasella()) {
+//					/** faccio indietreggiare la pedina */
+//					nuovaCasella = indietreggia(casellaCorrente, this.getCombinazioneDadi());
+//					System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
+//					movement(casellaCorrente, this, nuovaCasella);
+//					return nuovaCasella;
+//				}
+				
+			}
+			this.setCasellaCorrente(nuovaCasella);
+			movement( this.getCasellaCorrente(), this, nuovaCasella );
+			
+			return nuovaCasella;
+			
+		}
 		
 	}
 
 
 	@Override public void conservaCarta(Carta carta) {
-		// TODO Auto-generated method stub
+		carteConservate.add(carta);
 		
 	}
 	

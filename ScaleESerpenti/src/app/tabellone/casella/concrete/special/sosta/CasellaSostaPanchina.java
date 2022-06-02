@@ -19,5 +19,8 @@ public class CasellaSostaPanchina extends CasellaSosta {
 		this.setForeground(Color.BLACK);
 	}
 
+	@Override public String toString() {
+		return "Panchina " + this.getNumeroCasella();
+	}
 
 }

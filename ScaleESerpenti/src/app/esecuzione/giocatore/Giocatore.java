@@ -1,5 +1,6 @@
 package app.esecuzione.giocatore;
 
+import app.esecuzione.dadi.Dado;
 import app.esecuzione.mazzo.carte.Carta;
 
 public interface Giocatore {
@@ -8,8 +9,9 @@ public interface Giocatore {
 	 *  determinata combinazione di dadi */
 	int movementRequest(int casellaCorrente, int combinazioneDadi);
 	
-	/** Gestisce la pesca di una carta da un apposito mazzo */
-	void pescaUnaCarta();
+	/** Gestisce la pesca di una carta da un apposito mazzo 
+	 * @return Nuova Casella*/
+	int pescaUnaCarta();
 	
 	/** Conserva la carta di tipologia "Divieto di Sosta" per essere utilizzata
 	 *  successivamente per evitare la sosta in una casella di tipologia Sosta */
@@ -54,17 +56,16 @@ public interface Giocatore {
 	void setCombinazioneDadi(int combinazioneDadi);
 	
 	/**
-	 * Restituisce i lanci dei dadi effettuati dal giocatore.
-	 * @return Lanci dei dadi effettuati
+	 * Restituisce i dadi lanciati dal giocatore.
+	 * @return Dadi utilizzati
 	 */
-	int[] getLancioDeiDadi();
+	Dado[] getLancioDeiDadi();
 	
 	/**
 	 * Imposta i nuovi lanci effettuati dal giocatore.
-	 * @param lancio1 Lancio del Dado 1
-	 * @param lancio2 Lancio del Dado 2
+	 * @param dadi Dadi utilizzati
 	 */
-	void setLancioDeiDadi(int lancio1, int lancio2);
+	void setLancioDeiDadi(Dado[] dadi);
 	
 	
 }

@@ -24,13 +24,19 @@ public class EsecuzioneManuale extends Esecuzione {
 	@Override public void esegui() {
 		
 		
-		
-		System.out.println(finestraPrincipale.getTurnoCorrente());
-		Dado dado1, dado2;
-		int combinazioneDadi = 0, lancio1, lancio2, nuovaCasella;
+		int nuovaCasella;
 		Giocatore giocatoreCorrente;
+		
+		for(int i=0;i<dadi.length;++i)
+			dadi[i] = new Dado(6);
+		
+		int combinazioneDadi = 0, lancio=0;
+		
 
 		for (int i = 0; i < giocatoriInGioco.size(); ++i) {
+			
+			combinazioneDadi = 0;
+			lancio = 0;
 
 			giocatoreCorrente = giocatoriInGioco.get(i);
 			
@@ -44,23 +50,32 @@ public class EsecuzioneManuale extends Esecuzione {
 				
 				continue;
 			}
+		
+			for(int k=0;k<dadi.length;++k) {
+				lancio = dadi[k].lancio();
+				combinazioneDadi = combinazioneDadi+lancio;
+			}
 			
-			dado1 = new Dado(6);
-			dado2 = new Dado(6);
-
-			lancio1 = dado1.lancio();
-			lancio2 = dado2.lancio();
-			combinazioneDadi = lancio1 + lancio2;
-			
-			giocatoriInGioco.get(i).setLancioDeiDadi(lancio1, lancio2);
+			giocatoriInGioco.get(i).setLancioDeiDadi(dadi);
 			giocatoriInGioco.get(i).setCombinazioneDadi(combinazioneDadi);
+			
 
 			/** la pedina si muove verso la nuova casella */
-			nuovaCasella = giocatoreCorrente.movementRequest(giocatoreCorrente.getCasellaCorrente(), combinazioneDadi);
+			nuovaCasella = giocatoreCorrente.movementRequest(
+					giocatoreCorrente.getCasellaCorrente(), combinazioneDadi);
+			giocatoreCorrente.setCasellaCorrente(nuovaCasella);
 			finestraPrincipale.repaint();
 
-			terminale.espandiAttivita(giocatoreCorrente.toString() + " ha lanciato i dadi: " + lancio1 + " " + lancio2);
-			System.out.println(giocatoreCorrente.toString() + " ha lanciato i dadi: " + lancio1 + " " + lancio2);
+			
+			String attivita = giocatoreCorrente.toString() + " ha lanciato i dadi:";
+			
+			for(int w=0;w<dadi.length;++w)
+				attivita += dadi[w];
+			
+			terminale.espandiAttivita(attivita);
+			System.out.println(attivita);
+			
+			
 			giocatoreCorrente.setCasellaCorrente(nuovaCasella);
 
 			terminale.espandiAttivita(giocatoreCorrente.toString() + " e' nella casella " + nuovaCasella);
@@ -95,6 +110,7 @@ public class EsecuzioneManuale extends Esecuzione {
 			finestraPrincipale.setNuovoTurno(turno);
 			finestraPrincipale.repaint();
 
+			System.out.println("********* TURNO : " + turno + " *********");
 			terminale.espandiAttivita("--- " + "Turno " + turno + " ---");
 			terminale.repaintTerminale();
 		}

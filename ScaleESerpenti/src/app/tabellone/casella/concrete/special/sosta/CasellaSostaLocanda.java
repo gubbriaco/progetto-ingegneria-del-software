@@ -20,5 +20,9 @@ public class CasellaSostaLocanda extends CasellaSosta {
 		this.setForeground(Color.BLACK);
 	}
 
-
+	
+	@Override public String toString() {
+		return "Locanda " + this.getNumeroCasella();
+	}
+	
 }

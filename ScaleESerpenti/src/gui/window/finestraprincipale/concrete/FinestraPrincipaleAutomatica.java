@@ -43,6 +43,12 @@ public class FinestraPrincipaleAutomatica extends FinestraPrincipaleAstratta{
                 this, (FinestraTerminale) terminale);
 		esecuzione.inizializzaGioco();
 		
+		for(int i=0;i<matriceTabellone.length;++i) {
+			for(int j=0;j<matriceTabellone[i].length;++j)
+				System.out.print(matriceTabellone[i][j].toString() +" ");
+			System.out.println();
+		}
+		
 	}
 	
 	public FinestraPrincipaleAutomatica(File file) {

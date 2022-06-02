@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -161,18 +163,49 @@ public class PannelloConfigurazione extends PannelloAstratto {
 	 * da inserire all'interno della nuova sessione di gioco.
 	 */
 	private void gestisciCheckBoxCaselle() {
-		if(caselleUnSoloDado.isSelected())
-			caselleUnSoloDadoINSIDE = true;
-		else if(caselleSosta.isSelected())
-			caselleSostaINSIDE = true;
-		else if(casellePremio.isSelected())
-			casellePremioINSIDE = true;
-		else if(casellePescaUnaCarta.isSelected())
-			casellePescaUnaCartaINSIDE = true;
-		else if(scale.isSelected())
-			scaleINSIDE = true;
-		else if(serpenti.isSelected())
-			serpentiINSIDE = true;
+		
+		caselleUnSoloDado.addItemListener(new ItemListener() {
+			@Override public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange()==ItemEvent.SELECTED)
+					caselleUnSoloDadoINSIDE = true;
+			}
+		});
+
+		caselleSosta.addItemListener(new ItemListener() {
+			@Override public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange()==ItemEvent.SELECTED)
+					caselleSostaINSIDE = true;
+			}
+		});
+		
+		casellePremio.addItemListener(new ItemListener() {
+			@Override public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange()==ItemEvent.SELECTED)
+					casellePremioINSIDE = true;
+			}
+		});
+		
+		casellePescaUnaCarta.addItemListener(new ItemListener() {
+			@Override public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange()==ItemEvent.SELECTED)
+					casellePescaUnaCartaINSIDE = true;
+			}
+		});
+		
+		scale.addItemListener(new ItemListener() {
+			@Override public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange()==ItemEvent.SELECTED)
+					scaleINSIDE = true;
+			}
+		});
+		
+		serpenti.addItemListener(new ItemListener() {
+			@Override public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange()==ItemEvent.SELECTED)
+					serpentiINSIDE = true;
+			}
+		});
+		
 	}
 
 	@Override protected void inizializzaLayoutSOUTH() {
@@ -233,8 +266,12 @@ public class PannelloConfigurazione extends PannelloAstratto {
 	}
 	
 	private void gestisciDadi() {
-		if(doppioSei.isSelected())
-			doppioSeiINSIDE = true;
+		doppioSei.addItemListener(new ItemListener() {
+			@Override public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange()==ItemEvent.SELECTED)
+					doppioSeiINSIDE = true;
+			}
+		});
 	}
 
 	
@@ -337,7 +374,7 @@ public class PannelloConfigurazione extends PannelloAstratto {
 	 */
 	private boolean nrDadiScelto() {
 		return (!nrDadi.getText().equals("") && stringaNumerica(nrDadi.getText())
-				&& Integer.valueOf(nrDadi.getText())>=1 );
+				&& Integer.valueOf(nrDadi.getText())>=1 &&  Integer.valueOf(nrDadi.getText())<=2 );
 	}
 	
 	/**
@@ -367,24 +404,23 @@ public class PannelloConfigurazione extends PannelloAstratto {
 	 */
 	private boolean nrGiocatoriInserito() {
 		return !numeroGiocatori.getText().equals("") &&
-				stringaNumerica(numeroGiocatori.getText());
+				stringaNumerica(numeroGiocatori.getText()) && 
+				Integer.valueOf(numeroGiocatori.getText()) >= 2;
 	}
 	
 	/**
-	 * Verifica che il numero dei giocatori in input sia effettivamente un 
-	 * numero e non una sequenza di caratteri.
-	 * @param numeroGiocatori numero giocatori
+	 * Verifica che il numero in input sia effettivamente un numero e non una 
+	 * sequenza di caratteri.
+	 * @param numero
 	 * @return 
 	 */
-	private boolean stringaNumerica(String numeroGiocatori) {
+	private boolean stringaNumerica(String numero) {
 		try {
-			Integer.parseInt(numeroGiocatori);
+			Integer.parseInt(numero);
 		}catch(NumberFormatException nfe) {
 			return false;
 		}
-		/**Infine verifico che il numero di giocatori inserito sia maggiore o
-		 * uguale di 2 */
-		return Integer.parseInt(numeroGiocatori) >= 2;
+		return true;
 	}
 	
 	

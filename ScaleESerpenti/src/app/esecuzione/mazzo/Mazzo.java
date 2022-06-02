@@ -1,16 +1,19 @@
 package app.esecuzione.mazzo;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import app.esecuzione.mazzo.carte.Carta;
 
 public abstract class Mazzo {
 	
-	protected Carta[] mazzo;
+	protected Queue<Carta> mazzo;
 	
 	protected int in=0, out=0;
 	
 	
-	public Mazzo(int dimensione) {
-		mazzo = new Carta[dimensione];
+	public Mazzo() {
+		mazzo = new LinkedList<>();
 	}
 	
 	public abstract void put(Carta carta);

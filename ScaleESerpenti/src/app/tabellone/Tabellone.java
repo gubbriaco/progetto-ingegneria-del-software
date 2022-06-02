@@ -1,6 +1,8 @@
 package app.tabellone;
 
 import app.tabellone.casella.CasellaAstratta;
+import app.tabellone.casella.concrete.CasellaStandard;
+import app.tabellone.casella.concrete.TipologiaCasella;
 import app.tabellone.casella.strategy.CasellaCreator;
 import app.tabellone.casella.strategy.creators.ScalaCreator;
 import app.tabellone.casella.strategy.creators.SerpenteCreator;
@@ -64,7 +66,6 @@ public class Tabellone extends TabelloneAstratto {
 				limite = bounds[1];
 			}
 			
-			// TODO possibilita di scelta caselle speciali con if e booleane
 			
 			if(PannelloConfigurazione.caselleSostaINSIDE) {
 				
@@ -81,7 +82,7 @@ public class Tabellone extends TabelloneAstratto {
 				tabellone = casellaCreator.createCasella(tabellone, randSostaLocanda);
 			}
 			
-			else if(PannelloConfigurazione.casellePremioINSIDE) {
+			if(PannelloConfigurazione.casellePremioINSIDE) {
 				/** numero di cella randomica su cui posizionare la casella speciale
 				 *  Premio */
 				int randPremioDadi = randomPremio.nextInt(base, limite+1);
@@ -95,7 +96,7 @@ public class Tabellone extends TabelloneAstratto {
 				tabellone = casellaCreator.createCasella(tabellone, randPremioMolla);
 			}
 			
-			else if(PannelloConfigurazione.casellePescaUnaCartaINSIDE) {
+			if(PannelloConfigurazione.casellePescaUnaCartaINSIDE) {
 				/** numero di cella randomica su cui posizionare la casella speciale
 				 *  Pesca Una Carta */
 				int randPescaUnaCarta = randomPescaUnaCarta.nextInt(base, limite+1);
@@ -103,23 +104,35 @@ public class Tabellone extends TabelloneAstratto {
 				tabellone = casellaCreator.createCasella(tabellone, randPescaUnaCarta);
 			}
 			
-			else if(PannelloConfigurazione.scaleINSIDE) {
+			if(PannelloConfigurazione.scaleINSIDE) {
 				/** numero di cella randomica su cui posizionare la testa della 
 				 *  scala */
 				int randScala = randomScala.nextInt(base, limite+1);
 				casellaCreator = new ScalaCreator(i, this);
-				tabellone = casellaCreator.createCasella(tabellone, randScala);
+				if(randScala!=1)
+					tabellone = casellaCreator.createCasella(tabellone, randScala);
+				else;
 			}
 			
-			else if(PannelloConfigurazione.serpentiINSIDE) {
+			if(PannelloConfigurazione.serpentiINSIDE) {
 				/** numero di cella randomica su cui posizionare la testa del 
 				 *  serpente */
 				int randSerpente = randomSerpente.nextInt(base, limite+1);
 				casellaCreator = new SerpenteCreator(i, this);
-				tabellone = casellaCreator.createCasella(tabellone, randSerpente);
+				if(randSerpente!=1)
+					tabellone = casellaCreator.createCasella(tabellone, randSerpente);
+				else;
 			}
 			
 		}
+		
+		for(int i=0;i<tabellone.length;++i)
+			for(int j=0;j<tabellone[i].length;++j)
+				if(tabellone[i][j].getNumeroCasella()==1)
+					if(tabellone[i][j].tipologiaCasella != TipologiaCasella.STANDARD) {
+						int numero = tabellone[i][j].getNumeroCasella();
+						tabellone[i][j] = new CasellaStandard(numero);
+					}
 		
 	}
 	

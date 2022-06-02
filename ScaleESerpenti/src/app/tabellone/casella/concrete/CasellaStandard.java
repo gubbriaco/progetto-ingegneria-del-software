@@ -18,5 +18,8 @@ public class CasellaStandard extends CasellaAstratta {
 		this.setForeground(Color.BLACK);
 	}
 
+	@Override public String toString() {
+		return super.toString() + "Standard " + this.getNumeroCasella();
+	}
 
 }

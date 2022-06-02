@@ -31,4 +31,8 @@ public class CasellaScala extends CasellaAstratta {
 		return scala;
 	}
 	
+	@Override public String toString() {
+		return super.toString() + "Scala " + this.getNumeroCasella();
+	}
+	
 }

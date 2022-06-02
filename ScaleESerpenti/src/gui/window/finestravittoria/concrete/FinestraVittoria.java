@@ -15,6 +15,7 @@ import gui.factory.FinestraFactoryIF;
 import gui.graphic.border.RoundedBorder;
 import gui.window.FinestraIF;
 import gui.window.finestravittoria.FinestraVittoriaAstratta;
+import gui.window.pannello.concrete.PannelloConfigurazione;
 
 @SuppressWarnings("serial")
 public class FinestraVittoria extends FinestraVittoriaAstratta {
@@ -24,7 +25,6 @@ public class FinestraVittoria extends FinestraVittoriaAstratta {
 	
 	@Override protected void inizializzaLayoutNORTH() {
 		pNORTH = new JPanel();
-//		pNORTH.setBorder(new RoundedBorder(5));
 		pNORTH.setBackground(Color.LIGHT_GRAY);
 		
 		labelTitle = new JLabel("Vincitori della sessione di gioco:");
@@ -40,7 +40,6 @@ public class FinestraVittoria extends FinestraVittoriaAstratta {
 
 	@Override protected void inizializzaLayoutCENTER() {
 		pCENTER = new JPanel();
-//		pCENTER.setBorder(new RoundedBorder(5));
 		pCENTER.setBackground(Color.LIGHT_GRAY);
 		
 		this.add(pCENTER, BorderLayout.CENTER);
@@ -99,6 +98,16 @@ public class FinestraVittoria extends FinestraVittoriaAstratta {
 				Window[] tmp = new Window[frame.length];
 				for(int i=0;i<frame.length;++i)
 					tmp[i] = frame[i];
+				
+				/** Imposto nuovamente le variabili booleane che gestiscono la 
+				 *  configurazione della sessione di gioco pari a false. */
+				PannelloConfigurazione.casellePescaUnaCartaINSIDE = false;
+				PannelloConfigurazione.casellePremioINSIDE = false;
+				PannelloConfigurazione.caselleSostaINSIDE = false;
+				PannelloConfigurazione.caselleUnSoloDadoINSIDE = false;
+				PannelloConfigurazione.doppioSeiINSIDE = false;
+				PannelloConfigurazione.scaleINSIDE = false;
+				PannelloConfigurazione.serpentiINSIDE = false;
 				
 				/** Inizializzo un nuovo pannello delle scelte per permettere una
 				 *  configurazione per una nuova sessione di gioco o per 

@@ -19,6 +19,8 @@ public class CasellaPremioMolla extends CasellaPremio {
 		this.setForeground(Color.BLACK);
 	}
 
-	
+	@Override public String toString() {
+		return super.toString() + "Molla " + this.getNumeroCasella();
+	}
 
 }

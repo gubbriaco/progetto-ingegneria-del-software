@@ -30,6 +30,10 @@ public class CasellaSerpente extends CasellaAstratta {
 	public Serpente getSerpente() {
 		return serpente;
 	}
+	
+	@Override public String toString() {
+		return super.toString() + "Serpente " + this.getNumeroCasella();
+	}
 
 
 }

@@ -19,5 +19,8 @@ public class CasellaPescaUnaCarta extends CasellaAstratta  {
 		this.setForeground(Color.BLACK);
 	}
 
+	@Override public String toString() {
+		return super.toString() + "Pesca una carta " + this.getNumeroCasella();
+	}
 	
 }

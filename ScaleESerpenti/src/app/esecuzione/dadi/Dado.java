@@ -29,9 +29,17 @@ public class Dado {
 	
 	public int lancio() {
 		
-		lancio = random.nextInt(valoreMIN, valoreMAX);
+		this.lancio = random.nextInt(valoreMIN, valoreMAX);
 		
 		return lancio;
 	}
+	
+	public int getLancio() {
+		return lancio;
+	}
 
+	@Override public String toString() {
+		return " " + lancio;
+	}
+	
 }

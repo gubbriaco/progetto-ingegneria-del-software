@@ -20,5 +20,8 @@ public class CasellaUnSoloDado extends CasellaAstratta {
 		this.setForeground(Color.BLACK);
 	}
 
+	@Override public String toString() {
+		return super.toString() + "Un solo dado " + this.getNumeroCasella();
+	}
 
 }

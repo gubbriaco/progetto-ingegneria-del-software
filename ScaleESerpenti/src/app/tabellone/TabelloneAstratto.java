@@ -2,6 +2,8 @@ package app.tabellone;
 
 import java.util.Random;
 
+import app.esecuzione.mazzo.Mazzo;
+import app.esecuzione.mazzo.MazzoBuffer;
 import app.tabellone.casella.CasellaAstratta;
 import app.tabellone.casella.concrete.special.CasellaPescaUnaCarta;
 import app.tabellone.casella.concrete.special.CasellaUnSoloDado;
@@ -27,6 +29,8 @@ public abstract class TabelloneAstratto {
 	public static int[] CELLE_UN_SOLO_DADO;
 	
 	private CasellaFactoryIF casellaFactory = new CasellaFactory(); 
+
+	private Mazzo mazzo;
 	
 	
 	/**
@@ -62,8 +66,13 @@ public abstract class TabelloneAstratto {
 		randomPremio = new Random();
 		randomPescaUnaCarta = new Random();
 		
+		mazzo = new MazzoBuffer();
+		mazzo.creaMazzo();
 	}
 	
+	public Mazzo getMazzo() {
+		return mazzo;
+	}
 
 	/**
 	 * Restituisce il tabellone per la nuova sessione di gioco.
