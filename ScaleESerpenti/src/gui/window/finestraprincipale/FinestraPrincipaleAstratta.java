@@ -233,7 +233,6 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 	private void salvaConfigurazioneGioco() {
 		/**Il file che conterra' i dati della configurazione della sessione di 
 		 * gioco che si intende salvare verra' salvato sul Desktop*/
-//		file = new File(System.getProperty("user.home") + "/Desktop/Configurazione.properties");
 		file = null;
 		/** ad ogni tipologia di dato associo il suo valore */
 		Map<String, String> dati = new HashMap<String, String>();

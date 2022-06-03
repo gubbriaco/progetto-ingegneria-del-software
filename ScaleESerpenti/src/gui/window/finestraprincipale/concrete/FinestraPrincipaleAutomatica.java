@@ -20,6 +20,7 @@ import app.tabellone.Tabellone;
 import app.tabellone.casella.CasellaAstratta;
 import gui.graphic.border.RoundedBorder;
 import gui.window.finestraprincipale.FinestraPrincipaleAstratta;
+import gui.window.finestraterminale.FinestraTerminaleAstratta;
 import gui.window.finestraterminale.concrete.FinestraTerminale;
 
 @SuppressWarnings("serial")
@@ -36,19 +37,13 @@ public class FinestraPrincipaleAutomatica extends FinestraPrincipaleAstratta{
 		/** aggiungo i giocatori che intendono giocare nella nuova sessione di gioco */
 		Giocatore nuovoGiocatore;
 		for(int i=0;i<numeroGiocatori;++i){
-			nuovoGiocatore = new Pedina("Giocatore " + (i+1), (Tabellone)tabellone);
+			nuovoGiocatore = new Pedina("Giocatore " + (i+1), (Tabellone)tabellone, (FinestraTerminaleAstratta)terminale);
 		  	giocatoriInGioco.add( nuovoGiocatore );
 		}
 		
 		esecuzione = new EsecuzioneAutomatica(giocatoriInGioco, (Tabellone) tabellone,
-                this, (FinestraTerminale) terminale);
+                                              this, (FinestraTerminale) terminale);
 		esecuzione.inizializzaGioco();
-		
-//		for(int i=0;i<matriceTabellone.length;++i) {
-//			for(int j=0;j<matriceTabellone[i].length;++j)
-//				System.out.print(matriceTabellone[i][j].toString() +" ");
-//			System.out.println();
-//		}
 		
 	}
 	
@@ -121,13 +116,13 @@ public class FinestraPrincipaleAutomatica extends FinestraPrincipaleAstratta{
 		this.validate();
 		this.repaint();
 		
-		CasellaAstratta[][] matrice = tabellone.getTabellone();
-		for(int i=0;i<matrice.length;++i)
-			for(int j=0;j<matrice[i].length;++j)
-				if(matrice[i][j].getNumeroCasella()==1) {
-					matrice[i][j].remove(matrice[i][j].elencoGiocatori);
-					matrice[i][j].repaintCasella();
-				}
+//		CasellaAstratta[][] matrice = tabellone.getTabellone();
+//		for(int i=0;i<matrice.length;++i)
+//			for(int j=0;j<matrice[i].length;++j)
+//				if(matrice[i][j].getNumeroCasella()==1) {
+//					matrice[i][j].remove(matrice[i][j].elencoGiocatori);
+//					matrice[i][j].repaintCasella();
+//				}
 	}
 	
 	@Override protected void inizializzaLayoutEAST() {}

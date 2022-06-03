@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import app.esecuzione.dadi.Dado;
 import app.esecuzione.mazzo.carte.Carta;
 import app.tabellone.Tabellone;
+import gui.window.finestraterminale.FinestraTerminaleAstratta;
 import gui.window.pannello.concrete.PannelloConfigurazione;
 
 public abstract class PedinaAstratta implements Giocatore {
@@ -23,11 +24,13 @@ public abstract class PedinaAstratta implements Giocatore {
 	
 	protected Dado[] dadi;
 	
+	protected FinestraTerminaleAstratta terminale;
+	
 	/** variabile per contare di quante caselle bisogna indietreggiare nel caso
 	 * in cui si supera il traguardo */
 	protected int caselleRimanenti;
 	
-	public PedinaAstratta(String nomePedina, Tabellone tabellone) {
+	public PedinaAstratta(String nomePedina, Tabellone tabellone, FinestraTerminaleAstratta terminale) {
 		this.nomePedina = nomePedina;
 		this.tabellone = tabellone;
 		casellaCorrente = 1;
@@ -41,6 +44,8 @@ public abstract class PedinaAstratta implements Giocatore {
 		nrDadi = PannelloConfigurazione.numeroDadi;
 		
 		dadi = new Dado[nrDadi];
+		
+		this.terminale = terminale;
 	}
 	
 	@Override public void setCasellaCorrente(int casellaCorrente) {

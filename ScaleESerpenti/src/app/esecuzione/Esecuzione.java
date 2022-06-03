@@ -60,19 +60,29 @@ public abstract class Esecuzione {
 	 * nella prima casella del tabellone.
 	 */
 	public void inizializzaGioco() {
-		System.out.println("********* TURNO : " + turno + " *********");
+		
+		terminale.espandiAttivita("*-*-*- NUOVA SESSIONE DEL GIOCO SCALE E SERPENTI -*-*-*");
+		terminale.repaintTerminale();
+		
+		//System.out.println("********* TURNO : " + turno + " *********");
+		
 		CasellaAstratta primaCasella = finestraPrincipale.getPrimaCasella();
 		String giocatore = "";
 		
 		/** stampo su terminale  */
 		for(int i=0;i<giocatoriInGioco.size();++i) {
+			
 			giocatore = giocatoriInGioco.get(i).toString();
+			
 			terminale.espandiAttivita( giocatore + " entra nella sessione di gioco!");
 			terminale.repaintTerminale();
-			System.out.println(giocatore + " entra nella sessione di gioco!");
+			
+//			System.out.println(giocatore + " entra nella sessione di gioco!");
+			
 			giocatoriInGioco.get(i).setCasellaCorrente(primaCasella.getNumeroCasella());
 			primaCasella.aggiungiGiocatore(giocatoriInGioco.get(i));
 			primaCasella.repaintCasella();
+			
 		}
 	}
 

@@ -22,7 +22,10 @@ public class EsecuzioneAutomatica extends Esecuzione {
 		
 		while( !victory ) {
 			
-			System.out.println(finestraPrincipale.getTurnoCorrente());
+			terminale.espandiAttivita("***"+finestraPrincipale.getTurnoCorrente()+"***");
+			terminale.repaintTerminale();
+			
+//			System.out.println(finestraPrincipale.getTurnoCorrente());
 
 			
 			int nuovaCasella;
@@ -69,20 +72,25 @@ public class EsecuzioneAutomatica extends Esecuzione {
 				giocatoreCorrente.setCasellaCorrente(nuovaCasella);
 				finestraPrincipale.repaint();
 				
-				String attivita = giocatoreCorrente.toString() + " ha lanciato i dadi:";
+				String attivita = "";
+				
+				if(dadi.length==1)
+					attivita = giocatoreCorrente.toString() + " ha lanciato il dado:";
+				else
+					attivita = giocatoreCorrente.toString() + " ha lanciato i dadi:";
 				
 				for(int w=0;w<dadi.length;++w)
 					attivita += dadi[w];
 				
 				terminale.espandiAttivita(attivita);
-				System.out.println(attivita);
+//				System.out.println(attivita);
 		
 				giocatoreCorrente.setCasellaCorrente(nuovaCasella);
 				
 				terminale.espandiAttivita(giocatoreCorrente.toString() + " e' nella casella " 
 										 + nuovaCasella );
-				System.out.println(giocatoreCorrente.toString() + " e' nella casella " 
-						 + nuovaCasella);
+//				System.out.println(giocatoreCorrente.toString() + " e' nella casella " 
+//						 + nuovaCasella);
 				terminale.repaintTerminale();
 				
 				finestraPrincipale.revalidate();
@@ -115,9 +123,8 @@ public class EsecuzioneAutomatica extends Esecuzione {
 				finestraPrincipale.setNuovoTurno(turno);
 				finestraPrincipale.repaint();
 				
-				System.out.println("********* TURNO : " + turno + " *********");
-				terminale.espandiAttivita("--- " + "Turno " + turno + " ---");
-				terminale.repaintTerminale();
+//				System.out.println("********* TURNO : " + turno + " *********");
+				
 		}
 		
 		

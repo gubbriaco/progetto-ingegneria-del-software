@@ -11,27 +11,33 @@ import app.tabellone.casella.concrete.special.CasellaSerpente;
 import app.tabellone.casella.concrete.special.CasellaScala;
 import app.tabellone.object.Scala;
 import app.tabellone.object.Serpente;
+import gui.window.finestraterminale.FinestraTerminaleAstratta;
 import gui.window.pannello.concrete.PannelloConfigurazione;
 
 public class Pedina extends PedinaAstratta {
 	
 	public CasellaAstratta[][] matriceTabellone;
 	
-	public Pedina(String nomePedina, Tabellone tabellone) {
-		super(nomePedina, tabellone);
+	public Pedina(String nomePedina, Tabellone tabellone, FinestraTerminaleAstratta terminale) {
+		super(nomePedina, tabellone, terminale);
 		this.matriceTabellone = tabellone.getTabellone();
 	}
 	
+	String attivita = "";
 	
 	@Override public int movementRequest(int casellaCorrente, int combinazioneDadi) {
 		
 		this.setCombinazioneDadi(combinazioneDadi);
 		this.setCasellaCorrente(casellaCorrente);
 		
+		attivita = this.toString() + " e' nella casella " + casellaCorrente;
+		terminale.espandiAttivita(attivita);
+		terminale.repaintTerminale();
+		
 		/** All'interno del tabellone prendo la casella corrispondente al numero
 		 *  di casella casellaCorrente */
 		CasellaAstratta tmp = getCasella(matriceTabellone, casellaCorrente);
-		System.out.println("TMP " + tmp.getNumeroCasella());
+//		System.out.println("TMP " + tmp.getNumeroCasella());
 		
 		/** se la pedina si trova su una casella di tipologia un solo dado allora
 		 *  usera' un solo dado altrimenti due dadi come nella configurazione 
@@ -44,7 +50,13 @@ public class Pedina extends PedinaAstratta {
 			/** faccio indietreggiare la pedina */
 			nuovaCasella = indietreggia( casellaCorrente, this.getCombinazioneDadi() );
 			this.setCasellaCorrente(nuovaCasella);
-			System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
+			attivita = this.toString() + " sta indietreggiando...";
+			terminale.espandiAttivita(attivita);
+			terminale.repaintTerminale();
+			attivita = this.toString() + " si e' spostato nella casella " + nuovaCasella;
+			terminale.espandiAttivita(attivita);
+			terminale.repaintTerminale();
+//			System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
 			
 			/** essendo che la pedina ha indietreggiato, nel caso peggiore in cui
 			 *  deve indietreggiare di 6 caselle, finira' sempre su una casella 
@@ -73,8 +85,14 @@ public class Pedina extends PedinaAstratta {
 			if (nuovaCasella > matriceTabellone[0][0].getNumeroCasella()) {
 				/** faccio indietreggiare la pedina */
 				nuovaCasella = indietreggia(casellaCorrente, this.getCombinazioneDadi());
-				System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
+//				System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
 				this.setCasellaCorrente(nuovaCasella);
+				attivita = this.toString() + " sta indietreggiando...";
+				terminale.espandiAttivita(attivita);
+				terminale.repaintTerminale();
+				attivita = this.toString() + " si e' spostato nella casella " + nuovaCasella;
+				terminale.espandiAttivita(attivita);
+				terminale.repaintTerminale();
 				movement(casellaCorrente, this, nuovaCasella);
 				return nuovaCasella;
 			}
@@ -96,8 +114,14 @@ public class Pedina extends PedinaAstratta {
 				if (nuovaCasella > matriceTabellone[0][0].getNumeroCasella()) {
 					/** faccio indietreggiare la pedina */
 					nuovaCasella = indietreggia(casellaCorrente, this.getCombinazioneDadi());
-					System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
+//					System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
 					this.setCasellaCorrente(nuovaCasella);
+					attivita = this.toString() + " sta indietreggiando...";
+					terminale.espandiAttivita(attivita);
+					terminale.repaintTerminale();
+					attivita = this.toString() + " si e' spostato nella casella " + nuovaCasella;
+					terminale.espandiAttivita(attivita);
+					terminale.repaintTerminale();
 					movement(casellaCorrente, this, nuovaCasella);
 					return nuovaCasella;
 				}
@@ -130,8 +154,14 @@ public class Pedina extends PedinaAstratta {
 				if (nuovaCasella > matriceTabellone[0][0].getNumeroCasella()) {
 					/** faccio indietreggiare la pedina */
 					nuovaCasella = indietreggia(casellaCorrente, this.getCombinazioneDadi());
-					System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
+//					System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
 					this.setCasellaCorrente(nuovaCasella);
+					attivita = this.toString() + " sta indietreggiando...";
+					terminale.espandiAttivita(attivita);
+					terminale.repaintTerminale();
+					attivita = this.toString() + " si e' spostato nella casella " + nuovaCasella;
+					terminale.espandiAttivita(attivita);
+					terminale.repaintTerminale();
 					movement(casellaCorrente, this, nuovaCasella);
 					return nuovaCasella;
 				}
@@ -158,8 +188,14 @@ public class Pedina extends PedinaAstratta {
 					if (nuovaCasella > matriceTabellone[0][0].getNumeroCasella()) {
 						/** faccio indietreggiare la pedina */
 						nuovaCasella = indietreggia(casellaCorrente, this.getCombinazioneDadi());
-						System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
+//						System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
 						this.setCasellaCorrente(nuovaCasella);
+						attivita = this.toString() + " sta indietreggiando...";
+						terminale.espandiAttivita(attivita);
+						terminale.repaintTerminale();
+						attivita = this.toString() + " si e' spostato nella casella " + nuovaCasella;
+						terminale.espandiAttivita(attivita);
+						terminale.repaintTerminale();
 						movement(casellaCorrente, this, nuovaCasella);
 						return nuovaCasella;
 					}
@@ -191,7 +227,14 @@ public class Pedina extends PedinaAstratta {
 		if(numeroSei<2)
 			return casella;
 	
-		System.out.println("-----DOPPIO SEI----");
+//		System.out.println("-----DOPPIO SEI----");
+		
+		attivita = this.toString() + " ha ottenuto un doppio sei!";
+		terminale.espandiAttivita(attivita);
+		terminale.repaintTerminale();
+		attivita = this.toString() + " sta lanciando nuovamente i dadi... ";
+		terminale.espandiAttivita(attivita);
+		terminale.repaintTerminale();
 		
 		for(int i=0;i<dadi.length;++i)
 			dadi[i] = new Dado(6);
@@ -203,15 +246,19 @@ public class Pedina extends PedinaAstratta {
 			combinazioneDadiDoppioSei =  combinazioneDadiDoppioSei + lancio;
 		}
 		
-		String attivita="";
+//		String attivita="";
 		
-		for(int w=0;w<dadi.length;++w)
-			attivita += dadi[w];
+//		for(int w=0;w<dadi.length;++w)
+//			attivita += dadi[w];
+//		
 		
-		
-		System.out.println("La combinazione per il DOPPIO SEI e' " + attivita);
+//		System.out.println("La combinazione per il DOPPIO SEI e' " + attivita);
 		
 		int nuovaCasella = casella + combinazioneDadiDoppioSei;
+		
+		attivita = this.toString() + " si e' spostato nella casella " + nuovaCasella;
+		terminale.espandiAttivita(attivita);
+		terminale.repaintTerminale();
 		
 		return nuovaCasella;
 		
@@ -219,13 +266,17 @@ public class Pedina extends PedinaAstratta {
 	
 	
 	private boolean verificaUlterioreMovimento(CasellaAstratta nuovaCasella) {
+		if(nuovaCasella.tipologiaCasella==TipologiaCasella.SOSTAPANCHINA || 
+				nuovaCasella.tipologiaCasella==TipologiaCasella.SOSTALOCANDA)
+			return false;
 		boolean scala = nuovaCasella.tipologiaCasella==TipologiaCasella.SCALA 
 				&& nuovaCasella.getNumeroCasella()==((CasellaScala)nuovaCasella).getScala().getCoda(), 
 				serpente = nuovaCasella.tipologiaCasella==TipologiaCasella.SERPENTE
 				&& nuovaCasella.getNumeroCasella()== ((CasellaSerpente)nuovaCasella).getSerpente().getTesta(), 
 				premioDadi=nuovaCasella.tipologiaCasella==TipologiaCasella.PREMIODADI , 
 				premioMolla=nuovaCasella.tipologiaCasella==TipologiaCasella.PREMIOMOLLA;
-		if( scala || serpente || premioDadi || premioMolla )
+	
+		if( scala || serpente || premioDadi || premioMolla)
 			return true;
 		return false;
 	}
@@ -235,13 +286,25 @@ public class Pedina extends PedinaAstratta {
 		int nuovaCasella;
 		
 		if(tmp.tipologiaCasella == TipologiaCasella.UNSOLODADADO) {
-			System.out.println(this.toString() + " e' in casella UN SOLO DADO");
-			System.out.println("-------------------------" + this.getLancioDeiDadi()[0]);
+			
+			attivita = this.toString() + " e' nella casella di tipologia UN SOLO DADO.";
+			terminale.espandiAttivita(attivita);
+			terminale.repaintTerminale();
+			
+//			System.out.println(this.toString() + " e' in casella UN SOLO DADO");
+//			System.out.println("-------------------------" + this.getLancioDeiDadi()[0]);
 			int tmpDadi = this.getLancioDeiDadi()[0].getLancio();
 			this.setCombinazioneDadi(tmpDadi);
-			System.out.println("LA NUOVA COMBINAZIONE DEI DADI PER UN SOLO DADO E' :" + this.getCombinazioneDadi());
+			attivita = this.toString() + " ha lanciato il dado: " + tmpDadi;
+			terminale.espandiAttivita(attivita);
+			terminale.repaintTerminale();
+//			System.out.println("LA NUOVA COMBINAZIONE DEI DADI PER UN SOLO DADO E' :" + this.getCombinazioneDadi());
+			
 			nuovaCasella = this.getCasellaCorrente() + this.getCombinazioneDadi();
-			System.out.println(this.toString() + " e' in " + nuovaCasella);
+			attivita = this.toString() + " si e' spostato nella casella " + nuovaCasella;
+			terminale.espandiAttivita(attivita);
+			terminale.repaintTerminale();
+//			System.out.println(this.toString() + " e' in " + nuovaCasella);
 			return nuovaCasella;
 		}
 		else {
@@ -271,8 +334,10 @@ public class Pedina extends PedinaAstratta {
 		 * posizioni che gli e' servito per arrivare al traguardo
 		 */
 		retroDadi = combinazioneDadi - residuo;
-
-		System.out.println("deve indietreggiare di " + retroDadi);
+		attivita = this.toString() + " deve indietreggiare di " + retroDadi;
+		terminale.espandiAttivita(attivita);
+		terminale.repaintTerminale();
+//		System.out.println("deve indietreggiare di " + retroDadi);
 
 		/**
 		 * pertanto calcolo il numero della nuova casella in cui si trovera' dopo aver
@@ -297,52 +362,111 @@ public class Pedina extends PedinaAstratta {
 		
 		int nuovaCasella = prossimaCasella.getNumeroCasella();
 		
-		System.out.println(this.toString() + " è in " + prossimaCasella.tipologiaCasella);
+//		System.out.println(this.toString() + " è in " + prossimaCasella.tipologiaCasella);
 		
 		if(prossimaCasella.tipologiaCasella == TipologiaCasella.SOSTAPANCHINA 
 				|| cartaPanchina) {
+			
+			if(cartaPanchina) {
+				attivita = " EFFETTO CARTA PANCHINA";
+				terminale.espandiAttivita(attivita);
+				terminale.repaintTerminale();
+			}
+			
+			attivita = this.toString() + " e' nella casella di tipologia SOSTA PANCHINA";
+			terminale.espandiAttivita(attivita);
+			terminale.repaintTerminale();
 			
 			if(cartaPanchina)
 				cartaPanchina = false;
 			
 			if(!carteConservate.isEmpty()) {
+				attivita = this.toString() + " usa la carta DIVIETO DI SOSTA";
+				terminale.espandiAttivita(attivita);
+				terminale.repaintTerminale();
 				carteConservate.remove();
+				
+//				attivita = this.toString() + " si e' spostato nella casella " + nuovaCasella;
+//				terminale.espandiAttivita(attivita);
+//				terminale.repaintTerminale();
 				return nuovaCasella;
 			}
 			
-			System.out.println(this.toString() + " TURNI="+this.getTurniFermo());
+			
+//			System.out.println(this.toString() + " TURNI="+this.getTurniFermo());
 			
 			int turniRimanentiDaFermo = this.getTurniFermo() + 1;
 			this.setTurniFermo(turniRimanentiDaFermo);
 			
-			System.out.println(this.toString() + " TURNI="+this.getTurniFermo());
+			attivita = this.toString() + " deve stare fermo per " + this.getTurniFermo() + " turni!";
+			terminale.espandiAttivita(attivita);
+			terminale.repaintTerminale();
 			
+//			System.out.println(this.toString() + " TURNI="+this.getTurniFermo());
+
+//			attivita = this.toString() + " si e' spostato nella casella " + nuovaCasella;
+//			terminale.espandiAttivita(attivita);
+//			terminale.repaintTerminale();
 			return nuovaCasella;
 		}
 		
 		else if(prossimaCasella.tipologiaCasella == TipologiaCasella.SOSTALOCANDA
 				|| cartaLocanda) {
 			
+			if(cartaLocanda) {
+				attivita = " EFFETTO CARTA LOCANDA";
+				terminale.espandiAttivita(attivita);
+				terminale.repaintTerminale();
+			}
+			
+			attivita = this.toString() + " e' nella casella di tipologia SOSTA LOCANDA";
+			terminale.espandiAttivita(attivita);
+			terminale.repaintTerminale();
+			
 			if(cartaLocanda)
 				cartaLocanda = false;
 			
 			if(!carteConservate.isEmpty()) {
+				attivita = this.toString() + " usa la carta DIVIETO DI SOSTA";
+				terminale.espandiAttivita(attivita);
+				terminale.repaintTerminale();
 				carteConservate.remove();
+//				attivita = this.toString() + " si e' spostato nella casella " + nuovaCasella;
+//				terminale.espandiAttivita(attivita);
+//				terminale.repaintTerminale();
 				return nuovaCasella;
 			}
 			
-			System.out.println(this.toString() + " TURNI="+this.getTurniFermo());
+			
+//			System.out.println(this.toString() + " TURNI="+this.getTurniFermo());
 			
 			int turniRimanentiDaFermo = this.getTurniFermo() + 3;
 			this.setTurniFermo(turniRimanentiDaFermo);
-		
-			System.out.println(this.toString() + " TURNI="+this.getTurniFermo());
 			
+			attivita = this.toString() + " deve stare fermo per " + this.getTurniFermo() + " turni!";
+			terminale.espandiAttivita(attivita);
+			terminale.repaintTerminale();
+		
+//			System.out.println(this.toString() + " TURNI="+this.getTurniFermo());
+			
+//			attivita = this.toString() + " si e' spostato nella casella " + nuovaCasella;
+//			terminale.espandiAttivita(attivita);
+//			terminale.repaintTerminale();
 			return nuovaCasella;
 		}
 		
 		else if(prossimaCasella.tipologiaCasella == TipologiaCasella.PREMIODADI 
 				|| cartaDadi) {
+			
+			if(cartaDadi) {
+				attivita = " EFFETTO CARTA DADI";
+				terminale.espandiAttivita(attivita);
+				terminale.repaintTerminale();
+			}
+			
+			attivita = this.toString() + " e' nella casella di tipologia PREMIO DADI";
+			terminale.espandiAttivita(attivita);
+			terminale.repaintTerminale();
 			
 			for(int i=0;i<dadi.length;++i)
 				dadi[i] = new Dado(6);
@@ -354,34 +478,67 @@ public class Pedina extends PedinaAstratta {
 				combinazioneDadiPremioDadi =  combinazioneDadiPremioDadi + lancio;
 			}
 			
-			String attivita="";
+			if(dadi.length==1)
+				attivita = this.toString() + " ha lanciato il dado " + dadi[0].getLancio();
+			else
+				attivita = this.toString() + " ha lanciato i dadi: " + dadi[0] + " " + dadi[1];
 			
-			for(int w=0;w<dadi.length;++w)
-				attivita += dadi[w];
+			terminale.espandiAttivita(attivita);
+			terminale.repaintTerminale();
 			
-			System.out.println("premio dadi e' " + attivita);
+//			String attivita="";
+//			
+//			for(int w=0;w<dadi.length;++w)
+//				attivita += dadi[w];
+			
+//			System.out.println("premio dadi e' " + attivita);
 			
 			this.setCombinazioneDadi( combinazioneDadiPremioDadi );
 			
-			System.out.println(this.toString() + " è in " + this.getCasellaCorrente());
+//			System.out.println(this.toString() + " è in " + this.getCasellaCorrente());
 			
 			nuovaCasella = prossimaCasella.getNumeroCasella()+this.getCombinazioneDadi();
+			
+//			attivita = this.toString() + " si e' spostato nella casella " + nuovaCasella;
+//			terminale.espandiAttivita(attivita);
+//			terminale.repaintTerminale();
+			
 //			this.setCasellaCorrente(nuovaCasella);
+			
 			return nuovaCasella;
 		}
 		
 		else if(prossimaCasella.tipologiaCasella == TipologiaCasella.PREMIOMOLLA 
 				|| cartaMolla) {
 			
-			System.out.println(this.toString() + " è in " + this.getCasellaCorrente());
+			if(cartaMolla) {
+				attivita = " EFFETTO CARTA MOLLA";
+				terminale.espandiAttivita(attivita);
+				terminale.repaintTerminale();
+			}
+			
+			attivita = this.toString() + " e' nella casella di tipologia PREMIO MOLLA";
+			terminale.espandiAttivita(attivita);
+			terminale.repaintTerminale();
+			
+//			System.out.println(this.toString() + " è in " + this.getCasellaCorrente());
 			
 			nuovaCasella = prossimaCasella.getNumeroCasella()+this.getCombinazioneDadi();
+			
+//			attivita = this.toString() + " si e' spostato nella casella " + nuovaCasella;
+//			terminale.espandiAttivita(attivita);
+//			terminale.repaintTerminale();
+			
 //			this.setCasellaCorrente(nuovaCasella);
 			return nuovaCasella;
 		}
 		
 		else if(prossimaCasella.tipologiaCasella == TipologiaCasella.PESCAUNACARTA) {
-
+			
+			attivita = this.toString() + " e' nella casella di tipologia PESCA UNA CARTA";
+			terminale.espandiAttivita(attivita);
+			terminale.repaintTerminale();
+			
 			nuovaCasella = this.pescaUnaCarta();
 			this.setCasellaCorrente(nuovaCasella);
 			return nuovaCasella;
@@ -392,8 +549,14 @@ public class Pedina extends PedinaAstratta {
 			Serpente serpente = ((CasellaSerpente)prossimaCasella).getSerpente();
 			
 			if( serpente.getTesta() == prossimaCasella.getNumeroCasella() ) {
-				System.out.println("SERPENTEEEEE-----------------------");
+				attivita = this.toString() + " sta scivolando sul serpente...";
+				terminale.espandiAttivita(attivita);
+				terminale.repaintTerminale();
+//				System.out.println("SERPENTEEEEE-----------------------");
 				nuovaCasella = serpente.getCoda();
+				attivita = this.toString() + " si e' spostato nella casella " + nuovaCasella;
+				terminale.espandiAttivita(attivita);
+				terminale.repaintTerminale();
 			}
 			return nuovaCasella;
 		}
@@ -402,8 +565,15 @@ public class Pedina extends PedinaAstratta {
 			
 			Scala scala = ((CasellaScala)prossimaCasella).getScala();
 			
-			if( scala.getCoda() == prossimaCasella.getNumeroCasella() )
+			if( scala.getCoda() == prossimaCasella.getNumeroCasella() ) {
+				attivita = this.toString() + " sta salendo sulla scala...";
+				terminale.espandiAttivita(attivita);
+				terminale.repaintTerminale();
 				nuovaCasella = scala.getTesta();
+				attivita = this.toString() + " si e' spostato nella casella " + nuovaCasella;
+				terminale.espandiAttivita(attivita);
+				terminale.repaintTerminale();
+			}
 			return nuovaCasella;
 		}
 		
@@ -459,7 +629,7 @@ public class Pedina extends PedinaAstratta {
 				if(matriceTabellone[i][j].getNumeroCasella()==numeroCasella) {
 					ret = matriceTabellone[i][j];
 				}
-		System.out.println("----**------**--" + ret.toString());
+//		System.out.println("----**------**--" + ret.toString());
 		return ret;
 		
 	}
@@ -469,31 +639,56 @@ public class Pedina extends PedinaAstratta {
 	@Override public int pescaUnaCarta() {
 		Carta carta = tabellone.getMazzo().get();
 		if(carta.tipologiaCarta == TipologiaCarta.DIVIETODISOSTA) {
-			System.out.println(this.toString() + " ha pescato una carta DIVIETO DI SOSTA");
+			
+			attivita = this.toString() + " ha pescato una carta DIVIETO DI SOSTA";
+			terminale.espandiAttivita(attivita);
+			terminale.repaintTerminale();
+			
+//			System.out.println(this.toString() + " ha pescato una carta DIVIETO DI SOSTA");
+			attivita = this.toString() + " ha conservato la carta!";
+			terminale.espandiAttivita(attivita);
+			terminale.repaintTerminale();
 			this.conservaCarta(carta);
+			attivita = this.toString() + " e' rimasto nella casella " + this.getCasellaCorrente();
+			terminale.espandiAttivita(attivita);
+			terminale.repaintTerminale();
 			return this.getCasellaCorrente();
 		}
 		else {
 			int nuovaCasella = this.getCasellaCorrente();
 			
 			if(carta.tipologiaCarta == TipologiaCarta.DADI) {
-				System.out.println(this.toString() + " ha pescato una carta DADI");
-				cartaDadi = true;
+				
+				attivita = this.toString() + " ha pescato una carta DADI";
+				terminale.espandiAttivita(attivita);
+				terminale.repaintTerminale();
+				
+//				System.out.println(this.toString() + " ha pescato una carta DADI");
+				cartaDadi = true;/** verra' gestito in manageRules*/
 			}
 			
 			if(carta.tipologiaCarta == TipologiaCarta.MOLLA) {
-				System.out.println(this.toString() + " ha pescato una carta MOLLA");
-				cartaMolla = true;
+				attivita = this.toString() + " ha pescato una carta MOLLA";
+				terminale.espandiAttivita(attivita);
+				terminale.repaintTerminale();
+//				System.out.println(this.toString() + " ha pescato una carta MOLLA");
+				cartaMolla = true; /** verra' gestito in manageRules*/
 			}
 			
 			if(carta.tipologiaCarta == TipologiaCarta.PANCHINA) {
-				System.out.println(this.toString() + " ha pescato una carta PANCHINA");
+				attivita = this.toString() + " ha pescato una carta PANCHINA";
+				terminale.espandiAttivita(attivita);
+				terminale.repaintTerminale();
+//				System.out.println(this.toString() + " ha pescato una carta PANCHINA");
 				cartaPanchina = true;
 				nuovaCasella = this.getCasellaCorrente()+combinazioneDadi;
 			}
 			
 			if(carta.tipologiaCarta == TipologiaCarta.LOCANDA) {
-				System.out.println(this.toString() + " ha pescato una carta LOCANDA");
+				attivita = this.toString() + " ha pescato una carta LOCANDA";
+				terminale.espandiAttivita(attivita);
+				terminale.repaintTerminale();
+//				System.out.println(this.toString() + " ha pescato una carta LOCANDA");
 				cartaLocanda = true;
 				nuovaCasella = this.getCasellaCorrente()+combinazioneDadi;
 				
@@ -517,7 +712,13 @@ public class Pedina extends PedinaAstratta {
 				/** faccio indietreggiare la pedina */
 				nuovaCasella = indietreggia(this.getCasellaCorrente(), this.getCombinazioneDadi());
 				this.setCasellaCorrente(nuovaCasella);
-				System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
+//				System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
+				attivita = this.toString() + " sta indietreggiando...";
+				terminale.espandiAttivita(attivita);
+				terminale.repaintTerminale();
+				attivita = this.toString() + " si e' spostato nella casella " + nuovaCasella;
+				terminale.espandiAttivita(attivita);
+				terminale.repaintTerminale();
 				movement(this.getCasellaCorrente(), this, nuovaCasella);
 				return nuovaCasella;
 			}
@@ -539,8 +740,14 @@ public class Pedina extends PedinaAstratta {
 				if (nuovaCasella > matriceTabellone[0][0].getNumeroCasella()) {
 					/** faccio indietreggiare la pedina */
 					nuovaCasella = indietreggia(this.getCasellaCorrente(), this.getCombinazioneDadi());
-					System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
+//					System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
 					this.setCasellaCorrente(nuovaCasella);
+					attivita = this.toString() + " sta indietreggiando...";
+					terminale.espandiAttivita(attivita);
+					terminale.repaintTerminale();
+					attivita = this.toString() + " si e' spostato nella casella " + nuovaCasella;
+					terminale.espandiAttivita(attivita);
+					terminale.repaintTerminale();
 					movement(this.getCasellaCorrente(), this, nuovaCasella);
 					return nuovaCasella;
 				}
@@ -582,8 +789,14 @@ public class Pedina extends PedinaAstratta {
 				if (nuovaCasella > matriceTabellone[0][0].getNumeroCasella()) {
 					/** faccio indietreggiare la pedina */
 					nuovaCasella = indietreggia(this.getCasellaCorrente(), this.getCombinazioneDadi());
-					System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
+//					System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
 					this.setCasellaCorrente(nuovaCasella);
+					attivita = this.toString() + " sta indietreggiando...";
+					terminale.espandiAttivita(attivita);
+					terminale.repaintTerminale();
+					attivita = this.toString() + " si e' spostato nella casella " + nuovaCasella;
+					terminale.espandiAttivita(attivita);
+					terminale.repaintTerminale();
 					movement(this.getCasellaCorrente(), this, nuovaCasella);
 					return nuovaCasella;
 				}
@@ -606,8 +819,14 @@ public class Pedina extends PedinaAstratta {
 					if (nuovaCasella > matriceTabellone[0][0].getNumeroCasella()) {
 						/** faccio indietreggiare la pedina */
 						nuovaCasella = indietreggia(this.getCasellaCorrente(), this.getCombinazioneDadi());
-						System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
+//						System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
 						this.setCasellaCorrente(nuovaCasella);
+						attivita = this.toString() + " sta indietreggiando...";
+						terminale.espandiAttivita(attivita);
+						terminale.repaintTerminale();
+						attivita = this.toString() + " si e' spostato nella casella " + nuovaCasella;
+						terminale.espandiAttivita(attivita);
+						terminale.repaintTerminale();
 						movement(this.getCasellaCorrente(), this, nuovaCasella);
 						return nuovaCasella;
 					}

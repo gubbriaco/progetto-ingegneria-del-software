@@ -25,8 +25,6 @@ public class FinestraTerminale extends FinestraTerminaleAstratta {
 		this.setTitle(titolo);
 		
 		attivitaSvolte = new LinkedList<>();
-		attivitaSvolte.add( "--- NUOVA SESSIONE DI GIOCO ---" );
-		attivitaSvolte.add( "--- Turno 1 ---" );
 	}
 	
 	
