@@ -22,7 +22,7 @@ public class CasellaSostaLocanda extends CasellaSosta {
 
 	
 	@Override public String toString() {
-		return "Locanda " + this.getNumeroCasella();
+		return super.toString() + "Sosta locanda " + this.getNumeroCasella();
 	}
 	
 }

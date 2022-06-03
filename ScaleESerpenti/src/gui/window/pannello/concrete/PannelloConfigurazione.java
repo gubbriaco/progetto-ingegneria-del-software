@@ -424,6 +424,46 @@ public class PannelloConfigurazione extends PannelloAstratto {
 	}
 	
 	
+	public void setNrDadi(JTextField nrDadi) {
+		this.nrDadi = nrDadi;
+	}
+
+	public static void setCaselleUnSoloDadoINSIDE(boolean caselleUnSoloDadoINSIDE) {
+		PannelloConfigurazione.caselleUnSoloDadoINSIDE = caselleUnSoloDadoINSIDE;
+	}
+
+	public static void setCaselleSostaINSIDE(boolean caselleSostaINSIDE) {
+		PannelloConfigurazione.caselleSostaINSIDE = caselleSostaINSIDE;
+	}
+
+	public static void setCasellePremioINSIDE(boolean casellePremioINSIDE) {
+		PannelloConfigurazione.casellePremioINSIDE = casellePremioINSIDE;
+	}
+
+	public static void setCasellePescaUnaCartaINSIDE(boolean casellePescaUnaCartaINSIDE) {
+		PannelloConfigurazione.casellePescaUnaCartaINSIDE = casellePescaUnaCartaINSIDE;
+	}
+
+	public static void setDoppioSeiINSIDE(boolean doppioSeiINSIDE) {
+		PannelloConfigurazione.doppioSeiINSIDE = doppioSeiINSIDE;
+	}
+
+	public static void setScaleINSIDE(boolean scaleINSIDE) {
+		PannelloConfigurazione.scaleINSIDE = scaleINSIDE;
+	}
+
+	public static void setSerpentiINSIDE(boolean serpentiINSIDE) {
+		PannelloConfigurazione.serpentiINSIDE = serpentiINSIDE;
+	}
+
+	public void setModalita(Modalita.Mod modalita) {
+		this.modalita = modalita;
+	}
+
+	public static void setNumeroDadi(int numeroDadi) {
+		PannelloConfigurazione.numeroDadi = numeroDadi;
+	}
+
 	@Override protected void inizializzaLayoutWEST() {}
 	@Override protected void inizializzaLayoutEAST() {}
 	

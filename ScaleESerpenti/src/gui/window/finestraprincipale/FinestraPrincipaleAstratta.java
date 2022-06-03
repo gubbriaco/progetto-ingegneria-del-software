@@ -9,10 +9,18 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import app.difficolta.Difficolta;
@@ -32,6 +40,7 @@ import gui.graphic.panel.LegendaPanel;
 import gui.window.FinestraAstratta;
 import gui.window.FinestraIF;
 import gui.window.finestraterminale.concrete.FinestraTerminale;
+import gui.window.pannello.concrete.PannelloConfigurazione;
 
 @SuppressWarnings({"serial", "unused"})
 public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
@@ -51,12 +60,14 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 	/**File in cui verra' salvata la nuova sessione di gioco o usato come 
 	 * ripristino di una sessione di gioco salvata sul calcolatore*/
 	private File file;
-	
+
 	/** raggio per arrotondare i bordi */
 	protected static final int raggio = 5;
 	
 	protected LinkedList<Giocatore> giocatoriInGioco;
 	protected Esecuzione esecuzione;
+	
+	protected JButton salva;
 	
 	
 	/**
@@ -79,11 +90,6 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 		/**inizializzo la finestra terminale tramite il template method*/
 		terminale.inizializzaFinestra();
 		
-		/**Il file che conterra' i dati della nuova sessione di gioco verra' 
-		 * salvato sul Desktop*/
-		file = new File(System.getProperty("user.home") + "/Desktop");
-		
-
 		turnoCorrente = "Turno 1";
 		turno = new JLabel(turnoCorrente);
 		
@@ -96,7 +102,6 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 		 * precedente*/
 		this.file = file;
 	}
-	
 	
 	
 	/**
@@ -146,7 +151,7 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 		inizializzaLayoutTabellone();
 	}
 	
-	
+
 	private GridLayout gl;
 	
 	/**
@@ -165,7 +170,6 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 			for(int j=0;j<nrColonne;++j)
 				pCENTER.add(matriceTabellone[i][j], BorderLayout.CENTER);
 	}
-	
 	
 	/**
 	 * Imposta un nuovo turno e aggiorna il {@link JLabel} corrispondente.
@@ -186,15 +190,11 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 		return turnoCorrente;
 	}
 	
-	
-	
 	// JComponent utili per l'inizializzazione del JPanel pNORTH
 	protected JLabel titoloGioco;
 	protected String turnoCorrente;
 	protected JLabel turno;
 	
-
-
 	
 	private JLabel titoloLegenda; 
 	private JPanel legenda;
@@ -216,54 +216,67 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 	}
 	
 	
-	private String tipologiaModalita;
-	private JLabel titoloModalita;
-	private JButton pulsanteModalita;
-	private JButton salva;
-	private JLabel titoloSalva;
-	
-	@Override protected void inizializzaLayoutEAST() {
-		pEAST = new JPanel();
-		pEAST.setBorder(new RoundedBorder(raggio));
-		pEAST.setLayout(new GridLayout(4,1));
-		pEAST.setBackground(Color.LIGHT_GRAY);
-		
-		
-		if(modalita == Modalita.Mod.AUTOMATICA) {
-			tipologiaModalita = "Esecuzione Manuale";
-		}else {
-			tipologiaModalita = "Esecuzione Automatica";
-		}
-		
-		titoloModalita = new JLabel("Cambia modalità di gioco");
-		titoloModalita.setOpaque(true);
-		titoloModalita.setBackground(Color.BLACK.brighter());
-		titoloModalita.setForeground(Color.WHITE);
-		titoloModalita.setBorder(new RoundedBorder(raggio));
-		pulsanteModalita = new JButton(tipologiaModalita);
-		pulsanteModalita.setOpaque(true);
-		pulsanteModalita.setBackground(Color.ORANGE.darker());
-		pulsanteModalita.setForeground(Color.BLACK);
-		pulsanteModalita.setBorder(new RoundedBorder(raggio));
-		pEAST.add(titoloModalita);
-		pEAST.add(pulsanteModalita);
-		
-		titoloSalva = new JLabel("Salva la sessione di gioco");
-		titoloSalva.setOpaque(true);
-		titoloSalva.setBackground(Color.BLACK.brighter());
-		titoloSalva.setForeground(Color.WHITE);
-		titoloSalva.setBorder(new RoundedBorder(raggio));
-		salva = new JButton("SALVA");
-		salva.setOpaque(true);
-		salva.setBackground(Color.YELLOW.darker().darker());
-		salva.setForeground(Color.BLACK);
-		salva.setBorder(new RoundedBorder(raggio));
-		
-		pEAST.add(titoloSalva);
-		pEAST.add(salva);
-
-		this.add(pEAST, BorderLayout.EAST);
+	protected void gestisciSalvataggio() {
+		salva.addActionListener(new ActionListener() {
+			@Override public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==salva) {
+					salvaConfigurazioneGioco();
+				}
+			}
+		});
 	}
 	
+	private void salvaConfigurazioneGioco() {
+		/**Il file che conterra' i dati della configurazione della sessione di 
+		 * gioco che si intende salvare verra' salvato sul Desktop*/
+		file = new File(System.getProperty("user.home") + "/Desktop/Configurazione.properties");
+		
+		/** ad ogni tipologia di dato associo il suo valore */
+		Map<String, String> dati = new HashMap<String, String>();
+		aggiungiDati(dati);
+		
+		try {
+			salva(file.getAbsolutePath(), dati);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
+	}
+	
+	private void salva( String nome, Map<String,String> dati ) throws IOException {
+		PrintWriter pw = new PrintWriter( new FileWriter(nome) );
+		
+		String key="", value="";
+		for( Map.Entry<String, String> entry : dati.entrySet() ) {
+			key = entry.getKey();
+			value = entry.getValue();
+			
+			pw.print(key);
+			pw.print(" ");
+			pw.print(value);
+			
+			pw.println();
+		}		
+		pw.close();
+	}
+
+	private void aggiungiDati(Map<String, String> dati) {
+		dati.put( "Modalita", "" + this.modalita );
+		
+		dati.put( "NumeroRighe", "" + this.nrRighe );
+		dati.put( "NumeroColonne", "" + this.nrColonne );
+		dati.put( "NumeroGiocatori", "" + this.numeroGiocatori  );
+		
+		dati.put( "NumeroDadi", "" + PannelloConfigurazione.numeroDadi  );
+		dati.put( "DoppioSei", "" + PannelloConfigurazione.doppioSeiINSIDE  );
+		
+		dati.put( "CaselleUnSoloDado", ""+PannelloConfigurazione.caselleUnSoloDadoINSIDE );
+		dati.put( "CasellePescaUnaCarta", "" + PannelloConfigurazione.casellePescaUnaCartaINSIDE );
+		dati.put( "CasellePremio", "" + PannelloConfigurazione.casellePremioINSIDE );
+		dati.put( "CaselleSosta", "" + PannelloConfigurazione.caselleSostaINSIDE  );
+		dati.put( "CaselleScala", "" + PannelloConfigurazione.scaleINSIDE  );
+		dati.put( "CaselleSerpente", "" + PannelloConfigurazione.serpentiINSIDE  );
+	}
+	
+	
 }

@@ -47,6 +47,11 @@ public abstract class CasellaAstratta extends JPanel {
 		return giocatori;
 	}
 	
+	@SuppressWarnings("rawtypes")
+	public JComboBox getElencoGiocatori() {
+		return elencoGiocatori;
+	}
+	
 	/**
 	 * Aggiunge il giocatore che ha raggiunto con una determinata combinazione 
 	 * di dadi la casella in questione.

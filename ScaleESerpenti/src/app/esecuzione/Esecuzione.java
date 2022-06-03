@@ -21,8 +21,8 @@ import gui.window.pannello.concrete.PannelloConfigurazione;
 public abstract class Esecuzione {
 	
 	protected LinkedList<Giocatore> giocatoriInGioco;
-	@SuppressWarnings("unused")
-	private TabelloneAstratto tabellone;
+	
+	protected TabelloneAstratto tabellone;
 	protected FinestraPrincipaleAstratta finestraPrincipale;
 	protected FinestraTerminaleAstratta terminale;
 	

@@ -20,8 +20,6 @@ public class EsecuzioneAutomatica extends Esecuzione {
 	
 	@Override public void esegui() {
 		
-		
-		
 		while( !victory ) {
 			
 			System.out.println(finestraPrincipale.getTurnoCorrente());
@@ -95,7 +93,6 @@ public class EsecuzioneAutomatica extends Esecuzione {
 					victory = true;
 				}
 				
-				
 				if(victory) {
 					
 					victoryWindow = victoryFactory.createFinestra("FinestraVittoriaAstratta", "", null, -1, null);
@@ -108,13 +105,11 @@ public class EsecuzioneAutomatica extends Esecuzione {
 					
 					break;
 				}
-				
 
 			}
 			
 			if(victory)
 				return;
-			
 			
 				turno = turno+1;
 				finestraPrincipale.setNuovoTurno(turno);
@@ -123,7 +118,6 @@ public class EsecuzioneAutomatica extends Esecuzione {
 				System.out.println("********* TURNO : " + turno + " *********");
 				terminale.espandiAttivita("--- " + "Turno " + turno + " ---");
 				terminale.repaintTerminale();
-			
 		}
 		
 		

@@ -43,11 +43,11 @@ public class FinestraPrincipaleAutomatica extends FinestraPrincipaleAstratta{
                 this, (FinestraTerminale) terminale);
 		esecuzione.inizializzaGioco();
 		
-		for(int i=0;i<matriceTabellone.length;++i) {
-			for(int j=0;j<matriceTabellone[i].length;++j)
-				System.out.print(matriceTabellone[i][j].toString() +" ");
-			System.out.println();
-		}
+//		for(int i=0;i<matriceTabellone.length;++i) {
+//			for(int j=0;j<matriceTabellone[i].length;++j)
+//				System.out.print(matriceTabellone[i][j].toString() +" ");
+//			System.out.println();
+//		}
 		
 	}
 	
@@ -85,6 +85,16 @@ public class FinestraPrincipaleAutomatica extends FinestraPrincipaleAstratta{
 	
 		gestisciEsecuzioneAutomatica();
 		
+		
+		salva = new JButton("SALVA");
+		salva.setOpaque(true);
+		salva.setBackground(Color.YELLOW.darker().darker());
+		salva.setForeground(Color.BLACK);
+		salva.setBorder(new RoundedBorder(raggio));
+		pNORTH.add(salva);
+		
+		gestisciSalvataggio();
+		
 		this.add(pNORTH, BorderLayout.NORTH);
 		
 	}
@@ -105,13 +115,13 @@ public class FinestraPrincipaleAutomatica extends FinestraPrincipaleAstratta{
 	 * Invoca l'esecuzione automatica della sessione di gioco.
 	 */
 	private void esecuzioneAutomatica() {
-		
 		esecuzione.esegui();
 		this.validate();
 		this.repaint();
 	}
 	
-
+	@Override protected void inizializzaLayoutEAST() {}
 	@Override protected void inizializzaLayoutWEST() {}
+	
 	
 }

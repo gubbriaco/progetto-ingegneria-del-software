@@ -5,6 +5,7 @@ import app.esecuzione.mazzo.carte.Carta;
 import app.esecuzione.mazzo.carte.TipologiaCarta;
 import app.tabellone.Tabellone;
 import app.tabellone.casella.CasellaAstratta;
+import app.tabellone.casella.concrete.CasellaStandard;
 import app.tabellone.casella.concrete.TipologiaCasella;
 import app.tabellone.casella.concrete.special.CasellaSerpente;
 import app.tabellone.casella.concrete.special.CasellaScala;
@@ -45,25 +46,6 @@ public class Pedina extends PedinaAstratta {
 			this.setCasellaCorrente(nuovaCasella);
 			System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
 			
-//			tmp = getCasella(matriceTabellone, nuovaCasella);
-//			
-//			/** gestisco le regole */
-//			nuovaCasella = manageRules( tmp );
-//			
-//			/** verifico se e' finito su qualche casella speciale e gestisco le 
-//			 *  regole fin quando non e' su una casella che non lo porta a spostarsi
-//			 *  verso una nuova casella in base alle regole del gioco.*/
-//			while( verificaUlterioreMovimento( getCasella(matriceTabellone, nuovaCasella) ) ) {
-//				CasellaAstratta nuovaCasellaC = getCasella(matriceTabellone, nuovaCasella);
-//				nuovaCasella = manageRules(nuovaCasellaC);
-//			}
-//			
-//			/** dopo aver effettuato tutti i vari movimenti verifico che sia attiva 
-//			 * la modalita doppio sei e caso mai la gestisco  */
-//			if(PannelloConfigurazione.doppioSeiINSIDE) {
-//				int tmpNuovaCasella = nuovaCasella;
-//				nuovaCasella = gestisciDoppioSei(tmpNuovaCasella);
-//			}
 			/** essendo che la pedina ha indietreggiato, nel caso peggiore in cui
 			 *  deve indietreggiare di 6 caselle, finira' sempre su una casella 
 			 *  di tipologia UN SOLO DADO quindi non dovro' fare ulteriori 
@@ -120,16 +102,7 @@ public class Pedina extends PedinaAstratta {
 					return nuovaCasella;
 				}
 			}
-			
-//			if (nuovaCasella > matriceTabellone[0][0].getNumeroCasella()) {
-//				/** faccio indietreggiare la pedina */
-//				nuovaCasella = indietreggia(casellaCorrente, this.getCombinazioneDadi());
-//				System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
-//				movement(casellaCorrente, this, nuovaCasella);
-//				return nuovaCasella;
-//			}
-			
-			
+					
 			/** Se la modalita' doppio sei e' attiva allora gestisco questa modalita' */
 			if(PannelloConfigurazione.doppioSeiINSIDE) {
 				
@@ -191,14 +164,6 @@ public class Pedina extends PedinaAstratta {
 						return nuovaCasella;
 					}
 				}
-				
-//				if (nuovaCasella > matriceTabellone[0][0].getNumeroCasella()) {
-//					/** faccio indietreggiare la pedina */
-//					nuovaCasella = indietreggia(casellaCorrente, this.getCombinazioneDadi());
-//					System.out.println("sta indietreggiando e va a finire in " + nuovaCasella);
-//					movement(casellaCorrente, this, nuovaCasella);
-//					return nuovaCasella;
-//				}
 				
 			}
 			this.setCasellaCorrente(nuovaCasella);
@@ -487,7 +452,7 @@ public class Pedina extends PedinaAstratta {
 	 * @return Casella
 	 */
 	private CasellaAstratta getCasella(CasellaAstratta[][] matriceTabellone, int numeroCasella) {
-		CasellaAstratta ret = null;
+		CasellaAstratta ret = new CasellaStandard(numeroCasella);
 		
 		for(int i=0;i<matriceTabellone.length;i++)
 			for(int j=0;j<matriceTabellone[i].length;j++)

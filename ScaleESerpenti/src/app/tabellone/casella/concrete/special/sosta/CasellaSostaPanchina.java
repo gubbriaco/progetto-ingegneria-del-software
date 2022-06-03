@@ -20,7 +20,7 @@ public class CasellaSostaPanchina extends CasellaSosta {
 	}
 
 	@Override public String toString() {
-		return "Panchina " + this.getNumeroCasella();
+		return super.toString() + "Sosta panchina " + this.getNumeroCasella();
 	}
 
 }

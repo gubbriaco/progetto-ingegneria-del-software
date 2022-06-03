@@ -20,7 +20,7 @@ public class CasellaPremioMolla extends CasellaPremio {
 	}
 
 	@Override public String toString() {
-		return super.toString() + "Molla " + this.getNumeroCasella();
+		return super.toString() + "Premio molla " + this.getNumeroCasella();
 	}
 
 }

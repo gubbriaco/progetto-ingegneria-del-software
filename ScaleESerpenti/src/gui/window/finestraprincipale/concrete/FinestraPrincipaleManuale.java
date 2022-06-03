@@ -39,8 +39,6 @@ public class FinestraPrincipaleManuale extends FinestraPrincipaleAstratta {
 		  	giocatoriInGioco.add( nuovoGiocatore );
 		}	
 		
-		
-		
 		esecuzione = new EsecuzioneManuale(giocatoriInGioco, (Tabellone) tabellone, 
 				                           this, (FinestraTerminale) terminale);
 		esecuzione.inizializzaGioco();
@@ -78,10 +76,18 @@ public class FinestraPrincipaleManuale extends FinestraPrincipaleAstratta {
 		prossimoTurno.setForeground(Color.BLACK);
 		prossimoTurno.setBorder(new RoundedBorder(raggio));
 		pNORTH.add(prossimoTurno);
-
 		
 		gestisciProssimoTurno();
-	
+		
+		
+		salva = new JButton("SALVA");
+		salva.setOpaque(true);
+		salva.setBackground(Color.YELLOW.darker().darker());
+		salva.setForeground(Color.BLACK);
+		salva.setBorder(new RoundedBorder(raggio));
+		pNORTH.add(salva);
+		
+		gestisciSalvataggio();
 	
 		this.add(pNORTH, BorderLayout.NORTH);
 		
@@ -100,18 +106,13 @@ public class FinestraPrincipaleManuale extends FinestraPrincipaleAstratta {
 	
 	
 	private void esecuzioneManuale() {
-		
 		esecuzione.esegui();
 		this.validate();
 		this.repaint();
 	}
 	
-	
-
-	
-	
-	
-	
+	@Override protected void inizializzaLayoutEAST() {}
 	@Override protected void inizializzaLayoutWEST() {}
 
+	
 }
