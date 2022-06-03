@@ -168,6 +168,8 @@ public class PannelloConfigurazione extends PannelloAstratto {
 			@Override public void itemStateChanged(ItemEvent e) {
 				if(e.getStateChange()==ItemEvent.SELECTED)
 					caselleUnSoloDadoINSIDE = true;
+				if(e.getStateChange()==ItemEvent.DESELECTED)
+					caselleUnSoloDadoINSIDE = false;
 			}
 		});
 
@@ -175,6 +177,8 @@ public class PannelloConfigurazione extends PannelloAstratto {
 			@Override public void itemStateChanged(ItemEvent e) {
 				if(e.getStateChange()==ItemEvent.SELECTED)
 					caselleSostaINSIDE = true;
+				if(e.getStateChange()==ItemEvent.DESELECTED)
+					caselleSostaINSIDE = false;
 			}
 		});
 		
@@ -182,6 +186,8 @@ public class PannelloConfigurazione extends PannelloAstratto {
 			@Override public void itemStateChanged(ItemEvent e) {
 				if(e.getStateChange()==ItemEvent.SELECTED)
 					casellePremioINSIDE = true;
+				if(e.getStateChange()==ItemEvent.DESELECTED)
+					casellePremioINSIDE = false;
 			}
 		});
 		
@@ -189,6 +195,8 @@ public class PannelloConfigurazione extends PannelloAstratto {
 			@Override public void itemStateChanged(ItemEvent e) {
 				if(e.getStateChange()==ItemEvent.SELECTED)
 					casellePescaUnaCartaINSIDE = true;
+				if(e.getStateChange()==ItemEvent.DESELECTED)
+					casellePescaUnaCartaINSIDE = false;
 			}
 		});
 		
@@ -196,6 +204,8 @@ public class PannelloConfigurazione extends PannelloAstratto {
 			@Override public void itemStateChanged(ItemEvent e) {
 				if(e.getStateChange()==ItemEvent.SELECTED)
 					scaleINSIDE = true;
+				if(e.getStateChange()==ItemEvent.DESELECTED)
+					scaleINSIDE = false;
 			}
 		});
 		
@@ -203,6 +213,8 @@ public class PannelloConfigurazione extends PannelloAstratto {
 			@Override public void itemStateChanged(ItemEvent e) {
 				if(e.getStateChange()==ItemEvent.SELECTED)
 					serpentiINSIDE = true;
+				if(e.getStateChange()==ItemEvent.DESELECTED)
+					serpentiINSIDE = false;
 			}
 		});
 		
@@ -265,11 +277,25 @@ public class PannelloConfigurazione extends PannelloAstratto {
 		
 	}
 	
+	/**
+	 * Gestisce l'eventuale scelta effettuata riguardo la modalita' doppio sei 
+	 * per i dadi.
+	 */
 	private void gestisciDadi() {
 		doppioSei.addItemListener(new ItemListener() {
 			@Override public void itemStateChanged(ItemEvent e) {
-				if(e.getStateChange()==ItemEvent.SELECTED)
-					doppioSeiINSIDE = true;
+				if(e.getStateChange()==ItemEvent.SELECTED) {
+					/** Ovviamente se il numero dei dadi e' pari a 1 non ha senso
+					 *  impostare la modalita' doppio sei per i dadi essendo 
+					 *  riferita ad una possibile combinazione di due dadi entrambi
+					 *  pari a 6*/
+					if(numeroDadi==1)
+						doppioSeiINSIDE = false;
+					else
+						doppioSeiINSIDE = true;
+				}
+				if(e.getStateChange()==ItemEvent.DESELECTED)
+					doppioSeiINSIDE = false;
 			}
 		});
 	}

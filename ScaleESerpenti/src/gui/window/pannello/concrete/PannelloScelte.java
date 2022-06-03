@@ -10,8 +10,11 @@ import java.io.IOException;
 import java.util.Properties;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import app.modalita.Modalita;
 import gui.factory.FinestraFactory;
@@ -86,7 +89,39 @@ public class PannelloScelte extends PannelloAstratto {
 	private File fileRipristino;
 	private void ripristinaConfigurazioneSessioneGioco() {
 		
-		fileRipristino = new File(System.getProperty("user.home") + "/Desktop/Configurazione.properties");
+		JFileChooser chooser = new JFileChooser(System.getProperty("user.home") + "/Desktop");
+		chooser.setFileFilter(new FileNameExtensionFilter("*.properties", new String[] { "properties" }));
+		try {
+			if( chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION ) {
+				if(chooser.getSelectedFile().exists()) {
+					fileRipristino = chooser.getSelectedFile();
+					ripristina();
+				}
+				if( !chooser.getSelectedFile().exists() )
+					if( !(new File(chooser.getSelectedFile()+".properties").exists()) ) {
+					JOptionPane.showMessageDialog(null, "File inesistente!");
+				}
+				else {
+					fileRipristino = chooser.getSelectedFile();
+					if(fileRipristino.getAbsolutePath().contains(".") && !fileRipristino.getAbsolutePath().contains(".properties"))
+						JOptionPane.showMessageDialog(null, "Fallimento apertura. Formato del file non conforme. Selezionare un file con formato .properties!");
+					
+					else {
+						fileRipristino = new File(chooser.getSelectedFile()+".properties");
+						ripristina();
+					}
+					
+				}
+			}
+			else
+				JOptionPane.showMessageDialog(null, "Nessuna apertura!");
+		}catch( Exception exc ) {
+			exc.printStackTrace();
+		}
+		
+	}
+	
+	private void ripristina() {
 		
 		Properties p = new Properties();
 		

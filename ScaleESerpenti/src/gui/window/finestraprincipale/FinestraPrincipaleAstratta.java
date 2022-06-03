@@ -22,6 +22,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import app.difficolta.Difficolta;
 import app.esecuzione.Esecuzione;
@@ -226,19 +227,41 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 		});
 	}
 	
+	/**
+	 * Salva la configurazione della sessione di gioco corrente.
+	 */
 	private void salvaConfigurazioneGioco() {
 		/**Il file che conterra' i dati della configurazione della sessione di 
 		 * gioco che si intende salvare verra' salvato sul Desktop*/
-		file = new File(System.getProperty("user.home") + "/Desktop/Configurazione.properties");
-		
+//		file = new File(System.getProperty("user.home") + "/Desktop/Configurazione.properties");
+		file = null;
 		/** ad ogni tipologia di dato associo il suo valore */
 		Map<String, String> dati = new HashMap<String, String>();
 		aggiungiDati(dati);
 		
+		JFileChooser chooser = new JFileChooser(System.getProperty("user.home") + "/Desktop");
+		chooser.setFileFilter(new FileNameExtensionFilter("*.properties", new String[] { "properties" }));
 		try {
-			salva(file.getAbsolutePath(), dati);
-		} catch (IOException e) {
-			e.printStackTrace();
+			if( chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION ) {
+				file = chooser.getSelectedFile();
+				if((new File(file+".properties").exists()) || file.exists()) {
+					int ans = JOptionPane.showConfirmDialog(null, "Sovrascrivere " + file.getAbsolutePath()+".properties" + "?");
+					if( ans == 0 ) {
+						salva( file.getAbsolutePath(), dati );
+						salva.setEnabled(false);
+					}
+					else
+						JOptionPane.showMessageDialog(null, "Nessun salvataggio!");
+				}
+				else {
+					salva( file.getAbsolutePath()+".properties", dati );
+					salva.setEnabled(false);
+				}
+			}
+			else
+				JOptionPane.showMessageDialog(null, "Nessun salvataggio!");
+		}catch(Exception exc) {
+			exc.printStackTrace();
 		}
 
 	}

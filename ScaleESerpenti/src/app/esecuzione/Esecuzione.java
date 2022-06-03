@@ -1,9 +1,6 @@
 package app.esecuzione;
 
-import java.awt.BorderLayout;
 import java.util.LinkedList;
-
-import javax.swing.JComboBox;
 
 import app.esecuzione.dadi.Dado;
 import app.esecuzione.giocatore.Giocatore;
@@ -62,11 +59,8 @@ public abstract class Esecuzione {
 	 * Inizializza i giocatori presenti nella sessione di gioco in questione 
 	 * nella prima casella del tabellone.
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void inizializzaGioco() {
-		
 		System.out.println("********* TURNO : " + turno + " *********");
-		JComboBox giocatori;
 		CasellaAstratta primaCasella = finestraPrincipale.getPrimaCasella();
 		String giocatore = "";
 		
@@ -77,12 +71,9 @@ public abstract class Esecuzione {
 			terminale.repaintTerminale();
 			System.out.println(giocatore + " entra nella sessione di gioco!");
 			giocatoriInGioco.get(i).setCasellaCorrente(primaCasella.getNumeroCasella());
+			primaCasella.aggiungiGiocatore(giocatoriInGioco.get(i));
+			primaCasella.repaintCasella();
 		}
-		giocatori = new JComboBox(giocatoriInGioco.toArray());
-		
-		primaCasella.add(giocatori, BorderLayout.SOUTH);
-		
-		
 	}
 
 	/**
