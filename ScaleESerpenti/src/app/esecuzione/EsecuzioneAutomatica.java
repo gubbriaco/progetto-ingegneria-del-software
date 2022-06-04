@@ -25,9 +25,6 @@ public class EsecuzioneAutomatica extends Esecuzione {
 			terminale.espandiAttivita("***"+finestraPrincipale.getTurnoCorrente()+"***");
 			terminale.repaintTerminale();
 			
-//			System.out.println(finestraPrincipale.getTurnoCorrente());
-
-			
 			int nuovaCasella;
 			Giocatore giocatoreCorrente;
 			
@@ -73,15 +70,15 @@ public class EsecuzioneAutomatica extends Esecuzione {
 				terminale.repaintTerminale();
 				
 				
-				if(dadi.length==1)
-					attivita = giocatoreCorrente.toString() + " ha lanciato il dado:";
-				else
-					attivita = giocatoreCorrente.toString() + " ha lanciato i dadi:";
-				
-				for(int w=0;w<dadi.length;++w)
-					attivita += dadi[w];
-				
-				terminale.espandiAttivita(attivita);
+//				if(dadi.length==1)
+//					attivita = giocatoreCorrente.toString() + " ha lanciato il dado:";
+//				else
+//					attivita = giocatoreCorrente.toString() + " ha lanciato i dadi:";
+//				
+//				for(int w=0;w<dadi.length;++w)
+//					attivita += dadi[w];
+//				
+//				terminale.espandiAttivita(attivita);
 				
 				
 				/** la pedina si muove verso la nuova casella */
@@ -89,19 +86,9 @@ public class EsecuzioneAutomatica extends Esecuzione {
 						giocatoreCorrente.getCasellaCorrente(), combinazioneDadi);
 				giocatoreCorrente.setCasellaCorrente(nuovaCasella);
 				finestraPrincipale.repaint();
-				
-			
-				
-				
-//				System.out.println(attivita);
 		
 				giocatoreCorrente.setCasellaCorrente(nuovaCasella);
 				
-//				terminale.espandiAttivita(giocatoreCorrente.toString() + " e' nella casella " 
-//										 + nuovaCasella );
-				
-//				System.out.println(giocatoreCorrente.toString() + " e' nella casella " 
-//						 + nuovaCasella);
 				terminale.repaintTerminale();
 				
 				finestraPrincipale.revalidate();
@@ -113,6 +100,12 @@ public class EsecuzioneAutomatica extends Esecuzione {
 				}
 				
 				if(victory) {
+					
+					attivita = giocatoreCorrente.toString() + " ha vinto!";
+					terminale.espandiAttivita(attivita);
+					attivita = "***** SESSIONE DI GIOCO TERMINATA *****";
+					terminale.espandiAttivita(attivita);
+					terminale.repaintTerminale();
 					
 					victoryWindow = victoryFactory.createFinestra("FinestraVittoriaAstratta", "", null, -1, null);
 					victoryWindow.inizializzaFinestra();
@@ -132,12 +125,8 @@ public class EsecuzioneAutomatica extends Esecuzione {
 			
 				turno = turno+1;
 				finestraPrincipale.setNuovoTurno(turno);
-				finestraPrincipale.repaint();
-				
-//				System.out.println("********* TURNO : " + turno + " *********");
-				
+				finestraPrincipale.repaint();	
 		}
-		
 		
 	}
 
