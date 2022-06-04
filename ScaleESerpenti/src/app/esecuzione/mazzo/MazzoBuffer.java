@@ -25,10 +25,10 @@ public class MazzoBuffer extends Mazzo {
 	
 
 	@Override public Carta get() {
-		Carta carta = mazzo.peek();
+		Carta carta = mazzo.poll();
 		
-		if(carta.tipologiaCarta == TipologiaCarta.DIVIETODISOSTA) {
-			mazzo.poll();
+		if(! (carta.tipologiaCarta == TipologiaCarta.DIVIETODISOSTA)) {
+			mazzo.add(carta);
 		}
 		
 		return carta;

@@ -61,15 +61,15 @@ public class EsecuzioneManuale extends Esecuzione {
 			giocatoriInGioco.get(i).setLancioDeiDadi(dadi);
 			giocatoriInGioco.get(i).setCombinazioneDadi(combinazioneDadi);
 			
-
-			/** la pedina si muove verso la nuova casella */
-			nuovaCasella = giocatoreCorrente.movementRequest(
-					giocatoreCorrente.getCasellaCorrente(), combinazioneDadi);
-			giocatoreCorrente.setCasellaCorrente(nuovaCasella);
-			finestraPrincipale.repaint();
-
 			
 			String attivita = "";
+			
+			attivita = giocatoreCorrente.toString() + " parte dalla casella " + giocatoreCorrente.getCasellaCorrente();
+			terminale.espandiAttivita(attivita);
+			terminale.repaintTerminale();
+			
+			
+		
 			
 			if(dadi.length==1)
 				attivita = giocatoreCorrente.toString() + " ha lanciato il dado:";
@@ -81,13 +81,24 @@ public class EsecuzioneManuale extends Esecuzione {
 				attivita += dadi[w];
 			
 			terminale.espandiAttivita(attivita);
+			
+
+			/** la pedina si muove verso la nuova casella */
+			nuovaCasella = giocatoreCorrente.movementRequest(
+					giocatoreCorrente.getCasellaCorrente(), combinazioneDadi);
+			giocatoreCorrente.setCasellaCorrente(nuovaCasella);
+			finestraPrincipale.repaint();
+
+			
+			
 //			System.out.println(attivita);
 			
 			
 			giocatoreCorrente.setCasellaCorrente(nuovaCasella);
 
-			terminale.espandiAttivita(giocatoreCorrente.toString() + " e' nella casella " 
-									  + nuovaCasella);
+//			terminale.espandiAttivita(giocatoreCorrente.toString() + " e' nella casella " 
+//									  + nuovaCasella);
+			
 //			System.out.println(giocatoreCorrente.toString() + " e' nella casella " + nuovaCasella);
 			terminale.repaintTerminale();
 

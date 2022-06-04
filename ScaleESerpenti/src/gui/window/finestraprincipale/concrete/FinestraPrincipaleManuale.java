@@ -17,7 +17,6 @@ import app.esecuzione.giocatore.Giocatore;
 import app.esecuzione.giocatore.Pedina;
 import app.modalita.Modalita;
 import app.tabellone.Tabellone;
-import app.tabellone.casella.CasellaAstratta;
 import gui.graphic.border.RoundedBorder;
 import gui.window.finestraprincipale.FinestraPrincipaleAstratta;
 import gui.window.finestraterminale.FinestraTerminaleAstratta;
