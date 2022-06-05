@@ -27,7 +27,7 @@ public class FinestraVittoria extends FinestraVittoriaAstratta {
 		pNORTH = new JPanel();
 		pNORTH.setBackground(Color.LIGHT_GRAY);
 		
-		labelTitle = new JLabel("Vincitori della sessione di gioco:");
+		labelTitle = new JLabel("Vincitore della sessione di gioco");
 		labelTitle.setBackground(Color.GREEN.darker());
 		labelTitle.setForeground(Color.BLACK);
 		labelTitle.setBorder(new RoundedBorder(10));
