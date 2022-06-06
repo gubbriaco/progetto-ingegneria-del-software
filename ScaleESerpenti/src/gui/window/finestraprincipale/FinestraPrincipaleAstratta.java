@@ -24,7 +24,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import app.difficolta.Difficolta;
 import app.esecuzione.Esecuzione;
 import app.esecuzione.EsecuzioneAutomatica;
 import app.esecuzione.EsecuzioneManuale;
@@ -265,6 +264,12 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 
 	}
 	
+	/**
+	 * Gestisce il salvataggio dei dati sul file.
+	 * @param nome File name
+	 * @param dati Parametri di gioco da ripristinare
+	 * @throws IOException
+	 */
 	private void salva( String nome, Map<String,String> dati ) throws IOException {
 		PrintWriter pw = new PrintWriter( new FileWriter(nome) );
 		
@@ -282,6 +287,11 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 		pw.close();
 	}
 
+	/**
+	 * Gestisce l'aggiunta dei dati all'interno di una Map dove per ogni coppia 
+	 * si ha [parametro,valore]
+	 * @param dati
+	 */
 	private void aggiungiDati(Map<String, String> dati) {
 		dati.put( "Modalita", "" + this.modalita );
 		

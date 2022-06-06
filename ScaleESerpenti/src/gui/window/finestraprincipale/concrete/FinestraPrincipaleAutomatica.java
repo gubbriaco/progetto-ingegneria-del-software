@@ -110,18 +110,9 @@ public class FinestraPrincipaleAutomatica extends FinestraPrincipaleAstratta{
 	 * Invoca l'esecuzione automatica della sessione di gioco.
 	 */
 	private void esecuzioneAutomatica() {
-		
 		esecuzione.esegui();
 		this.validate();
 		this.repaint();
-		
-//		CasellaAstratta[][] matrice = tabellone.getTabellone();
-//		for(int i=0;i<matrice.length;++i)
-//			for(int j=0;j<matrice[i].length;++j)
-//				if(matrice[i][j].getNumeroCasella()==1) {
-//					matrice[i][j].remove(matrice[i][j].elencoGiocatori);
-//					matrice[i][j].repaintCasella();
-//				}
 	}
 	
 	@Override protected void inizializzaLayoutEAST() {}

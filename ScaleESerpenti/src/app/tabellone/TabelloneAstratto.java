@@ -90,18 +90,9 @@ public abstract class TabelloneAstratto {
 		 * all'interno del tabellone inizializzato secondo un determinato 
 		 * algoritmo*/
 		sfoltisciTabellone();
-		
-	
-		
+				
 		aggiungiGraficaAlleCaselle();
-		
-//		for(int i=0;i<tabellone.length;++i) {
-//			for(int j=0;j<tabellone[i].length;++j) {
-//				System.out.print(tabellone[i][j].getClass() + "   ");
-//			}
-//			System.out.println();
-//		}
-		 
+
 		return tabellone;
 		
 	}
