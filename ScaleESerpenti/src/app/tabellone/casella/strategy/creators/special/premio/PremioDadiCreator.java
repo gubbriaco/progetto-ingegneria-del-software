@@ -9,7 +9,6 @@ public class PremioDadiCreator extends PremioCreator {
 	
 	public PremioDadiCreator(int nrRiga, Tabellone t) {
 		super(nrRiga, t);
-		// TODO Auto-generated constructor stub
 	}
 	
 	

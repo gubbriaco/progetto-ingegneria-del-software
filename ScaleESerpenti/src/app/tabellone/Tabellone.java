@@ -24,7 +24,6 @@ public class Tabellone extends TabelloneAstratto {
 		super(nrRighe, nrColonne);
 	}
 
-	
 	@Override protected void aggiungiCaselleSpeciali(){
 		
 		if(PannelloConfigurazione.caselleUnSoloDadoINSIDE) {

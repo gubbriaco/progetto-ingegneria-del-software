@@ -8,7 +8,6 @@ public class PremioMollaCreator extends PremioCreator {
 
 	public PremioMollaCreator(int nrRiga, Tabellone t) {
 		super(nrRiga, t);
-		// TODO Auto-generated constructor stub
 	}
 
 	

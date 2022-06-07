@@ -45,6 +45,23 @@ import gui.window.pannello.concrete.PannelloConfigurazione;
 @SuppressWarnings({"serial", "unused"})
 public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 	
+	public Modalita.Mod getModalita() {
+		return modalita;
+	}
+
+	public int getNumeroGiocatori() {
+		return numeroGiocatori;
+	}
+
+	public int getNrRighe() {
+		return nrRighe;
+	}
+
+	public int getNrColonne() {
+		return nrColonne;
+	}
+
+
 	/**terminale che verra' inizializzato per la sessione di gioco in questione*/
 	private FinestraFactoryIF terminaleFactory;
 	protected FinestraIF terminale;
