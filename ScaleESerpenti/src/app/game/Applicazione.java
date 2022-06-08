@@ -8,7 +8,6 @@ public final class Applicazione implements ScaleESerpenti {
 	
 	private FinestraFactoryIF pannelloScelta = new FinestraFactory();
 	
-	
 	/** Assicuro che la classe abbia una sola istanza e che tale istanza sia 
 	 * facilmente accessibile. Pertanto, la classe stessa assicura che 
 	 * nessun'altra istanza possa essere creata e, tramite il metodo statico e 
@@ -50,7 +49,6 @@ public final class Applicazione implements ScaleESerpenti {
 	 * successivamente compariranno la finestra di gioco e il terminale 
 	 * ripristinati per l'appunto alla vecchia sessione di gioco*/
 	@Override public void start() {
-		
 		/**creo il pannello scelte tramite il factory method*/
 		FinestraIF pannelloScelte = pannelloScelta.createFinestra
 				("PannelloAstratto", "PannelloScelte", null, -1, null);

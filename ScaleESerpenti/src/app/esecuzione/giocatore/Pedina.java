@@ -699,9 +699,9 @@ public class Pedina extends PedinaAstratta {
 		nuovaCasella = this.pescaUnaCarta();
 		this.setCasellaCorrente(nuovaCasella);
 		
-		attivita = this.toString() + " e' nella casella " + this.getCasellaCorrente();
-		terminale.espandiAttivita(attivita);
-		terminale.repaintTerminale();
+//		attivita = this.toString() + " e' nella casella " + this.getCasellaCorrente();
+//		terminale.espandiAttivita(attivita);
+//		terminale.repaintTerminale();
 		
 		return nuovaCasella;
 	}

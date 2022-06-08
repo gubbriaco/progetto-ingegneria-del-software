@@ -2,7 +2,6 @@ package gui.window;
 
 public interface FinestraIF {
 	
-	
 	/**
 	 * Permette di inizializzare la Finestra e di visualizzarla in maniera 
 	 * grafica. Tramite un metodo protected ed un template method protected al 
@@ -12,6 +11,4 @@ public interface FinestraIF {
 	 */
 	void inizializzaFinestra();
 	
-	
-
 }

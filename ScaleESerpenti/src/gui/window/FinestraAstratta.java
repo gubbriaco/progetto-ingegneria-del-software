@@ -17,22 +17,17 @@ public abstract class FinestraAstratta extends JFrame implements FinestraIF {
 	protected JPanel pCENTER;
 	
 	protected Font font;
-	
 	protected String titolo;
-	
 	protected int dimX, dimY;
 
 	
-	
 	@Override public void inizializzaFinestra() {
-		
 		defaultExitOperation();
 		
 		/**template method*/
 		templateInizializzaLayout();
 		
-		visualizzaFinestra();
-		
+		visualizzaFinestra();	
 	}
 	
 	
@@ -81,7 +76,7 @@ public abstract class FinestraAstratta extends JFrame implements FinestraIF {
 		inizializzaLayoutEAST();
 	}
 	
-	// INIZIALIZZO TALI METODI CON BODY MANCENTE TALE CHE SARANNO INIZIALIZZATI 
+	// INIZIALIZZO TALI METODI CON BODY MANCANTE TALE CHE SARANNO INIZIALIZZATI 
 	// TUTTI I LAYOUT PERCHE' POI E' LA CLASSE CONCRETA CHE SE HA BISOGNO DI UN
 	// LAYOUT SPECIFICO DECIDERA' DI IMPLEMENTARLO COME DICE LEI
 	
