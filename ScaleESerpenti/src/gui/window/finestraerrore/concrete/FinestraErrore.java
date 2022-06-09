@@ -41,6 +41,9 @@ public class FinestraErrore extends FinestraErroreAstratta {
 		gestisci();
 	}
 	
+	/**
+	 * Gestisce gli eventi del {@link JButton} {@link FinestraErrore#ok}.
+	 */
 	private void gestisci() {
 		ok.addActionListener(new ActionListener() {
 			@Override public void actionPerformed(ActionEvent e) {
@@ -49,7 +52,6 @@ public class FinestraErrore extends FinestraErroreAstratta {
 		});
 	}
 
-	
 	@Override protected void inizializzaLayoutSOUTH() {}
 	@Override protected void inizializzaLayoutWEST() {}
 	@Override protected void inizializzaLayoutEAST() {}

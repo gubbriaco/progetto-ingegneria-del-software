@@ -136,9 +136,7 @@ public class PannelloConfigurazione extends PannelloAstratto {
 		pCENTER2.setBackground(Color.LIGHT_GRAY);
 		pCENTER.add(pCENTER2);
 		
-		
 		gestisciCheckBoxCaselle();
-		
 	}
 	
 	/**
@@ -274,7 +272,6 @@ public class PannelloConfigurazione extends PannelloAstratto {
 		pSOUTH.add(pSOUTH3, BorderLayout.EAST);
 		
 		gestisciDadi();
-		
 	}
 	
 	/**
@@ -347,7 +344,6 @@ public class PannelloConfigurazione extends PannelloAstratto {
 		gestisciDimensioniScelte();
 		gestisciModalitaScelta();
 		gestisciNumeroDadi();
-		
 	}
 	
 	private void gestisciNumeroDadi() {

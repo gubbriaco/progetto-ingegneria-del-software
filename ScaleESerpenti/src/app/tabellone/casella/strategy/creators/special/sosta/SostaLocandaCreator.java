@@ -6,8 +6,6 @@ import app.tabellone.casella.strategy.creators.special.SostaCreator;
 
 public class SostaLocandaCreator extends SostaCreator {
 	
-	
-	
 	public SostaLocandaCreator(int nrRiga, Tabellone t) {
 		super(nrRiga, t);
 	}

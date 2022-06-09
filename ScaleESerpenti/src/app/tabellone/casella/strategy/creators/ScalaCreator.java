@@ -13,7 +13,6 @@ import app.tabellone.object.Scala;
 
 public class ScalaCreator implements CasellaCreator {
 	
-	
 	private int nrRiga;
 	private Tabellone t;
 	
@@ -102,8 +101,7 @@ public class ScalaCreator implements CasellaCreator {
 				return tabellone;
 			}
 			/** non si possono assegnare testa e coda sulla stessa riga */
-//			while(nrRiga== randomRigaCoda)
-//				randomRigaCoda = rigaCodaScala.nextInt((tabellone.length-nrRiga), nrRiga);
+
 		}
 		else if(nrRiga < (tabellone.length-nrRiga)) {
 			if(nrRiga==randomRigaCoda) {
@@ -120,8 +118,7 @@ public class ScalaCreator implements CasellaCreator {
 			}
 			randomRigaCoda = rigaCodaScala.nextInt(nrRiga, (tabellone.length-nrRiga));
 			/** non si possono assegnare testa e coda sulla stessa riga */
-//			while(nrRiga== randomRigaCoda)
-//				randomRigaCoda = rigaCodaScala.nextInt(nrRiga, (tabellone.length-nrRiga));
+
 		}
 		else {
 			/** semplicemente dealloco la testa della scala trovata 
@@ -174,22 +171,6 @@ public class ScalaCreator implements CasellaCreator {
 					return tabellone;
 				}
 				
-//				/** Controllo che non vengono posizionate nella stessa posizione.
-//				 *  Se si allora dealloco anche la testa */
-//				if(tabellone[randomRigaCoda][j].getNumeroCasella()==tabellone[nrRiga][colonnaTesta].getNumeroCasella()) {
-//					
-//					t.scale[nrRiga][colonnaTesta] = false;
-//					
-//					tabellone[nrRiga][colonnaTesta] = casellaFactory.createCella(
-//				    "Standard", tabellone[nrRiga][colonnaTesta].getNumeroCasella());
-//					tabellone[nrRiga][colonnaTesta].repaint();
-//
-//					rigaCoda = -1;
-//					colonnaCoda = -1;
-//					
-//					return tabellone;
-//				}
-				
 				codaPosizionata = true;
 				t.scale[randomRigaCoda][j] = true;
 				
@@ -230,16 +211,7 @@ public class ScalaCreator implements CasellaCreator {
 				((CasellaScala) codaScala).setScala((Scala) scala);
 				((CasellaScala) testaScala).setScala((Scala) scala);
 			}
-//			/** Controllo che non vengono posizionate nella stessa posizione.
-//			 *  Se si allora dealloco anche la testa */
-//			else if(testaScala.getNumeroCasella()>codaScala.getNumeroCasella()) {
-//				t.scale[nrRiga][colonnaTesta] = false;
-//				
-//				tabellone[nrRiga][colonnaTesta] = casellaFactory.createCella(
-//			    "Standard", tabellone[nrRiga][colonnaTesta].getNumeroCasella());
-//				tabellone[nrRiga][colonnaTesta].repaint();
-//				
-//			}
+
 			else {
 				t.scale[rigaTesta][colonnaTesta] = false;
 				
@@ -261,7 +233,6 @@ public class ScalaCreator implements CasellaCreator {
 				
 			}
 		}
-		
 		
 		return tabellone;
 	}

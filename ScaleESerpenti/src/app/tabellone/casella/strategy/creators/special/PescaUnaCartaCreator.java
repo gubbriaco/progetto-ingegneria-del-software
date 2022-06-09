@@ -8,7 +8,6 @@ import app.tabellone.casella.strategy.CasellaCreator;
 
 public class PescaUnaCartaCreator implements CasellaCreator {
 	
-	
 	private int nrRiga;
 	private Tabellone t;
 	
@@ -55,5 +54,4 @@ public class PescaUnaCartaCreator implements CasellaCreator {
 	}
 	
 	
-
 }

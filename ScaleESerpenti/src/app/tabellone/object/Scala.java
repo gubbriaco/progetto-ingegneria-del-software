@@ -32,8 +32,7 @@ public class Scala extends OggettoTrasferimento {
 			testa.add(testaScalaLabel, BorderLayout.NORTH);
 			coda.add(codaScalaLabel,BorderLayout.NORTH);
 		}
-		
-		//System.out.println(testaScala.getNumeroCasella() + "," + codaScala.getNumeroCasella());	
+			
 	}
 
 	

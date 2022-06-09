@@ -13,7 +13,6 @@ import app.tabellone.object.Serpente;
 
 public class SerpenteCreator implements CasellaCreator {
 	
-	
 	private int nrRiga;
 	private Tabellone t;
 	
@@ -99,8 +98,7 @@ public class SerpenteCreator implements CasellaCreator {
 				return tabellone;
 			}
 			/** non si possono assegnare testa e coda sulla stessa riga */
-//			while(nrRiga == randomRigaCoda)
-//				randomRigaCoda = rigaCodaSerpente.nextInt((tabellone.length-nrRiga), nrRiga);
+
 		}
 		else if(nrRiga < tabellone.length-nrRiga) {
 			randomRigaCoda = rigaCodaSerpente.nextInt(nrRiga,(tabellone.length-nrRiga));
@@ -116,8 +114,7 @@ public class SerpenteCreator implements CasellaCreator {
 				return tabellone;
 			}
 			/** non si possono assegnare testa e coda sulla stessa riga */
-//			while(nrRiga == randomRigaCoda)
-//				randomRigaCoda = rigaCodaSerpente.nextInt(nrRiga,(tabellone.length-nrRiga));
+
 		}
 		else {
 			/** semplicemente dealloco la testa del serpente trovata 

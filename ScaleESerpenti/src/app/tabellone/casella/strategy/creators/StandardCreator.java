@@ -5,8 +5,6 @@ import app.tabellone.casella.strategy.CasellaCreator;
 
 public class StandardCreator implements CasellaCreator {
 	
-	
-
 	@Override public CasellaAstratta[][] createCasella(CasellaAstratta[][] tabellone, int random) {
 		
 		return tabellone;

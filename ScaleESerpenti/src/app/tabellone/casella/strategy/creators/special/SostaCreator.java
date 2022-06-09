@@ -7,7 +7,6 @@ import app.tabellone.casella.strategy.CasellaCreator;
 
 public abstract class SostaCreator implements CasellaCreator {
 	
-	
 	protected int nrRiga;
 	protected Tabellone t;
 	
@@ -19,6 +18,4 @@ public abstract class SostaCreator implements CasellaCreator {
 	}
 	
 
-	
-	
 }

@@ -14,7 +14,7 @@ public class Serpente extends OggettoTrasferimento {
 	
 	public Serpente(CasellaAstratta testaSerpente, CasellaAstratta codaSerpente) {
 		super(testaSerpente, codaSerpente);
-		//System.out.println(testaSerpente.getNumeroCasella() + "," + codaSerpente.getNumeroCasella());	
+		
 		testaSerpenteLabel = new JLabel("TESTA: " + testa.getNumeroCasella());
 		
 		testaSerpenteLabel.setForeground(Color.WHITE);

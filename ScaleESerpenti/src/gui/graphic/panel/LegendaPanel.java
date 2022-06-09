@@ -9,7 +9,6 @@ import gui.graphic.border.RoundedBorder;
 @SuppressWarnings("serial")
 public class LegendaPanel extends JPanel {
 	
-	
 	private final static int raggio = 5;
 	
 	private JLabel standard, unSoloDado, sostaPanchina, sostaLocanda, premioDadi,
@@ -17,9 +16,7 @@ public class LegendaPanel extends JPanel {
 	
 	
 	public LegendaPanel() {
-		
 		aggiungiLegende();
-		
 	}
 	
 	

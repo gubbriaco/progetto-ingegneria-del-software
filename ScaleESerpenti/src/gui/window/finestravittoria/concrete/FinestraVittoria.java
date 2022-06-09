@@ -20,7 +20,6 @@ import gui.window.pannello.concrete.PannelloConfigurazione;
 @SuppressWarnings("serial")
 public class FinestraVittoria extends FinestraVittoriaAstratta {
 
-	
 	private JLabel labelTitle;
 	
 	@Override protected void inizializzaLayoutNORTH() {

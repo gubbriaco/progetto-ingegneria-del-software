@@ -38,7 +38,6 @@ public class PannelloScelte extends PannelloAstratto {
 	}
 	
 	
-
 	@Override protected void inizializzaLayoutNORTH() {
 		pNORTH = new JPanel();
 		this.add(pNORTH, BorderLayout.NORTH);
@@ -65,7 +64,10 @@ public class PannelloScelte extends PannelloAstratto {
 		gestisciScelta();
 	}
 
-	
+	/**
+	 * Gestisce gli eventi dei {@link JButton} {@link PannelloScelte#nuovo} e
+	 * {@link PannelloScelte#riprendi}.
+	 */
 	private void gestisciScelta() {
 		
 		nuovo.addActionListener(new ActionListener() {

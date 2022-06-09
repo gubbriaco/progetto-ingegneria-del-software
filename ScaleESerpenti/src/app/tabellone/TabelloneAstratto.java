@@ -24,7 +24,7 @@ public abstract class TabelloneAstratto {
 	protected Random randomScala, randomSerpente, randomSosta,
 				   randomPremio, randomPescaUnaCarta;
 	
-	/** Intervallo del numero di celle che devono essere inizializzate come 
+	/** Intervallo del numero di caselle che devono essere inizializzate come 
 	 * caselle speciali di tipologia {@link CasellaUnSoloDado}*/
 	public static int[] CELLE_UN_SOLO_DADO;
 	
@@ -96,8 +96,6 @@ public abstract class TabelloneAstratto {
 		return tabellone;
 		
 	}
-	
-	
 	
 	
 	/**

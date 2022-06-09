@@ -106,20 +106,7 @@ public abstract class CasellaAstratta extends JPanel {
 	 * Rappresenta graficamente la casella in questione.
 	 */
 	public abstract void draw();
-
-//	
-//	protected int xArrivo, yArrivo;
-//	
-//	public void setArrivo(int x, int y) {
-//		xArrivo = x;
-//		yArrivo = y;
-//	}
-//	
-//	public int[] getCasellaArrivo() {
-//		int[] posizioni = {xArrivo, yArrivo};
-//		return posizioni;
-//	}
-//	
+	
 	
 	@Override public String toString() {
 		return "";

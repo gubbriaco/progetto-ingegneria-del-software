@@ -16,9 +16,7 @@ import gui.window.pannello.concrete.PannelloConfigurazione;
 
 public class Tabellone extends TabelloneAstratto {
 	
-	
 	private CasellaCreator casellaCreator;
-	
 	
 	public Tabellone(int nrRighe, int nrColonne) {
 		super(nrRighe, nrColonne);
@@ -35,13 +33,13 @@ public class Tabellone extends TabelloneAstratto {
 			
 			/** calcoliamo i bounds, cioe' il numero della prima casella della
 			 * riga i-esima e il numero dell'ultima casella della riga i-esima
-			 * cosi' da calcolare il numero random, cioe' il numero di cella 
+			 * cosi' da calcolare il numero random, cioe' il numero di casella 
 			 * su cui posizionare la testa di una scala o un serpente*/
 			int[] bounds = boundsRigaIesima(tabellone[i]);
 			
-			/** numero della prima cella della riga i-esima*/
+			/** numero della prima casella della riga i-esima*/
 			int base = -1, 
-			/** numero dell'ultima cella della riga i-esima*/
+			/** numero dell'ultima casella della riga i-esima*/
 			    limite = -1;
 			
 			/** Controllo che il numero della prima casella non sia maggiore del
@@ -68,13 +66,13 @@ public class Tabellone extends TabelloneAstratto {
 			
 			if(PannelloConfigurazione.caselleSostaINSIDE) {
 				
-				/** numero di cella randomica su cui posizionare la casella speciale
+				/** numero di casella randomica su cui posizionare la casella speciale
 				 *  Sosta */
 				int randSostaPanchina = randomSosta.nextInt(base, limite+1);
 				casellaCreator = new SostaPanchinaCreator(i, this);
 				tabellone = casellaCreator.createCasella(tabellone, randSostaPanchina);
 				
-				/** numero di cella randomica su cui posizionare la casella speciale
+				/** numero di casella randomica su cui posizionare la casella speciale
 				 *  Sosta */
 				int randSostaLocanda = randomSosta.nextInt(base, limite+1);
 				casellaCreator = new SostaLocandaCreator(i, this);
@@ -82,13 +80,13 @@ public class Tabellone extends TabelloneAstratto {
 			}
 			
 			if(PannelloConfigurazione.casellePremioINSIDE) {
-				/** numero di cella randomica su cui posizionare la casella speciale
+				/** numero di casella randomica su cui posizionare la casella speciale
 				 *  Premio */
 				int randPremioDadi = randomPremio.nextInt(base, limite+1);
 				casellaCreator = new PremioDadiCreator(i, this);
 				tabellone = casellaCreator.createCasella(tabellone, randPremioDadi);
 				
-				/** numero di cella randomica su cui posizionare la casella speciale
+				/** numero di casella randomica su cui posizionare la casella speciale
 				 *  Premio */
 				int randPremioMolla = randomPremio.nextInt(base, limite+1);
 				casellaCreator = new PremioMollaCreator(i, this);
@@ -96,7 +94,7 @@ public class Tabellone extends TabelloneAstratto {
 			}
 			
 			if(PannelloConfigurazione.casellePescaUnaCartaINSIDE) {
-				/** numero di cella randomica su cui posizionare la casella speciale
+				/** numero di casella randomica su cui posizionare la casella speciale
 				 *  Pesca Una Carta */
 				int randPescaUnaCarta = randomPescaUnaCarta.nextInt(base, limite+1);
 				casellaCreator = new PescaUnaCartaCreator(i, this);
@@ -104,7 +102,7 @@ public class Tabellone extends TabelloneAstratto {
 			}
 			
 			if(PannelloConfigurazione.scaleINSIDE) {
-				/** numero di cella randomica su cui posizionare la testa della 
+				/** numero di casella randomica su cui posizionare la testa della 
 				 *  scala */
 				int randScala = randomScala.nextInt(base, limite+1);
 				casellaCreator = new ScalaCreator(i, this);
@@ -114,7 +112,7 @@ public class Tabellone extends TabelloneAstratto {
 			}
 			
 			if(PannelloConfigurazione.serpentiINSIDE) {
-				/** numero di cella randomica su cui posizionare la testa del 
+				/** numero di casella randomica su cui posizionare la testa del 
 				 *  serpente */
 				int randSerpente = randomSerpente.nextInt(base, limite+1);
 				casellaCreator = new SerpenteCreator(i, this);

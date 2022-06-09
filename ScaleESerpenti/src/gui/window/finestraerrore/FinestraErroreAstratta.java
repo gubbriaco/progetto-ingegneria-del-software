@@ -5,7 +5,6 @@ import gui.window.FinestraAstratta;
 @SuppressWarnings("serial")
 public abstract class FinestraErroreAstratta extends FinestraAstratta {
 	
-	
 	/**
 	 * Il metodo viene ridefinito cosi' da aggiungere l'operazione 
 	 * {@link java.awt.Frame#setResizable(boolean)} e da non permettere 
