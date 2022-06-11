@@ -17,7 +17,7 @@ public class UnSoloDadoCreator implements CasellaCreator {
 			for(int j=0;j<tabellone[i].length;++j) {
 				
 				/** in questo caso non bisogna assegnare caselle perche' sono 
-				 * caselle gia' prestabilite per determinate posizioni */
+				 *  caselle gia' prestabilite per determinate posizioni */
 				if(tabellone[i][j].getNumeroCasella() >= Tabellone.CELLE_UN_SOLO_DADO[0] &&
 				tabellone[i][j].getNumeroCasella() <= Tabellone.CELLE_UN_SOLO_DADO[1])
 					

@@ -7,6 +7,4 @@ public class FactoryException extends RuntimeException {
 		super("Factory configuration error.");
 	}
 	
-	
-
 }

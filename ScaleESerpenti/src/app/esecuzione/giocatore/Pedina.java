@@ -44,14 +44,13 @@ public class Pedina extends PedinaAstratta {
 			terminale.repaintTerminale();
 		}
 		
-		/** se supera il numero massimo di casella possibile allora lo faccio 
-		 *  indietreggiare */
+		/** se supera il traguardo allora lo faccio indietreggiare */
 		if( nuovaCasella > matriceTabellone[0][0].getNumeroCasella() ) {
 			return gestisciOltreTabellone(casellaCorrente, nuovaCasella);
 			
 		}
 		else { /** significa che il numero della nuova casella e' minore del 
-		        massimo numero di casella possibile */
+		        massimo numero di casella possibile (traguardo) */
 			
 			tmp = getCasella(matriceTabellone, nuovaCasella);
 			this.setCasellaCorrente(nuovaCasella);
@@ -63,8 +62,8 @@ public class Pedina extends PedinaAstratta {
 			 *  Se si allora faccio indietreggiare la pedina e restituisco il 
 			 *  nuovo numero di casella che sara' sicuramente o un numero di 
 			 *  casella corrispondente ad un numero di casella di tipologia
-			 *  UN SOLO DADO oppure il massimo numero di casella possibile e 
-			 *  pertanto il giocatore avra' vinto*/
+			 *  UN SOLO DADO oppure il massimo numero di casella possibile (traguardo) 
+			 *  e pertanto il giocatore avra' vinto*/
 			if (nuovaCasella > matriceTabellone[0][0].getNumeroCasella()) {
 				return gestisciOltreTabellone(casellaCorrente, nuovaCasella);
 			}
@@ -142,7 +141,7 @@ public class Pedina extends PedinaAstratta {
 	/**
 	 * Gestisce il caso in cui la combinazione dei dadi porta la pedina oltre il
 	 * numero massimo di casella consentito all'interno del tabellone facendola
-	 * indietreggiare.
+	 * indietreggiare (ha superato il traguardo e, pertanto indietreggia).
 	 * @param casellaCorrente Casella corrente
 	 * @param nuovaCasella Possibile nuova casella
 	 * @return Nuova casella dopo aver indietreggiato
@@ -192,7 +191,7 @@ public class Pedina extends PedinaAstratta {
 		residuo = matriceTabellone[0][0].getNumeroCasella() - casellaCorrente;
 
 		/**
-		 * calcolo di quanto devo retrocedere dopo che ho raggiunto il traguardo -> ->
+		 * calcolo di quanto devo retrocedere dopo che ho raggiunto il traguardo ->
 		 * raggiungo il traguardo e dopo indietreggio di una quantita' pari a retroDadi,
 		 * cioe' la differenza tra la combinazione dei dadi ottenuta e il residuo di
 		 * posizioni che gli e' servito per arrivare al traguardo
@@ -699,10 +698,6 @@ public class Pedina extends PedinaAstratta {
 		nuovaCasella = this.pescaUnaCarta();
 		this.setCasellaCorrente(nuovaCasella);
 		
-//		attivita = this.toString() + " e' nella casella " + this.getCasellaCorrente();
-//		terminale.espandiAttivita(attivita);
-//		terminale.repaintTerminale();
-		
 		return nuovaCasella;
 	}
 	
@@ -765,16 +760,15 @@ public class Pedina extends PedinaAstratta {
 	}
 	
 	/**
-	 * Muove la pedina del giocatore in questione dalla casella corrente casellaCorrente
-	 * alla nuova casella data dalla somma tra il numero di casella corrente e la
-	 * combinazione di dadi ottenuta.
+	 * Muove la pedina del giocatore Giocatore in questione dalla casella corrente 
+	 * casellaCorrente alla nuova casella nuovaCasella.
 	 * @param casellaCorrente Numero della casella corrente
-	 * @param giocatore Giocatore che ha lanciato i dadi
-	 * @param combinazioneDadi Combinazione dei dadi ottenuta
+	 * @param giocatore Giocatore
+	 * @param nuovaCasella Numero della nuova casella
 	 */
 	private void movement(int casellaCorrente, Giocatore giocatore, int nuovaCasella) {
 		/** rimuovo il giocatore dalla casella corrente essendo che deve essere
-		 *  spostato verso una nuova casella pari a combinazioneDadi+casellaCorrente */
+		 *  spostato verso una nuova casella */
 		for(int i=0;i<matriceTabellone.length;++i)
 			for(int j=0;j<matriceTabellone[i].length;++j)
 				if(matriceTabellone[i][j].getNumeroCasella() == casellaCorrente) {
@@ -825,10 +819,7 @@ public class Pedina extends PedinaAstratta {
 				terminale.repaintTerminale();
 
 				cartaDadi = true;/** verra' gestito in manageRules*/
-//				CasellaAstratta nuovaCasellaC = getCasella(matriceTabellone, nuovaCasella);
-//				this.setCasellaCorrente(nuovaCasella);
-//				nuovaCasella = manageRules(nuovaCasellaC);
-//				this.setCasellaCorrente(nuovaCasella);
+
 			}
 			/** se la carta e' una carta MOLLA allora il giocatore dovra' muoversi
 			 *  della stessa combinazione di dadi ottenuta precedentemente */
@@ -838,10 +829,6 @@ public class Pedina extends PedinaAstratta {
 				terminale.repaintTerminale();
 
 				cartaMolla = true; /** verra' gestito in manageRules*/
-//				CasellaAstratta nuovaCasellaC = getCasella(matriceTabellone, nuovaCasella);
-//				this.setCasellaCorrente(nuovaCasella);
-//				nuovaCasella = manageRules(nuovaCasellaC);
-//				this.setCasellaCorrente(nuovaCasella);
 				
 			}
 			/** se la carta e' una carta PANCHINA allora il giocatore dovra'
@@ -927,7 +914,6 @@ public class Pedina extends PedinaAstratta {
 	
 	@Override public void conservaCarta(Carta carta) {
 		carteConservate.add(carta);
-		
 	}
 	
 	

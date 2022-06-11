@@ -5,7 +5,6 @@ import app.esecuzione.mazzo.carte.TipologiaCarta;
 
 public class CartaDivietoDiSosta extends Carta {
 	
-
 	public CartaDivietoDiSosta() {
 		super();
 		this.tipologiaCarta = TipologiaCarta.DIVIETODISOSTA;

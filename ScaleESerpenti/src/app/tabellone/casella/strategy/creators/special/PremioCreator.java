@@ -17,5 +17,4 @@ public abstract class PremioCreator implements CasellaCreator {
 		this.t = t;
 	}
 	
-	
 }

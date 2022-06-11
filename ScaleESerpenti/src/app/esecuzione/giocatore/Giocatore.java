@@ -19,7 +19,7 @@ public interface Giocatore {
 	
 	/**
 	 * Imposta la nuova casella corrente del giocatore al numero di casella casellaNuova
-	 * @param casellaNuova Numemero della nuova casella raggiunta dal giocatore 
+	 * @param casellaNuova Numero della nuova casella raggiunta dal giocatore 
 	 * in questione
 	 */
 	void setCasellaCorrente(int casellaNuova);
@@ -33,7 +33,7 @@ public interface Giocatore {
 	
 	/**
 	 * Restituisce quanti turni deve stare fermo il giocatore.
-	 * @return
+	 * @return Numero turni da rimanere fermo
 	 */
 	int getTurniFermo();
 	

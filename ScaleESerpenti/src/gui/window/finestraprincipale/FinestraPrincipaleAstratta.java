@@ -89,10 +89,10 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 	
 	/**
 	 * Costruttore utile per inizializzare una nuova sessione di gioco.
-	 * @param modalita Modalita' di gioco (Automatica o Manuale)
-	 * @param numeroGiocatori Numero di giocatori che interaggiranno con la 
-	 *        nuova sessione di gioco
-	 * @param difficolta Difficolta' con cui verra' inizializzato il gioco.
+	 * @param modalita Modalita' di esecuzione
+	 * @param numeroGiocatori Numero dei giocatori che parteciperanno alla sessione
+	 * di gioco
+	 * @param dimensioniTabellone Dimensioni del tabellone
 	 */
 	public FinestraPrincipaleAstratta(Modalita.Mod modalita, int numeroGiocatori, int[] dimensioniTabellone ) {
 		this.modalita = modalita;
@@ -207,7 +207,7 @@ public abstract class FinestraPrincipaleAstratta extends FinestraAstratta {
 		return turnoCorrente;
 	}
 	
-	// JComponent utili per l'inizializzazione del JPanel pNORTH
+	
 	protected JLabel titoloGioco;
 	protected String turnoCorrente;
 	protected JLabel turno;

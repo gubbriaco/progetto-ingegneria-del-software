@@ -27,6 +27,8 @@ public class MazzoBuffer extends Mazzo {
 	@Override public Carta get() {
 		Carta carta = mazzo.poll();
 		
+		/** se la carta non è di tipologia DIVIETO DI SOSTA allora la si mette
+		 *  in fondo al mazzo */
 		if(! (carta.tipologiaCarta == TipologiaCarta.DIVIETODISOSTA)) {
 			mazzo.add(carta);
 		}

@@ -16,18 +16,14 @@ import gui.graphic.border.RoundedBorder;
 public abstract class CasellaAstratta extends JPanel {
 	
 	private int numeroCasella;
-	
 	public TipologiaCasella tipologiaCasella;
-	
 	
 	@SuppressWarnings("rawtypes")
 	public JComboBox elencoGiocatori;
-	
 	private LinkedList<String> giocatori;
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public CasellaAstratta(int numeroCasella) {
-		//super(""+numeroCasella,SwingConstants.CENTER);
 		this.add(new JLabel(""+numeroCasella), BorderLayout.CENTER);
 		this.numeroCasella = numeroCasella;
 		this.setBorder(new RoundedBorder(5));
@@ -73,7 +69,6 @@ public abstract class CasellaAstratta extends JPanel {
 		for(int i=0;i<giocatori.size();++i)
 			if(giocatori.get(i).equalsIgnoreCase(giocatore.toString()))
 				giocatori.remove(i);
-		//giocatori.remove(giocatore);
 	}
 	
 	/**
@@ -100,7 +95,6 @@ public abstract class CasellaAstratta extends JPanel {
 	public int getNumeroCasella() {
 		return numeroCasella;
 	}
-	
 	
 	/**
 	 * Rappresenta graficamente la casella in questione.

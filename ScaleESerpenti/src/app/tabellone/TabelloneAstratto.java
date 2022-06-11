@@ -16,7 +16,6 @@ import app.tabellone.casella.factory.CasellaFactoryIF;
 
 public abstract class TabelloneAstratto {
 	
-	
 	protected int nrRighe, nrColonne;
 	protected CasellaAstratta[][] tabellone;
 	
@@ -105,7 +104,7 @@ public abstract class TabelloneAstratto {
 	private void sfoltisciTabellone() {
 		
 		/** impongo che per ogni riga i-esima del tabellone siano presenti al 
-		 * massimo un NUMERO_MAX_CASELLE_SPECIALI */
+		 *  massimo un NUMERO_MAX_CASELLE_SPECIALI */
 		final int NUMERO_MAX_CASELLE_SPECIALI_RIGA = nrColonne/2;
 		int numeroCorrenteCaselleSpecialiPerRiga = 0;
 		
@@ -113,7 +112,7 @@ public abstract class TabelloneAstratto {
 			numeroCorrenteCaselleSpecialiPerRiga = 0;
 			for(int j=0;j<nrColonne;++j) {
 				/** verifico che non si tratti di una casella di tipologia Un 
-				 * Solo Dado essendo che quest'ultime sono pre-fissate*/
+				 *  Solo Dado essendo che quest'ultime sono pre-fissate*/
 				if(tabellone[i][j].getNumeroCasella() >= Tabellone.CELLE_UN_SOLO_DADO[0] &&
 				tabellone[i][j].getNumeroCasella() <= Tabellone.CELLE_UN_SOLO_DADO[1])
 					continue;
@@ -142,7 +141,6 @@ public abstract class TabelloneAstratto {
 				tipologiaCasella.equals(CasellaPremioMolla.class) ||
 				tipologiaCasella.equals(CasellaSostaLocanda.class) ||
 				tipologiaCasella.equals(CasellaSostaPanchina.class) ;
-				//tipologiaCasella.equals(CasellaUnSoloDado.class) ;
 	}
 	
 	
@@ -156,7 +154,7 @@ public abstract class TabelloneAstratto {
 		for(int i=0;i<tabellone.length;++i) {
 			for(int j=0;j<tabellone[i].length;++j) {
 				
-				/** Tali caselle vengono inizializzate a true poiche' non devo 
+				/** Tali caselle vengono inizializzate a true poiche' non devono 
 				 * essere assegnate secondo un certo algoritmo dal momento che 
 				 * sono assegnate di default per alcuni numeri di casella*/
 				if(tabellone[i][j].getNumeroCasella() >= CELLE_UN_SOLO_DADO[0] &&
@@ -192,7 +190,8 @@ public abstract class TabelloneAstratto {
 	
 	/**
 	 * Inizializza il tabellone numerandolo secondo l'ordine specificato dal 
-	 * gioco Scala e Serpenti
+	 * gioco Scala e Serpenti, cioè secondo un percorso di forma bustrofedica (a
+	 * nastro).
 	 * @return Tabellone senza caselle speciali
 	 */
 	private CasellaAstratta[][] costruisciTabellone() {

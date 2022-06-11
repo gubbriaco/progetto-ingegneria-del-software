@@ -32,9 +32,9 @@ public class Tabellone extends TabelloneAstratto {
 		for(int i=0;i<tabellone.length;++i) {
 			
 			/** calcoliamo i bounds, cioe' il numero della prima casella della
-			 * riga i-esima e il numero dell'ultima casella della riga i-esima
-			 * cosi' da calcolare il numero random, cioe' il numero di casella 
-			 * su cui posizionare la testa di una scala o un serpente*/
+			 *  riga i-esima e il numero dell'ultima casella della riga i-esima
+			 *  cosi' da calcolare il numero random, cioe' il numero di casella 
+			 *  su cui posizionare la casella speciale */
 			int[] bounds = boundsRigaIesima(tabellone[i]);
 			
 			/** numero della prima casella della riga i-esima*/
@@ -43,12 +43,12 @@ public class Tabellone extends TabelloneAstratto {
 			    limite = -1;
 			
 			/** Controllo che il numero della prima casella non sia maggiore del
-			 * numero dell'ultima casella della riga i-esima altrimenti verrebbe
-			 * sollevata l'eccezzione IllegalArgumentException dovuto al fatto 
-			 * che {@link Random#nextInt()} riceve due argomenti dove il primo
-			 * deve essere minore del secondo essendo un intervallo di valori.
-			 * Nel caso in cui il primo e' maggiore del secondo allora li 
-			 * scambio. */
+			 *  numero dell'ultima casella della riga i-esima altrimenti verrebbe
+			 *  sollevata l'eccezzione IllegalArgumentException dovuto al fatto 
+			 *  che {@link Random#nextInt()} riceve due argomenti dove il primo
+			 *  deve essere minore del secondo essendo un intervallo di valori.
+			 *  Nel caso in cui il primo e' maggiore del secondo allora vengono
+			 *  scambiati. */
 			if(bounds[0]>bounds[1]) {
 				base = bounds[1];
 				if(base==1) /** evito di assegnare la prima casella del tabellone
@@ -67,13 +67,13 @@ public class Tabellone extends TabelloneAstratto {
 			if(PannelloConfigurazione.caselleSostaINSIDE) {
 				
 				/** numero di casella randomica su cui posizionare la casella speciale
-				 *  Sosta */
+				 *  Sosta Panchina */
 				int randSostaPanchina = randomSosta.nextInt(base, limite+1);
 				casellaCreator = new SostaPanchinaCreator(i, this);
 				tabellone = casellaCreator.createCasella(tabellone, randSostaPanchina);
 				
 				/** numero di casella randomica su cui posizionare la casella speciale
-				 *  Sosta */
+				 *  Sosta Locanda */
 				int randSostaLocanda = randomSosta.nextInt(base, limite+1);
 				casellaCreator = new SostaLocandaCreator(i, this);
 				tabellone = casellaCreator.createCasella(tabellone, randSostaLocanda);
@@ -81,13 +81,13 @@ public class Tabellone extends TabelloneAstratto {
 			
 			if(PannelloConfigurazione.casellePremioINSIDE) {
 				/** numero di casella randomica su cui posizionare la casella speciale
-				 *  Premio */
+				 *  Premio Dadi */
 				int randPremioDadi = randomPremio.nextInt(base, limite+1);
 				casellaCreator = new PremioDadiCreator(i, this);
 				tabellone = casellaCreator.createCasella(tabellone, randPremioDadi);
 				
 				/** numero di casella randomica su cui posizionare la casella speciale
-				 *  Premio */
+				 *  Premio Molla */
 				int randPremioMolla = randomPremio.nextInt(base, limite+1);
 				casellaCreator = new PremioMollaCreator(i, this);
 				tabellone = casellaCreator.createCasella(tabellone, randPremioMolla);
@@ -105,6 +105,8 @@ public class Tabellone extends TabelloneAstratto {
 				/** numero di casella randomica su cui posizionare la testa della 
 				 *  scala */
 				int randScala = randomScala.nextInt(base, limite+1);
+				/** verra' assegnata sia la testa che la coda della scala se 
+				 *  possibile */
 				casellaCreator = new ScalaCreator(i, this);
 				if(randScala!=1)
 					tabellone = casellaCreator.createCasella(tabellone, randScala);
@@ -115,6 +117,8 @@ public class Tabellone extends TabelloneAstratto {
 				/** numero di casella randomica su cui posizionare la testa del 
 				 *  serpente */
 				int randSerpente = randomSerpente.nextInt(base, limite+1);
+				/** verra' assegnata sia la testa che la coda del serpente se 
+				 *  possibile */
 				casellaCreator = new SerpenteCreator(i, this);
 				if(randSerpente!=1)
 					tabellone = casellaCreator.createCasella(tabellone, randSerpente);

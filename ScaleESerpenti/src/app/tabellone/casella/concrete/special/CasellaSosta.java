@@ -7,11 +7,10 @@ public abstract class CasellaSosta extends CasellaAstratta  {
 	
 	public enum CasellaSostaTipologia{PANCHINA, LOCANDA}
 	
-
+	
 	public CasellaSosta(int numeroCella) {
 		super(numeroCella);	
 	}
 
-	
 
 }

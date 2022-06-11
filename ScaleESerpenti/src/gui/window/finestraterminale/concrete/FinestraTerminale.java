@@ -31,10 +31,7 @@ public class FinestraTerminale extends FinestraTerminaleAstratta {
 	/**
 	 * Il metodo viene ridefinito cosi' da aggiungere l'operazione 
 	 * {@link java.awt.Frame#setResizable(boolean)} e da non permettere 
-	 * all'utente di ridimensionare la finestra essendo comunque una finestra, 
-	 * in entrambi i casi {@link PannelloConfigurazione} e 
-	 * {@link PannelloScelte}, di configurazione per la sessione di gioco 
-	 * inizializzata.
+	 * all'utente di ridimensionare la finestra.
 	 */
 	@Override protected void visualizzaFinestra() {
 		this.pack();
@@ -52,8 +49,6 @@ public class FinestraTerminale extends FinestraTerminaleAstratta {
 		label = new JLabel("Attività svolte durante la sessione di gioco corrente:");
 		label.setForeground(Color.WHITE);
 		pNORTH.add(label, BorderLayout.CENTER);
-		
-		
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -67,7 +62,6 @@ public class FinestraTerminale extends FinestraTerminaleAstratta {
 		sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		pCENTER.add(sp);
 	}
-	
 	
 
 	@Override public void espandiAttivita(String attivita) {
@@ -90,7 +84,6 @@ public class FinestraTerminale extends FinestraTerminaleAstratta {
 		this.pack();
 	}
 
-	
 	@Override protected void inizializzaLayoutSOUTH() {}
 	@Override protected void inizializzaLayoutWEST() {}
 	@Override protected void inizializzaLayoutEAST() {}

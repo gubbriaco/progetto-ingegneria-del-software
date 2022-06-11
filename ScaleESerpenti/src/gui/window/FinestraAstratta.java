@@ -33,9 +33,8 @@ public abstract class FinestraAstratta extends JFrame implements FinestraIF {
 	
 	/**
 	 * Permette la visualizzazione della Finestra tramite i seguenti metodi: <p>
-	 *  - {@link JFrame#pack} che gli permette di venga ridimensionata per 
-	 *    adattarsi alle dimensioni e ai layout preferiti dei suoi 
-	 *    sottocomponenti. <p> 
+	 *  - {@link JFrame#pack} che gli permette che venga ridimensionata per 
+	 *    adattarsi alle dimensioni e ai layout dei suoi sottocomponenti. <p> 
 	 *  - {@link JFrame#setLocationRelativeTo(java.awt.Component)} che gli 
 	 *    permette di impostare la posizione della Finestra relativa al 
 	 *    componente specificato. In questo caso essendo che il componente 
@@ -52,7 +51,7 @@ public abstract class FinestraAstratta extends JFrame implements FinestraIF {
 	}
 	
 	
-	/** TEMPLATE METHOD
+	/** TEMPLATE METHOD <p>
 	* Tale metodo prevede l'inizializzazione del layout generale tramite 
 	* chiamate a metodi piu' elementari che rispettivamente inizializzeranno i
 	* {@link JPanel} corrispondenti: <p>
@@ -68,17 +67,13 @@ public abstract class FinestraAstratta extends JFrame implements FinestraIF {
 	* 	inizializzare il {@link FinestraAstratta#pEAST}<p>
 	* 
 	 */
-	protected void templateInizializzaLayout() {
+	protected final void templateInizializzaLayout() {
 		inizializzaLayoutNORTH();
 		inizializzaLayoutCENTER();
 		inizializzaLayoutSOUTH();
 		inizializzaLayoutWEST();
 		inizializzaLayoutEAST();
 	}
-	
-	// INIZIALIZZO TALI METODI CON BODY MANCANTE TALE CHE SARANNO INIZIALIZZATI 
-	// TUTTI I LAYOUT PERCHE' POI E' LA CLASSE CONCRETA CHE SE HA BISOGNO DI UN
-	// LAYOUT SPECIFICO DECIDERA' DI IMPLEMENTARLO COME DICE LEI
 	
 	/*** Permette di inizializzare il {@link FinestraAstratta#pNORTH} */
 	protected abstract void inizializzaLayoutNORTH();
@@ -92,7 +87,6 @@ public abstract class FinestraAstratta extends JFrame implements FinestraIF {
 	protected abstract void inizializzaLayoutEAST();
 	
 
-	
 	/**
 	 * Permette di chiudere la finestra in questione a livello software.
 	 */
@@ -102,7 +96,7 @@ public abstract class FinestraAstratta extends JFrame implements FinestraIF {
 	
 	/**
 	 * Permette di chiudere la finestra a livello grafico catturando il 
-	 * {@link WindowEvent} corrispondente ed verificando se l'utente vuole 
+	 * {@link WindowEvent} corrispondente e verificando se l'utente vuole 
 	 * effettivamente chiudere tale finestra tramite un {@link JOptionPane}
 	 */
 	protected void defaultExitOperation() {
@@ -116,7 +110,7 @@ public abstract class FinestraAstratta extends JFrame implements FinestraIF {
 	}
 
 	/**
-	 * Permette, tramite una finestra {@link JOptionPane}, di scegliere 
+	 * Permette, tramite una finestra {@link JOptionPane}, di scegliere se 
 	 * terminare la sessione di gioco corrente.
 	 * @return consenso per uscire
 	 */

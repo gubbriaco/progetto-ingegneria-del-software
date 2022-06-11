@@ -17,5 +17,4 @@ public abstract class SostaCreator implements CasellaCreator {
 		this.t = t;
 	}
 	
-
 }

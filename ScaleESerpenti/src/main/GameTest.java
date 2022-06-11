@@ -6,6 +6,8 @@ import static org.junit.Assert.assertSame;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.Properties;
 
 import org.junit.Test;
@@ -39,8 +41,9 @@ public class GameTest {
 		/** Verifico che l'applicazione ripristini correttamente i parametri 
 		 *  fondamentali per l'inizializzazione della modalita' di esecuzione,
 		 *  dei giocatori e del tabellone al suo interno */
-		/** POSIZIONARE LA CARTELLA DEL PROGETTO SUL DESKTOP */
-		fileRipristino = new File(System.getProperty("user.home")+"\\Desktop\\ProgettoIngegneriaDelSoftware\\ScaleESerpenti\\src\\main\\Configurazione.properties");
+		Path path = FileSystems.getDefault().getPath("");
+		String directoryName = path.toAbsolutePath().toString();
+		fileRipristino = new File(directoryName+"\\src\\main\\Configurazione.properties");
 		ripristina();
 		
 		Properties p = new Properties();

@@ -65,21 +65,6 @@ public class EsecuzioneManuale extends Esecuzione {
 			attivita = giocatoreCorrente.toString() + " parte dalla casella " + giocatoreCorrente.getCasellaCorrente();
 			terminale.espandiAttivita(attivita);
 			terminale.repaintTerminale();
-			
-			
-		
-			
-//			if(dadi.length==1)
-//				attivita = giocatoreCorrente.toString() + " ha lanciato il dado:";
-//			else
-//				attivita = giocatoreCorrente.toString() + " ha lanciato i dadi:";
-//			
-//			
-//			for(int w=0;w<dadi.length;++w)
-//				attivita += dadi[w];
-//			
-//			terminale.espandiAttivita(attivita);
-			
 
 			/** la pedina si muove verso la nuova casella */
 			nuovaCasella = giocatoreCorrente.movementRequest(

@@ -9,7 +9,5 @@ public abstract class Carta {
 		return "Carta ";
 	}
 	
-	
-
 
 }

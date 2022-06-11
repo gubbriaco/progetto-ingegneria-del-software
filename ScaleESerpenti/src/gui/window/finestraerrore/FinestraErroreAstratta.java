@@ -8,10 +8,8 @@ public abstract class FinestraErroreAstratta extends FinestraAstratta {
 	/**
 	 * Il metodo viene ridefinito cosi' da aggiungere l'operazione 
 	 * {@link java.awt.Frame#setResizable(boolean)} e da non permettere 
-	 * all'utente di ridimensionare la finestra essendo comunque una finestra, 
-	 * in entrambi i casi {@link PannelloConfigurazione} e 
-	 * {@link PannelloScelte}, di configurazione per la sessione di gioco 
-	 * inizializzata.
+	 * all'utente di ridimensionare la finestra essendo comunque una finestra di
+	 * errore.
 	 */
 	@Override protected void visualizzaFinestra() {
 		this.pack();

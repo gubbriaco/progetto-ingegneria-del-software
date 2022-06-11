@@ -25,11 +25,10 @@ public class ScalaCreator implements CasellaCreator {
 		this.t = t;
 	}
 	
-
 	@Override public CasellaAstratta[][] createCasella(CasellaAstratta[][] tabellone, int random) {
 		
 		/** Controllo che la scala che sto andando a creare non si posizioni 
-		 * sull'ultima casella o sulla prima riga o sulla prima casella*/
+		 * sull'ultima casella o sulla prima riga */
 		if(random == tabellone[0][0].getNumeroCasella() || nrRiga==tabellone.length-1)
 			return tabellone;
 		
@@ -43,7 +42,7 @@ public class ScalaCreator implements CasellaCreator {
 			if(tabellone[nrRiga][j].getNumeroCasella() == random) {
 				
 				/** verifico che non si tratti di una casella di tipologia Un 
-				 * Solo Dado essendo che quest'ultime sono pre-fissate*/
+				 *  Solo Dado essendo che quest'ultime sono pre-fissate */
 				if(tabellone[nrRiga][j].getNumeroCasella() >= Tabellone.CELLE_UN_SOLO_DADO[0] &&
 				tabellone[nrRiga][j].getNumeroCasella() <= Tabellone.CELLE_UN_SOLO_DADO[1])
 					break;
@@ -69,8 +68,8 @@ public class ScalaCreator implements CasellaCreator {
 		}
 		
 		/** se non sono riuscito ad assegnare una testa alla scala per la riga
-		 * in questione allora non perdo tempo ad allocare una coda ad una scala
-		 * che non ha una testa*/
+		 *  in questione allora non perdo tempo ad allocare una coda ad una scala
+		 *  che non ha una testa*/
 		if(!testaPosizionata)
 			return tabellone;
 		
@@ -79,10 +78,10 @@ public class ScalaCreator implements CasellaCreator {
 		int randomRigaCoda = -1;
 		
 		/** Controllo che il numero della riga non sia maggiore del numero di
-		 * righe rimanenti altrimenti verrebbe sollevata l'eccezzione 
-		 * IllegalArgumentException dovuto al fatto che {@link Random#nextInt()}
-		 * riceve due argomenti dove il primo deve essere minore del secondo 
-		 * essendo un intervallo di valori. Nel caso in cui il primo e' maggiore
+		 *  righe rimanenti altrimenti verrebbe sollevata l'eccezzione 
+		 *  IllegalArgumentException dovuto al fatto che {@link Random#nextInt()}
+		 *  riceve due argomenti dove il primo deve essere minore del secondo 
+		 *  essendo un intervallo di valori. Nel caso in cui il primo e' maggiore
 		 *  del secondo allora li scambio. */
 		if(nrRiga > (tabellone.length-nrRiga)) {
 			randomRigaCoda = rigaCodaScala.nextInt((tabellone.length-nrRiga), nrRiga);
@@ -144,11 +143,11 @@ public class ScalaCreator implements CasellaCreator {
 		int rigaCoda=-1 , colonnaCoda=-1;
 		
 		/** assegno la coda della scala corrispondente alla cella booleana che 
-		 * soddisfa la condizione*/
+		 *  soddisfa la condizione*/
 		for(int j=0;j<tabellone[randomRigaCoda].length;++j) {
 			
 			/** verifico che non si tratti di una casella di tipologia Un 
-			 * Solo Dado essendo che quest'ultime sono pre-fissate*/
+			 *  Solo Dado essendo che quest'ultime sono pre-fissate*/
 			if(tabellone[randomRigaCoda][j].getNumeroCasella() >= Tabellone.CELLE_UN_SOLO_DADO[0] &&
 			tabellone[randomRigaCoda][j].getNumeroCasella() <= Tabellone.CELLE_UN_SOLO_DADO[1])
 				break;
@@ -184,7 +183,7 @@ public class ScalaCreator implements CasellaCreator {
 		}
 		
 		/** se la testa della scala e' stata posizionata mentre la coda no 
-		 * allora deassegno anche la testa della scala posizionata */
+		 *  allora deassegno anche la testa della scala posizionata */
 		if(testaPosizionata && !codaPosizionata) {
 			
 			t.scale[nrRiga][colonnaTesta] = false;

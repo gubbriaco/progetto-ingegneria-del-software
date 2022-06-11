@@ -11,19 +11,12 @@ import gui.window.pannello.concrete.PannelloConfigurazione;
 public abstract class PedinaAstratta implements Giocatore {
 	
 	protected String nomePedina;
-	
 	protected int combinazioneDadi;
-
 	private int turniFermo;
-	
 	protected LinkedList<Carta> carteConservate;
-	
 	protected Tabellone tabellone;
-	
 	private int casellaCorrente, nrDadi;
-	
 	protected Dado[] dadi;
-	
 	protected FinestraTerminaleAstratta terminale;
 	
 	/** variabile per contare di quante caselle bisogna indietreggiare nel caso
@@ -81,7 +74,6 @@ public abstract class PedinaAstratta implements Giocatore {
 	@Override public void setLancioDeiDadi(Dado[] dadi) {
 		for(int i=0;i<dadi.length;++i)
 			this.dadi[i] = dadi[i];
-		
 	}
 	
 	

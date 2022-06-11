@@ -22,7 +22,7 @@ public class PremioDadiCreator extends PremioCreator {
 			if( tabellone[nrRiga][j].getNumeroCasella()==random ) {
 				
 				/** verifico che non si tratti di una casella di tipologia Un 
-				 * Solo Dado essendo che quest'ultime sono pre-fissate*/
+				 *  Solo Dado essendo che quest'ultime sono pre-fissate*/
 				if(tabellone[nrRiga][j].getNumeroCasella() >= Tabellone.CELLE_UN_SOLO_DADO[0] &&
 				tabellone[nrRiga][j].getNumeroCasella() <= Tabellone.CELLE_UN_SOLO_DADO[1])
 					break;
@@ -37,9 +37,9 @@ public class PremioDadiCreator extends PremioCreator {
 					
 					
 					/** e' stata assegnata quindi per la politica di una sola
-					 * casella della tipologia in questione mi fermo con 
-					 * l'assegnazione di nuove caselle della tipologia in 
-					 * questione*/
+					 *  casella della tipologia in questione mi fermo con 
+					 *  l'assegnazione di nuove caselle della tipologia in 
+					 *  questione*/
 					break;
 				}
 			}

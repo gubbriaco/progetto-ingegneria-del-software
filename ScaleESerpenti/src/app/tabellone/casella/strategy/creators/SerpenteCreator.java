@@ -28,7 +28,7 @@ public class SerpenteCreator implements CasellaCreator {
 	@Override public CasellaAstratta[][] createCasella(CasellaAstratta[][] tabellone, int random) {
 		
 		/** Controllo che il serpente che sto andando a creare non si posizioni 
-		 * sull'ultima casella o sulla prima riga o sulla prima casella*/
+		 * sull'ultima casella o sulla prima riga */
 		if(random == tabellone[0][0].getNumeroCasella() || nrRiga==tabellone.length-1)
 			return tabellone;
 
@@ -36,7 +36,6 @@ public class SerpenteCreator implements CasellaCreator {
 		int rigaTesta=-1, colonnaTesta=-1;
 		
 		CasellaAstratta testaSerpente = null;
-		
 		
 		for(int j=0;j<tabellone[nrRiga].length;++j) {
 			
@@ -118,9 +117,9 @@ public class SerpenteCreator implements CasellaCreator {
 		}
 		else {
 			/** semplicemente dealloco la testa del serpente trovata 
-			 * precedentemente poiche' se il numero della riga in questione e
-			 * il numero delle righe rimanenti e' uguale significa che sta
-			 * cercando di creare un serpente sulla stessa riga*/
+			 *  precedentemente poiche' se il numero della riga in questione e
+			 *  il numero delle righe rimanenti e' uguale significa che sta
+			 *  cercando di creare un serpente sulla stessa riga*/
 			t.serpenti[nrRiga][colonnaTesta] = false;
 			
 			tabellone[nrRiga][colonnaTesta] = casellaFactory.createCella(
@@ -140,12 +139,12 @@ public class SerpenteCreator implements CasellaCreator {
 		int rigaCoda=-1, colonnaCoda=-1;
 		
 		/** assegno la coda della scala corrispondente alla casella booleana che 
-		 * soddisfa la condizione*/
+		 *  soddisfa la condizione*/
 		
 		for(int j=0;j<tabellone[randomRigaCoda].length;++j) {
 			
 			/** verifico che non si tratti di una casella di tipologia Un 
-			 * Solo Dado essendo che quest'ultime sono pre-fissate*/
+			 *  Solo Dado essendo che quest'ultime sono pre-fissate*/
 			if(tabellone[randomRigaCoda][j].getNumeroCasella() >= Tabellone.CELLE_UN_SOLO_DADO[0] &&
 		    tabellone[randomRigaCoda][j].getNumeroCasella() <= Tabellone.CELLE_UN_SOLO_DADO[1])
 				break;
@@ -197,7 +196,7 @@ public class SerpenteCreator implements CasellaCreator {
 		}
 		
 		/** se la testa del serpente e' stata posizionata mentre la coda no 
-		 * allora deassegno anche la testa del serpente posizionata */
+		 *  allora deassegno anche la testa del serpente posizionata */
 		if(testaPosizionata && !codaPosizionata) {
 			
 			t.serpenti[nrRiga][colonnaTesta] = false;

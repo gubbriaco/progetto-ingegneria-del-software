@@ -25,7 +25,6 @@ import gui.window.finestraterminale.concrete.FinestraTerminale;
 @SuppressWarnings("serial")
 public class FinestraPrincipaleManuale extends FinestraPrincipaleAstratta {
 	
-	
 	public FinestraPrincipaleManuale(Modalita.Mod modalita, int numeroGiocatori, int[] dimensioniTabellone) {
 		super(modalita, numeroGiocatori, dimensioniTabellone);
 	

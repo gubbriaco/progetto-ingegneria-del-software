@@ -36,7 +36,6 @@ public class FinestraVittoria extends FinestraVittoriaAstratta {
 		this.add(pNORTH, BorderLayout.NORTH);
 	}
 	
-
 	@Override protected void inizializzaLayoutCENTER() {
 		pCENTER = new JPanel();
 		pCENTER.setBackground(Color.LIGHT_GRAY);

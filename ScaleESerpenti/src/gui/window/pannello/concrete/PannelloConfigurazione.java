@@ -35,7 +35,6 @@ public class PannelloConfigurazione extends PannelloAstratto {
 	
 	private JCheckBox caselleUnSoloDado, doppioSei, caselleSosta, 
 			          casellePremio, casellePescaUnaCarta, scale, serpenti ;
-	
 	public static boolean caselleUnSoloDadoINSIDE, caselleSostaINSIDE, 
 	               casellePremioINSIDE, casellePescaUnaCartaINSIDE,
 	               doppioSeiINSIDE, scaleINSIDE, serpentiINSIDE;
@@ -44,9 +43,7 @@ public class PannelloConfigurazione extends PannelloAstratto {
 							  fPrincipale = new FinestraFactory();
 	private Modalita.Mod modalita;
 	private int numGiocatori;
-	
 	public static int numeroDadi;
-	
 	protected int[] dimensioniTabellone;
  	
 
@@ -79,7 +76,7 @@ public class PannelloConfigurazione extends PannelloAstratto {
 		ok.setBackground(Color.GRAY.brighter());
 		pNORTH.add(ok);
 		
-		/**poiche' se si salva il {@link JButton} {@link PannelloConfigurazione#ok}
+		/**poiche' se si clicca il {@link JButton} {@link PannelloConfigurazione#ok}
 		 * significa che la configurazione della nuova sessione di gioco e' stata
 		 * completata*/
 		gestisciConfigurazioneCompletata();
@@ -103,7 +100,6 @@ public class PannelloConfigurazione extends PannelloAstratto {
 		pCENTER1.add(manuale,BorderLayout.EAST);
 
 		gestisciRadioButtonModalita();
-		
 		
 		pCENTER2 = new JPanel();
 		pCENTER2.setBorder(new RoundedBorder(5));
@@ -300,7 +296,7 @@ public class PannelloConfigurazione extends PannelloAstratto {
 	
 	/**
 	 * Gestisce la ricezione degli ActioneEvent per il {@link JButton}
-	 * {@link Configurazione#esegui}. Per la precisione, appena cliccato 
+	 * {@link Configurazione#ok}. Per la precisione, appena cliccato 
 	 * permettera' la chiusura della finestra in questione e l'inizializzazione
 	 * della finestra principale per l'avvio del gioco. 
 	 */
