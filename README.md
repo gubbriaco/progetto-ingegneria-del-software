@@ -1,4 +1,4 @@
 # progetto-ingegneria-del-software
 **Progetto di Ingegneria Del Software 2022**
 <br><br>
-Development of the game “Snakes and Ladders”. Design through design patterns with the help of a modeling and specification language (UML) and implementation in Java. Using a DVCS (Git) and JUnit testing framework.
+Sviluppo del gioco "Scale e Serpenti". Progettazione tramite design pattern tramite linguaggio di modellazione e specifica (UML) e implementazione in Java. Utilizzo di un DVCS (Git) e del framework di test JUnit.
