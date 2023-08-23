@@ -1,4 +1,4 @@
-# progetto-ingegneria-del-software
-**Progetto di Ingegneria Del Software 2022 - Corso della Laurea Triennale in Ingegneria Informatica**
+# "Ladders and Snakes" Game using Design Pattern in Java
+**Software Engineering 2022 - Bachelor's Degree Course in Computer Engineering**
 <br><br>
-Sviluppo del gioco "Scale e Serpenti". Progettazione tramite design pattern tramite linguaggio di modellazione e specifica (UML) e implementazione in Java. Utilizzo di un DVCS (Git) e del framework di test JUnit.
+Development of the game "Ladders and Snakes". Design using design pattern using modeling and specification language (UML) and implementation in Java. Using a DVCS (Git) and JUnit test framework.
